@@ -15,5 +15,8 @@ return [
 		    'class' => 'dektrium\user\Module',
 		    'enableConfirmation'=>false,
 	    ],
+	    'gridview' =>  [
+		    'class' => '\kartik\grid\Module'
+	    ]
     ],
 ];
