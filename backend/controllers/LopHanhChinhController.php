@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\SinhVien;
-use backend\models\search\SinhVienSearch;
+use backend\models\LopHanhChinh;
+use backend\models\search\LopHanhChinhSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SinhVienController implements the CRUD actions for SinhVien model.
+ * LopHanhChinhController implements the CRUD actions for LopHanhChinh model.
  */
-class SinhVienController extends Controller
+class LopHanhChinhController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,23 +30,22 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Lists all SinhVien models.
+     * Lists all LopHanhChinh models.
      * @return mixed
      */
-    public function actionIndex($pagesize = 20)
+    public function actionIndex()
     {
-        $searchModel = new SinhVienSearch();
+        $searchModel = new LopHanhChinhSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->pagination->pageSize = $pagesize;
-	    return $this->render('index', [
-		    'pagesize'     => $pagesize,
-		    'searchModel'  => $searchModel,
-		    'dataProvider' => $dataProvider,
-	    ]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * Displays a single SinhVien model.
+     * Displays a single LopHanhChinh model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,13 +58,13 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Creates a new SinhVien model.
+     * Creates a new LopHanhChinh model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new SinhVien();
+        $model = new LopHanhChinh();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +76,7 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Updates an existing SinhVien model.
+     * Updates an existing LopHanhChinh model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +96,7 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Deletes an existing SinhVien model.
+     * Deletes an existing LopHanhChinh model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +110,15 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Finds the SinhVien model based on its primary key value.
+     * Finds the LopHanhChinh model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SinhVien the loaded model
+     * @return LopHanhChinh the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SinhVien::findOne($id)) !== null) {
+        if (($model = LopHanhChinh::findOne($id)) !== null) {
             return $model;
         }
 

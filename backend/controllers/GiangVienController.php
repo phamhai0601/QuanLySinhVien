@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\SinhVien;
-use backend\models\search\SinhVienSearch;
+use backend\models\GiangVien;
+use backend\models\search\GiangVienhSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SinhVienController implements the CRUD actions for SinhVien model.
+ * GiangVienController implements the CRUD actions for GiangVien model.
  */
-class SinhVienController extends Controller
+class GiangVienController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,23 +30,22 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Lists all SinhVien models.
+     * Lists all GiangVien models.
      * @return mixed
      */
-    public function actionIndex($pagesize = 20)
+    public function actionIndex()
     {
-        $searchModel = new SinhVienSearch();
+        $searchModel = new GiangVienhSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->pagination->pageSize = $pagesize;
-	    return $this->render('index', [
-		    'pagesize'     => $pagesize,
-		    'searchModel'  => $searchModel,
-		    'dataProvider' => $dataProvider,
-	    ]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * Displays a single SinhVien model.
+     * Displays a single GiangVien model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,13 +58,13 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Creates a new SinhVien model.
+     * Creates a new GiangVien model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new SinhVien();
+        $model = new GiangVien();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +76,7 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Updates an existing SinhVien model.
+     * Updates an existing GiangVien model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +96,7 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Deletes an existing SinhVien model.
+     * Deletes an existing GiangVien model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +110,15 @@ class SinhVienController extends Controller
     }
 
     /**
-     * Finds the SinhVien model based on its primary key value.
+     * Finds the GiangVien model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SinhVien the loaded model
+     * @return GiangVien the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SinhVien::findOne($id)) !== null) {
+        if (($model = GiangVien::findOne($id)) !== null) {
             return $model;
         }
 
