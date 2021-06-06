@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\LopTinChi */
+/* @var $model common\models\LopTinChi */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

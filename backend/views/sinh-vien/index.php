@@ -1,14 +1,13 @@
 <?php
 
-use common\widgets\Paging;
-use kartik\grid\GridView;
 use yii\helpers\Html;
-/** @var int $pagesize */
+use yii\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\SinhVienSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sinh Vien';
+$this->title = 'Sinh Viens';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sinh-vien-index">
@@ -21,34 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-	<?= GridView::widget([
-	    'dataProvider'         => $dataProvider,
-	    'pjax'                 => true,
-	    'panel'                => [
-		    'type'           => GridView::TYPE_ACTIVE,
-		    'heading'        => $this->title,
-		    'summaryOptions' => [
-			    'class' => 'pull-left',
-		    ],
-	    ],
-	    'panelHeadingTemplate' => '{title}{summary}<div class="clearfix"></div>',
-	    'toolbar'              => [
-		    [
-			    'content' => Paging::widget([
-				    'current_pagesize' => $pagesize,
-			    ]),
-		    ],
-	    ],
-	    'filterModel'          => $searchModel,
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
             'ten',
             'email:email',
+            'lop_hanh_chinh',
             'que_quan',
-            'gioi_tinh',
-            'tg_nhap_hoc',
-            'cmnd',
-            'created_at',
+            //'gioi_tinh',
+            //'tg_nhap_hoc',
+            //'cmnd',
+            //'created_at',
             //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],

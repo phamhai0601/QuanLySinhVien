@@ -21,9 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email') ?>
 
+    <?= $form->field($model, 'lop_hanh_chinh') ?>
+
     <?= $form->field($model, 'que_quan') ?>
 
-    <?= $form->field($model, 'gioi_tinh') ?>
+    <?php // echo $form->field($model, 'gioi_tinh') ?>
 
     <?php // echo $form->field($model, 'tg_nhap_hoc') ?>
 

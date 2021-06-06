@@ -1,7 +1,7 @@
 <?php
 
+use kartik\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\LopHanhChinhSearch */
@@ -12,23 +12,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-hanh-chinh-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Lop Hanh Chinh', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
+        'toggleData'=>false,
+        'panel' => [
+	        'heading'=>'<h3 class="panel-title"><i class="fab fa-evernote"></i> '.$this->title.'</h3>',
+	        'type'=>'default',
+	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp hành chính', ['create'], ['class' => 'btn btn-success btn-outline pull-right']),
+	        'footer'=>false,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'ma_lop',
-            'giang_vien_hd',
+            'ma_giang_vien',
             'khoa_hoc',
             'created_at',
 

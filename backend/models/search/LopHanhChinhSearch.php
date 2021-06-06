@@ -17,7 +17,7 @@ class LopHanhChinhSearch extends LopHanhChinh
     public function rules()
     {
         return [
-            [['id', 'giang_vien_hd', 'khoa_hoc', 'created_at'], 'integer'],
+            [['id', 'ma_giang_vien', 'khoa_hoc', 'created_at'], 'integer'],
             [['ma_lop'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class LopHanhChinhSearch extends LopHanhChinh
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'giang_vien_hd' => $this->giang_vien_hd,
+            'ma_giang_vien' => $this->ma_giang_vien,
             'khoa_hoc' => $this->khoa_hoc,
             'created_at' => $this->created_at,
         ]);

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\LopTinChi */
+/* @var $model common\models\LopTinChi */
 
 $this->title = 'Create Lop Tin Chi';
 $this->params['breadcrumbs'][] = ['label' => 'Lop Tin Chis', 'url' => ['index']];

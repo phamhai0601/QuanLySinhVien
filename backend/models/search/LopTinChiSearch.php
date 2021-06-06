@@ -4,10 +4,10 @@ namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\LopTinChi;
+use common\models\LopTinChi;
 
 /**
- * LopTinChiSearch represents the model behind the search form of `backend\models\LopTinChi`.
+ * LopTinChiSearch represents the model behind the search form of `common\models\LopTinChi`.
  */
 class LopTinChiSearch extends LopTinChi
 {

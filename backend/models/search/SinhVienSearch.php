@@ -17,7 +17,7 @@ class SinhVienSearch extends SinhVien
     public function rules()
     {
         return [
-            [['id', 'gioi_tinh', 'tg_nhap_hoc', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'lop_hanh_chinh', 'gioi_tinh', 'tg_nhap_hoc', 'created_at', 'updated_at'], 'integer'],
             [['ten', 'email', 'que_quan', 'cmnd'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class SinhVienSearch extends SinhVien
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'lop_hanh_chinh' => $this->lop_hanh_chinh,
             'gioi_tinh' => $this->gioi_tinh,
             'tg_nhap_hoc' => $this->tg_nhap_hoc,
             'created_at' => $this->created_at,

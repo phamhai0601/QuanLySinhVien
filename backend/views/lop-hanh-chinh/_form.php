@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ma_lop')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'giang_vien_hd')->textInput() ?>
+    <?= $form->field($model, 'ma_giang_vien')->textInput() ?>
 
     <?= $form->field($model, 'khoa_hoc')->textInput() ?>
 
