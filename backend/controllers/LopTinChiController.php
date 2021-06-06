@@ -42,6 +42,7 @@ class LopTinChiController extends Controller
      */
     public function actionIndex()
     {
+    	//TODO
         $searchModel = new LopTinChiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
