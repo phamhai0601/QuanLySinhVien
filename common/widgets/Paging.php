@@ -46,6 +46,6 @@ class Paging extends Widget {
 				'type'        => 'button',
 				'id'          => 'dropdownMenu1',
 				'data-toggle' => 'dropdown',
-			]) . $ul, ['class' => 'pull-left dropdown']);
+			]) . $ul, ['class' => 'pull-right dropdown']);
 	}
 }

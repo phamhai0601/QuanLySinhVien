@@ -7,7 +7,6 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\search\LopTinChiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Lop Tin Chis';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-tin-chi-index">

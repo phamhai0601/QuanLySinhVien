@@ -17,7 +17,13 @@ class LopHanhChinhController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function actions() {
+	    // TODO: Change the auto generated stub
+		$this->view->title = 'Lớp hành chính';
+	    return parent::actions();
+    }
+
+	public function behaviors()
     {
         return [
             'verbs' => [
@@ -33,16 +39,16 @@ class LopHanhChinhController extends Controller
      * Lists all LopHanhChinh models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new LopHanhChinhSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	public function actionIndex($pagesize = 20) {
+		$searchModel                        = new LopHanhChinhSearch();
+		$dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->pagination->pageSize = $pagesize;
+		return $this->render('index', [
+			'pagesize'     => $pagesize,
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
     /**
      * Displays a single LopHanhChinh model.

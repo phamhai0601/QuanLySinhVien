@@ -14,7 +14,14 @@ use yii\filters\VerbFilter;
  */
 class LopTinChiController extends Controller
 {
-    /**
+
+	public function actions() {
+		// TODO: Change the auto generated stub
+		$this->view->title = 'Lớp tín chỉ';
+		return parent::actions();
+	}
+
+	/**
      * {@inheritdoc}
      */
     public function behaviors()

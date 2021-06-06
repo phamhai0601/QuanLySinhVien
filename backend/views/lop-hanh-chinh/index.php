@@ -1,13 +1,14 @@
 <?php
 
+use common\widgets\Paging;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\LopHanhChinhSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Lop Hanh Chinhs';
+/** @var int $pagesize */
+//$this->title = 'Lop Hanh Chinhs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-hanh-chinh-index">
@@ -20,11 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'export' => false,
         'toggleData'=>false,
         'panel' => [
-	        'heading'=>'<h3 class="panel-title"><i class="fab fa-evernote"></i> '.$this->title.'</h3>',
+	        'heading'=>$this->title,
 	        'type'=>'default',
-	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp hành chính', ['create'], ['class' => 'btn btn-success btn-outline pull-right']),
+	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp hành chính', ['create'], ['class' => 'btn btn-success btn-outline pull-left'])
+	        .Paging::widget([
+			        'current_pagesize' => $pagesize,
+		        ]),
 	        'footer'=>false,
         ],
+        'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
