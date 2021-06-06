@@ -2,11 +2,10 @@
 
 namespace backend\controllers;
 
-use backend\component\Controller;
 use Yii;
 use backend\models\SinhVien;
 use backend\models\search\SinhVienSearch;
-use yii\filters\AccessControl;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -21,22 +20,10 @@ class SinhVienController extends Controller
     public function behaviors()
     {
         return [
-	        'access' => [
-		        'class' => AccessControl::class,
-		        'rules' => [
-			        [
-				        'actions' => [
-					        'index',
-				        ],
-				        'allow' => true,
-				        'roles' => ['@'],
-			        ],
-		        ],
-	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-//                    'delete' => ['POST'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -46,16 +33,15 @@ class SinhVienController extends Controller
      * Lists all SinhVien models.
      * @return mixed
      */
-    public function actionIndex($pagesize = 20)
+    public function actionIndex()
     {
         $searchModel = new SinhVienSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-		$dataProvider->pagination->pageSize = $pagesize;
-	    return $this->render('index', [
-		    'searchModel'  => $searchModel,
-		    'dataProvider' => $dataProvider,
-		    'pagesize'     => $pagesize,
-	    ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

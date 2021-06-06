@@ -16,8 +16,6 @@ use Yii;
  * @property string|null $website
  * @property string|null $bio
  * @property string|null $timezone
- *
- * @property User $user
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -42,7 +40,6 @@ class Profile extends \yii\db\ActiveRecord
             [['gravatar_id'], 'string', 'max' => 32],
             [['timezone'], 'string', 'max' => 40],
             [['user_id'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -62,15 +59,5 @@ class Profile extends \yii\db\ActiveRecord
             'bio' => 'Bio',
             'timezone' => 'Timezone',
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

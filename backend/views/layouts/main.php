@@ -29,16 +29,34 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'CTMS',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Quản lý sinh viên', 'url' => ['sinh-vien/index']],
-
+	    [
+		    'label' => 'Home',
+		    'url'   => ['/site/index'],
+	    ],
+	    [
+		    'label' => 'Quản lý sinh viên',
+		    'url'   => ['sinh-vien/index'],
+	    ],
+	    [
+		    'label' => 'Quản lý lớp học',
+		    'items' => [
+			    [
+				    'label' => 'Quản lý lớp hành chính',
+				    'url'   => ['lop-hanh-chinh/index'],
+			    ],
+			    [
+				    'label' => 'Quản lý lớp tín chỉ',
+				    'url'   => ['lop-tin-chi/index'],
+			    ],
+		    ],
+	    ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -53,6 +71,7 @@ AppAsset::register($this);
             . '</li>';
     }
     echo Nav::widget([
+	    'activateParents' => true,
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);

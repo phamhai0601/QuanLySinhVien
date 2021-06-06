@@ -10,9 +10,8 @@ use Yii;
  * @property int $id
  * @property string $ten
  * @property string $hoc_van
- * @property string $chuyen_nganh
+ * @property int $ma_bo_mon
  * @property string $que_quan
- * @property int $ma_lop_hanh_chinh
  * @property int $created_at
  */
 class GiangVien extends \yii\db\ActiveRecord
@@ -31,11 +30,10 @@ class GiangVien extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ten', 'hoc_van', 'chuyen_nganh', 'que_quan', 'ma_lop_hanh_chinh', 'created_at'], 'required'],
-            [['id', 'ma_lop_hanh_chinh', 'created_at'], 'integer'],
-            [['hoc_van', 'chuyen_nganh'], 'string'],
+            [['ten', 'hoc_van', 'ma_bo_mon', 'que_quan', 'created_at'], 'required'],
+            [['hoc_van'], 'string'],
+            [['ma_bo_mon', 'created_at'], 'integer'],
             [['ten', 'que_quan'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 
@@ -48,9 +46,8 @@ class GiangVien extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ten' => 'Ten',
             'hoc_van' => 'Hoc Van',
-            'chuyen_nganh' => 'Chuyen Nganh',
+            'ma_bo_mon' => 'Ma Bo Mon',
             'que_quan' => 'Que Quan',
-            'ma_lop_hanh_chinh' => 'Ma Lop Hanh Chinh',
             'created_at' => 'Created At',
         ];
     }

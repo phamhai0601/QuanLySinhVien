@@ -8,9 +8,10 @@ use Yii;
  * This is the model class for table "mon_hoc".
  *
  * @property int $id
- * @property string $ten
- * @property int $gia
- * @property int $han_su_dung
+ * @property string $ten_mon_hoc
+ * @property string $chuyen_nganh
+ * @property int $tin_chi
+ * @property int $dieu_kien
  * @property int $created_at
  */
 class MonHoc extends \yii\db\ActiveRecord
@@ -29,10 +30,9 @@ class MonHoc extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ten', 'gia', 'han_su_dung', 'created_at'], 'required'],
-            [['id', 'gia', 'han_su_dung', 'created_at'], 'integer'],
-            [['ten'], 'string', 'max' => 255],
-            [['id'], 'unique'],
+            [['ten_mon_hoc', 'chuyen_nganh', 'tin_chi', 'dieu_kien', 'created_at'], 'required'],
+            [['tin_chi', 'dieu_kien', 'created_at'], 'integer'],
+            [['ten_mon_hoc', 'chuyen_nganh'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,9 +43,10 @@ class MonHoc extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ten' => 'Ten',
-            'gia' => 'Gia',
-            'han_su_dung' => 'Han Su Dung',
+            'ten_mon_hoc' => 'Ten Mon Hoc',
+            'chuyen_nganh' => 'Chuyen Nganh',
+            'tin_chi' => 'Tin Chi',
+            'dieu_kien' => 'Dieu Kien',
             'created_at' => 'Created At',
         ];
     }

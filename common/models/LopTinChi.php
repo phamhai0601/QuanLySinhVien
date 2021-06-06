@@ -8,10 +8,12 @@ use Yii;
  * This is the model class for table "lop_tin_chi".
  *
  * @property int $id
- * @property string $ten
- * @property string $mon_hoc
+ * @property string $ten_lop
+ * @property string $ma_mon_hoc
+ * @property int $ma_giang_vien
  * @property int $lich_hoc
- * @property int $phong_hoc
+ * @property int $ma_ki_hoc
+ * @property int $ma_phong_hoc
  * @property int $created_at
  */
 class LopTinChi extends \yii\db\ActiveRecord
@@ -30,10 +32,9 @@ class LopTinChi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ten', 'mon_hoc', 'lich_hoc', 'phong_hoc', 'created_at'], 'required'],
-            [['id', 'lich_hoc', 'phong_hoc', 'created_at'], 'integer'],
-            [['ten', 'mon_hoc'], 'string', 'max' => 255],
-            [['id'], 'unique'],
+            [['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'lich_hoc', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'required'],
+            [['ma_giang_vien', 'lich_hoc', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
+            [['ten_lop', 'ma_mon_hoc'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,10 +45,12 @@ class LopTinChi extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ten' => 'Ten',
-            'mon_hoc' => 'Mon Hoc',
+            'ten_lop' => 'Ten Lop',
+            'ma_mon_hoc' => 'Ma Mon Hoc',
+            'ma_giang_vien' => 'Ma Giang Vien',
             'lich_hoc' => 'Lich Hoc',
-            'phong_hoc' => 'Phong Hoc',
+            'ma_ki_hoc' => 'Ma Ki Hoc',
+            'ma_phong_hoc' => 'Ma Phong Hoc',
             'created_at' => 'Created At',
         ];
     }
