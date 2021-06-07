@@ -21,7 +21,9 @@
         "dektrium/yii2-user": "^0.9.14",
         "moonlandsoft/yii2-phpexcel": "*",
         "kartik-v/yii2-grid": "dev-master",
-        "navatech/yii2-migration-generator": "1.0.0.2"
+        "navatech/yii2-migration-generator": "1.0.0.2",
+        "kartik-v/yii2-widget-activeform": "dev-master",
+        "kartik-v/yii2-widget-select2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

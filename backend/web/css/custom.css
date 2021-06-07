@@ -1,3 +1,6 @@
+body button {
+    outline: none!important;
+}
 .navbar-inverse .dropdown-menu li a{
     padding: 15px;
 }

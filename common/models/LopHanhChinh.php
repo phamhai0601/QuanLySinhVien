@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "lop_hanh_chinh".
@@ -23,7 +24,7 @@ class LopHanhChinh extends \yii\db\ActiveRecord
         return 'lop_hanh_chinh';
     }
 
-    /**
+	/**
      * {@inheritdoc}
      */
     public function rules()
@@ -47,5 +48,10 @@ class LopHanhChinh extends \yii\db\ActiveRecord
             'khoa_hoc' => 'Khoa Hoc',
             'created_at' => 'Created At',
         ];
+    }
+
+    public function beforeSave($insert) {
+	    $this->created_at = time();
+	    return parent::beforeSave($insert);
     }
 }

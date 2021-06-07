@@ -73,8 +73,15 @@ class LopHanhChinhController extends Controller
     	Yii::$app->response->format = 'json';
         $model = new LopHanhChinh();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+        	if($model->save()){
+		        return $this->redirect(['view', 'id' => $model->id]);
+	        }else{
+        		echo '<pre>';
+        		print_r($model->errors);
+        		die;
+	        }
+
         }
         return $this->renderAjax('create', [
             'model' => $model,
