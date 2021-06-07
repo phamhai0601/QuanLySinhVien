@@ -1,27 +1,31 @@
 <?php
 
+use common\widgets\Paging;
+use kartik\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\LopTinChiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+/** @var int $pagesize */
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-tin-chi-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Lop Tin Chi', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+	<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
+        'toggleData' => false,
+        'panel' => [
+	        'heading'=>$this->title,
+	        'type'=>'default',
+	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp tính chỉ', ['create'], ['class' => 'btn btn-success btn-outline pull-left'])
+	                  .Paging::widget([
+			        'current_pagesize' => $pagesize,
+		        ]),
+	        'footer'=>false,
+        ],
+        'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

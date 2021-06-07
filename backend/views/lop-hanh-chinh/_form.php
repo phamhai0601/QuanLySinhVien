@@ -20,10 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="form-group pull-right">
+	    <button type="submit" class="btn btn-primary btn-outline">Save changes</button>
+        <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Close</button>
     </div>
-
+	<div class="clearfix"></div>
     <?php ActiveForm::end(); ?>
 
 </div>

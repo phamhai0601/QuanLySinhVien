@@ -3,6 +3,7 @@
 use common\widgets\Paging;
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\LopHanhChinhSearch */
@@ -13,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-hanh-chinh-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
 	        'heading'=>$this->title,
 	        'type'=>'default',
-	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp hành chính', ['create'], ['class' => 'btn btn-success btn-outline pull-left'])
+	        'before'=>'<button type="button" class="btn btn-success btn-outline" data-toggle="modal" data-target="#modal-tao-lop-tin-chi">Tạo lớp hành chính</button>'
 	        .Paging::widget([
 			        'current_pagesize' => $pagesize,
 		        ]),
@@ -42,6 +42,43 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-
 </div>
+<div class="modal fade" id="modal-tao-lop-tin-chi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel" style="display: inline">Tạo thông tin lớp hành chính</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php
+$url_create = Url::to(['lop-hanh-chinh/create']);
+$this->registerJs(<<<JS
+	$('#modal-tao-lop-tin-chi').on('hidden.bs.modal', function (e) {
+  // do something...
+	}).on('shown.bs.modal',function(e){
+		var modal = $(this);
+		console.log(modal);
+		var button = e.relatedTarget;
+		$.ajax({
+			type:'post',
+			url:'$url_create',
+			dataType:'json',
+			success:function (response){
+				modal.find('.modal-body').html(response);
+			}
+		});
+	});
+
+JS
+)
+
+?>

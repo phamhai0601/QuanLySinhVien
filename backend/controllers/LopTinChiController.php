@@ -40,16 +40,16 @@ class LopTinChiController extends Controller
      * Lists all LopTinChi models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($pagesize = 20)
     {
-    	//TODO
-        $searchModel = new LopTinChiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+	    $searchModel                        = new LopTinChiSearch();
+	    $dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
+	    $dataProvider->pagination->pageSize = $pagesize;
+	    return $this->render('index', [
+		    'pagesize'     => $pagesize,
+		    'searchModel'  => $searchModel,
+		    'dataProvider' => $dataProvider,
+	    ]);
     }
 
     /**
