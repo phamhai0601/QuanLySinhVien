@@ -27,10 +27,9 @@ class PhongHoc extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ten', 'created_at'], 'required'],
-            [['id', 'created_at'], 'integer'],
+            [['ten', 'created_at'], 'required'],
+            [['created_at'], 'integer'],
             [['ten'], 'string', 'max' => 255],
-            [['id'], 'unique'],
         ];
     }
 

@@ -57,6 +57,10 @@ AppAsset::register($this);
 			    ],
 		    ],
 	    ],
+	    [
+		    'label' => 'Quản lí môn học',
+		    'url'   => ['mon-hoc/index'],
+	    ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

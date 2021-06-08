@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use Yii;
 
 /**
  * This is the model class for table "lop_tin_chi".
@@ -11,10 +10,14 @@ use Yii;
  * @property string $ten_lop
  * @property string $ma_mon_hoc
  * @property int $ma_giang_vien
- * @property int $lich_hoc
  * @property int $ma_ki_hoc
  * @property int $ma_phong_hoc
  * @property int $created_at
+ *
+ * @property MonHoc $monHoc
+ * @property GiangVien $giangVien
+ * @property KiHoc $kiHoc
+ * @property PhongHoc $phongHoc
  */
 class LopTinChi extends \yii\db\ActiveRecord
 {
@@ -29,14 +32,14 @@ class LopTinChi extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
-        return [
-            [['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'lich_hoc', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'required'],
-            [['ma_giang_vien', 'lich_hoc', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
-            [['ten_lop', 'ma_mon_hoc'], 'string', 'max' => 255],
-        ];
-    }
+	public function rules()
+	{
+		return [
+			[['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'required'],
+			[['ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
+			[['ten_lop', 'ma_mon_hoc'], 'string', 'max' => 255],
+		];
+	}
 
     /**
      * {@inheritdoc}
@@ -45,13 +48,28 @@ class LopTinChi extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ten_lop' => 'Ten Lop',
-            'ma_mon_hoc' => 'Ma Mon Hoc',
-            'ma_giang_vien' => 'Ma Giang Vien',
-            'lich_hoc' => 'Lich Hoc',
-            'ma_ki_hoc' => 'Ma Ki Hoc',
-            'ma_phong_hoc' => 'Ma Phong Hoc',
+            'ten_lop' => 'Tên lớp',
+            'ma_mon_hoc' => 'Môn học',
+            'ma_giang_vien' => 'Giảng viên',
+            'ma_ki_hoc' => 'Kì học',
+            'ma_phong_hoc' => 'Phòng học',
             'created_at' => 'Created At',
         ];
     }
+
+	public function getMonHoc() {
+		return $this->hasOne(MonHoc::class, ['id' => 'ma_mon_hoc']);
+	}
+
+	public function getGiangVien() {
+		return $this->hasOne(GiangVien::class, ['id'=>'ma_giang_vien']);
+	}
+
+	public function getKiHoc() {
+		return $this->hasOne(KiHoc::class, ['id' => 'ma_ki_hoc',]);
+	}
+
+	public function getPhongHoc() {
+		return $this->hasOne(PhongHoc::class, ['id'=>'ma_phong_hoc']);
+	}
 }

@@ -2,9 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-use yii\behaviors\TimestampBehavior;
-
 /**
  * This is the model class for table "lop_hanh_chinh".
  *
@@ -13,6 +10,8 @@ use yii\behaviors\TimestampBehavior;
  * @property int $ma_giang_vien
  * @property int $khoa_hoc
  * @property int $created_at
+ *
+ * @property GiangVien $giangVien
  */
 class LopHanhChinh extends \yii\db\ActiveRecord
 {
@@ -43,9 +42,9 @@ class LopHanhChinh extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ma_lop' => 'Ma Lop',
-            'ma_giang_vien' => 'Ma Giang Vien',
-            'khoa_hoc' => 'Khoa Hoc',
+            'ma_lop' => 'Mã lớp',
+            'ma_giang_vien' => 'Mã giảng viên',
+            'khoa_hoc' => 'Khóa học',
             'created_at' => 'Created At',
         ];
     }
@@ -53,5 +52,9 @@ class LopHanhChinh extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
 	    $this->created_at = time();
 	    return parent::beforeSave($insert);
+    }
+
+    public function getGiangVien(){
+	    return $this->hasOne(GiangVien::class, ['id' => 'ma_giang_vien']);
     }
 }

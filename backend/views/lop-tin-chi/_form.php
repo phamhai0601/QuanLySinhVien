@@ -1,5 +1,8 @@
 <?php
 
+use common\models\MonHoc;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,11 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ten_lop')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ma_mon_hoc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'ma_mon_hoc')->widget(Select2::className(),[
+        'data'=> ArrayHelper::map(MonHoc::find()->all(),'id','ten_mon_hoc'),
+	    'options' => ['placeholder'=>'Chọn môn học...'],
+	    'pluginOptions' => [
+		    'allowClear' => true,
+	    ]
+    ]) ?>
 
     <?= $form->field($model, 'ma_giang_vien')->textInput() ?>
-
-    <?= $form->field($model, 'lich_hoc')->textInput() ?>
 
     <?= $form->field($model, 'ma_ki_hoc')->textInput() ?>
 

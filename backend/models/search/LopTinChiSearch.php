@@ -2,9 +2,9 @@
 
 namespace backend\models\search;
 
+use backend\models\LopTinChi;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\LopTinChi;
 
 /**
  * LopTinChiSearch represents the model behind the search form of `common\models\LopTinChi`.
@@ -17,7 +17,7 @@ class LopTinChiSearch extends LopTinChi
     public function rules()
     {
         return [
-            [['id', 'ma_giang_vien', 'lich_hoc', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
+            [['id', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
             [['ten_lop', 'ma_mon_hoc'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class LopTinChiSearch extends LopTinChi
         $query->andFilterWhere([
             'id' => $this->id,
             'ma_giang_vien' => $this->ma_giang_vien,
-            'lich_hoc' => $this->lich_hoc,
             'ma_ki_hoc' => $this->ma_ki_hoc,
             'ma_phong_hoc' => $this->ma_phong_hoc,
             'created_at' => $this->created_at,

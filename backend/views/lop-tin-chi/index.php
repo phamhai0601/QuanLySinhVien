@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\LopTinChi;
 use common\widgets\Paging;
 use kartik\grid\GridView;
 use yii\helpers\Html;
@@ -27,16 +28,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'ten_lop',
-            'ma_mon_hoc',
-            'ma_giang_vien',
-            'lich_hoc',
-            //'ma_ki_hoc',
-            //'ma_phong_hoc',
-            //'created_at',
+            [
+                'attribute' => 'ma_mon_hoc',
+	            'value' => function(LopTinChi $data){
+					return $data->monHoc->ten_mon_hoc;
+	            }
+            ],
+            [
+                'attribute' => 'ma_giang_vien',
+	            'value' => function(LopTinChi $data){
+					return $data->giangVien->ten;
+	            }
+
+            ],
+            'ma_ki_hoc',
+            'ma_phong_hoc',
+            'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

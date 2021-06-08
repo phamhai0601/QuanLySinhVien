@@ -72,7 +72,6 @@ class LopHanhChinhController extends Controller
     {
     	Yii::$app->response->format = 'json';
         $model = new LopHanhChinh();
-
         if ($model->load(Yii::$app->request->post()) ) {
         	if($model->save()){
 		        return $this->redirect(['view', 'id' => $model->id]);

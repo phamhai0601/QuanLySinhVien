@@ -14,7 +14,8 @@ class LopHanhChinh extends \common\models\LopHanhChinh {
 	{
 		return [
 			[['ma_lop', 'ma_giang_vien', 'khoa_hoc'], 'required'],
-			[['ma_giang_vien', 'khoa_hoc', 'created_at'], 'integer'],
+			[['ma_giang_vien', 'khoa_hoc'], 'integer'],
+			['created_at','safe'],
 			[['ma_lop'], 'string', 'max' => 255],
 		];
 	}

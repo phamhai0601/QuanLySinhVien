@@ -1,6 +1,8 @@
 <?php
 
+use backend\models\LopHanhChinh;
 use common\widgets\Paging;
+use kartik\grid\DataColumn;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -9,7 +11,6 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\search\LopHanhChinhSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /** @var int $pagesize */
-//$this->title = 'Lop Hanh Chinhs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-hanh-chinh-index">
@@ -31,15 +32,47 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'ma_lop',
-            'ma_giang_vien',
-            'khoa_hoc',
-            'created_at',
+            [
+            	'label' => 'Tên Lớp',
+	            'headerOptions' => ['style'=>'color:#337ab7'],
+	            'value' => function(LopHanhChinh $data){
+    	            return $data->khoa_hoc.'A'.$data->ma_lop;
+	            }
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ],
+            [
+                'attribute' => 'ma_giang_vien',
+                'value' => function(LopHanhChinh $data){
+					return $data->giangVien->ten;
+	            }
+            ],
+            'khoa_hoc',
+	        [
+		        'class'               => DataColumn::class,
+		        'attribute'           => 'created_at',
+		        'filterType'          => GridView::FILTER_DATE_RANGE,
+		        'filterWidgetOptions' => [
+			        'readonly'      => 'readonly',
+			        'convertFormat' => true,
+			        'pluginOptions' => [
+				        'locale'    => ['format' => 'Y-m-d'],
+				        'autoclose' => true,
+			        ],
+			        'pluginEvents'  => [
+				        "cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
+			        ],
+		        ],
+		        'format'              => [
+			        'datetime',
+			        'php:'.Yii::$app->params['format']['date'],
+		        ],
+	        ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+	            'header' => 'Action',
+                'headerOptions' => ['style'=>'color:#337ab7'],
+            ],
         ],
     ]); ?>
 </div>
@@ -63,7 +96,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $url_create = Url::to(['lop-hanh-chinh/create']);
 $this->registerJs(<<<JS
 	$('#modal-tao-lop-tin-chi').on('hidden.bs.modal', function (e) {
-  // do something...
 	}).on('shown.bs.modal',function(e){
 		var modal = $(this);
 		console.log(modal);
