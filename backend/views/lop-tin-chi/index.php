@@ -2,6 +2,7 @@
 
 use backend\models\LopTinChi;
 use common\widgets\Paging;
+use kartik\grid\DataColumn;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 
@@ -42,9 +43,38 @@ $this->params['breadcrumbs'][] = $this->title;
 	            }
 
             ],
-            'ma_ki_hoc',
-            'ma_phong_hoc',
-            'created_at',
+            [
+                'attribute' => 'ma_ki_hoc',
+	            'value' => function(LopTinChi $data){
+					return $data->kiHoc->ma_ki_hoc;
+				}
+            ],
+            [
+                'attribute' => 'ma_phong_hoc',
+	            'value' => function(LopTinChi $data){
+				return $data->phongHoc->ten;
+	            }
+            ],
+            [
+                'class'=> DataColumn::class,
+                'attribute' => 'created_at',
+	            'filterType' => GridView::FILTER_DATE_RANGE,
+	            'filterWidgetOptions' => [
+		            'readonly'      => 'readonly',
+		            'convertFormat' => true,
+		            'pluginOptions' => [
+			            'locale'    => ['format' => 'Y-m-d'],
+			            'autoclose' => true,
+		            ],
+		            'pluginEvents'  => [
+			            "cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
+		            ],
+	            ],
+                'format'              => [
+	                'date',
+	                Yii::$app->params['format']['date'],
+                ],
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

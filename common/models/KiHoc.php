@@ -43,10 +43,10 @@ class KiHoc extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ma_ki_hoc' => 'Ma Ki Hoc',
-            'tg_bat_dau' => 'Tg Bat Dau',
-            'tg_ket_thuc' => 'Tg Ket Thuc',
-            'nam_hoc' => 'Nam Hoc',
+            'ma_ki_hoc' => 'Kì học',
+            'tg_bat_dau' => 'Thời gian bắt đầu',
+            'tg_ket_thuc' => 'Thời gian kết thúc',
+            'nam_hoc' => 'Năm học',
             'created_at' => 'Created At',
         ];
     }

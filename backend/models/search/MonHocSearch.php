@@ -2,25 +2,23 @@
 
 namespace backend\models\search;
 
-use backend\models\LopTinChi;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\traits\DateRangeTrait;
+use backend\models\MonHoc;
 
 /**
- * LopTinChiSearch represents the model behind the search form of `common\models\LopTinChi`.
+ * MonHocSearch represents the model behind the search form of `backend\models\MonHoc`.
  */
-class LopTinChiSearch extends LopTinChi
+class MonHocSearch extends MonHoc
 {
-	use DateRangeTrait;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc'], 'integer'],
-            [['ten_lop', 'ma_mon_hoc','created_at'], 'safe'],
+            [['id', 'ma_bo_mon', 'tin_chi', 'dieu_kien', 'created_at'], 'integer'],
+            [['ten_mon_hoc'], 'safe'],
         ];
     }
 
@@ -42,7 +40,7 @@ class LopTinChiSearch extends LopTinChi
      */
     public function search($params)
     {
-        $query = LopTinChi::find();
+        $query = MonHoc::find();
 
         // add conditions that should always apply here
 
@@ -61,16 +59,14 @@ class LopTinChiSearch extends LopTinChi
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ma_giang_vien' => $this->ma_giang_vien,
-            'ma_ki_hoc' => $this->ma_ki_hoc,
-            'ma_phong_hoc' => $this->ma_phong_hoc,
+            'ma_bo_mon' => $this->ma_bo_mon,
+            'tin_chi' => $this->tin_chi,
+            'dieu_kien' => $this->dieu_kien,
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'ten_lop', $this->ten_lop])
-            ->andFilterWhere(['like', 'ma_mon_hoc', $this->ma_mon_hoc]);
+        $query->andFilterWhere(['like', 'ten_mon_hoc', $this->ten_mon_hoc]);
 
-        $this->queryFilterDateRange($query);
         return $dataProvider;
     }
 }
