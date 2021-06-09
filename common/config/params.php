@@ -1,6 +1,6 @@
 <?php
 return [
 	'format'=>[
-		'date'=> 'Y-m-d H:i:s',
+		'date'=> 'php:Y-m-d H:i:s',
 	],
 ];

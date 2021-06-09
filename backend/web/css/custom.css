@@ -45,3 +45,11 @@ button {
     color: #fff;
 }
 
+.lop-tin-chi-index button.btn.btn-primary.btn-outline.dropdown-toggle {
+    min-width: 160px;
+}
+
+.lop-tin-chi-index ul.dropdown-menu {
+    position: relative;
+    text-align: center;
+}

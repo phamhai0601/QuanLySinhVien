@@ -16,6 +16,17 @@ use Yii;
  */
 class KiHoc extends \yii\db\ActiveRecord
 {
+	const KIHOC_MOT = 1;
+	const KIHOC_HAI = 2;
+	const KIHOC_BA = 3;
+	const KIHOC_BON = 4;
+
+	const KIHOC = [
+		self::KIHOC_MOT => 'Kì 1',
+		self::KIHOC_HAI => 'Kì 2',
+		self::KIHOC_BA => 'Kì 3',
+		self::KIHOC_BON => 'Kì 4',
+	];
     /**
      * {@inheritdoc}
      */

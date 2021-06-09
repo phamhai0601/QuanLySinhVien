@@ -1,6 +1,9 @@
 <?php
 
+use common\models\GiangVien;
+use common\models\KiHoc;
 use common\models\MonHoc;
+use common\models\PhongHoc;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -25,14 +28,29 @@ use yii\widgets\ActiveForm;
 	    ]
     ]) ?>
 
-    <?= $form->field($model, 'ma_giang_vien')->textInput() ?>
+    <?= $form->field($model, 'ma_giang_vien')->widget(Select2::class,[
+        'data' => ArrayHelper::map(GiangVien::find()->all(),'id','ten'),
+	    'options' => ['placeholder'=>'Chọn giảng viên...'],
+        'pluginOptions' => [
+	        'allowClear' => true,
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'ma_ki_hoc')->textInput() ?>
+    <?= $form->field($model, 'ma_ki_hoc')->widget(Select2::class,[
+	    'data' => ArrayHelper::map(KiHoc::find()->all(),'id','ma_ki_hoc'),
+	    'options' => ['placeholder'=>'Chọn kì học...'],
+	    'pluginOptions' => [
+		    'allowClear' => true,
+	    ]
+    ]) ?>
 
-    <?= $form->field($model, 'ma_phong_hoc')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
+    <?= $form->field($model, 'ma_phong_hoc')->widget(Select2::class,[
+	    'data' => ArrayHelper::map(PhongHoc::find()->all(),'id','ten'),
+	    'options' => ['placeholder'=>'Chọn phòng học...'],
+	    'pluginOptions' => [
+		    'allowClear' => true,
+	    ]
+    ]) ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

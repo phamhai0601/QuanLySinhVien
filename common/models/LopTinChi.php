@@ -35,7 +35,7 @@ class LopTinChi extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'required'],
+			[['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc'], 'required'],
 			[['ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
 			[['ten_lop', 'ma_mon_hoc'], 'string', 'max' => 255],
 		];
@@ -71,5 +71,11 @@ class LopTinChi extends \yii\db\ActiveRecord
 
 	public function getPhongHoc() {
 		return $this->hasOne(PhongHoc::class, ['id'=>'ma_phong_hoc']);
+	}
+
+	public function beforeSave($insert) {
+		// TODO: Change the auto generated stub
+		$this->created_at = time();
+		return parent::beforeSave($insert);
 	}
 }

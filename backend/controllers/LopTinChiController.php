@@ -27,6 +27,20 @@ class LopTinChiController extends Controller
     public function behaviors()
     {
         return [
+	        'access' => [
+		        'class' => \yii\filters\AccessControl::class,
+		        'rules' => [
+			        [
+				        'actions' => [
+					        'create',
+					        'update',
+					        'index'
+				        ],
+				        'allow'   => true,
+				        'roles'   => ['@'],
+			        ],
+		        ],
+	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,6 +77,10 @@ class LopTinChiController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionTaoLopTinChi(){
+
     }
 
     /**

@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            'id',
             'ten_mon_hoc',
             [
                 'attribute' => 'ma_bo_mon',
