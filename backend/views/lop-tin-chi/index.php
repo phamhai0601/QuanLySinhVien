@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							  <span class="caret"></span></button>
 							  <ul class="dropdown-menu">
 							    <li><a href="#">Sửa</a></li>
-							    <li><a href="#" type="button" data-toggle="modal" data-target="#tao-lop-tin-chi-modal">Tạo lịch</a></li>
+							    <li><a href="#" type="button" data-toggle="modal" data-target="#tao-lop-tin-chi-modal" data-id="'.$data->id.'" >Tạo lịch</a></li>
 							    <li><a href="#">Xóa</a></li>
 							  </ul>
 							</div>';
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="tao-lop-tin-chi-label">Modal title</h5>
+				<h3 class="modal-title col-md-6" id="tao-lop-tin-chi-label">Tạo lịch đăng kí</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -113,6 +113,26 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-//TODO
+$url_tap_lich = \yii\helpers\Url::to(['lop-tin-chi/tao-lop-tin-chi']);
+$this->registerJs(<<<JS
+	$('#tao-lop-tin-chi-modal').on('hidden.bs.modal', function (e) {
 
+	}).on('shown.bs.modal', function (e) {
+		var modal = $(this);
+		var button = $(e.relatedTarget);
+		console.log(modal)
+		console.log(button)
+		var id = button.attr("data-id");
+		console.log(id);
+		$.ajax({
+			dataType : 'json',
+			url : "$url_tap_lich",
+			data: {
+				id: id,
+			}
+		})
+	})
+
+JS
+)
 ?>

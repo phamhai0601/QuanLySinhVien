@@ -34,7 +34,8 @@ class LopTinChiController extends Controller
 				        'actions' => [
 					        'create',
 					        'update',
-					        'index'
+					        'index',
+					        'tao-lop-tin-chi'
 				        ],
 				        'allow'   => true,
 				        'roles'   => ['@'],
@@ -79,8 +80,11 @@ class LopTinChiController extends Controller
         ]);
     }
 
-    public function actionTaoLopTinChi(){
-
+    public function actionTaoLopTinChi($id){
+		$lopTinChi = LopTinChi::findOne($id);
+		echo '<pre>';
+		print_r($lopTinChi);
+		die();
     }
 
     /**
