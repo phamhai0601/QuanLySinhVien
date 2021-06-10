@@ -329,4 +329,8 @@ class TestController extends Controller {
 			}
 		}
 	}
+
+	public function actionTestTime(){
+		echo strtotime('Saturday 9:00');
+	}
 }

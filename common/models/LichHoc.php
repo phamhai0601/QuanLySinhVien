@@ -9,8 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property int $ma_lop
- * @property int $thoi_gian_hoc
- * @property int $phong_hoc
+ * @property string $ngay_hoc
+ * @property string $gio_hoc
  * @property int $created_at
  */
 class LichHoc extends \yii\db\ActiveRecord
@@ -29,8 +29,10 @@ class LichHoc extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ma_lop', 'thoi_gian_hoc', 'phong_hoc', 'created_at'], 'required'],
-            [['id', 'ma_lop', 'thoi_gian_hoc', 'phong_hoc', 'created_at'], 'integer'],
+            [['id', 'ma_lop', 'ngay_hoc', 'gio_hoc', 'created_at'], 'required'],
+            [['id', 'ma_lop', 'created_at'], 'integer'],
+            [['ngay_hoc'], 'string', 'max' => 255],
+            [['gio_hoc'], 'string', 'max' => 11],
             [['id'], 'unique'],
         ];
     }
@@ -43,8 +45,8 @@ class LichHoc extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'ma_lop' => 'Ma Lop',
-            'thoi_gian_hoc' => 'Thoi Gian Hoc',
-            'phong_hoc' => 'Phong Hoc',
+            'ngay_hoc' => 'Ngay Hoc',
+            'gio_hoc' => 'Gio Hoc',
             'created_at' => 'Created At',
         ];
     }

@@ -49,7 +49,7 @@ button {
     min-width: 160px;
 }
 
-.lop-tin-chi-index ul.dropdown-menu {
+.lop-tin-chi-index .table-responsive ul.dropdown-menu {
     position: relative;
     text-align: center;
 }

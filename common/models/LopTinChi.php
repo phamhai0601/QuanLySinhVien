@@ -18,6 +18,7 @@ namespace common\models;
  * @property GiangVien $giangVien
  * @property KiHoc $kiHoc
  * @property PhongHoc $phongHoc
+ * @property DangKiLopTinChi $lichDangKy
  */
 class LopTinChi extends \yii\db\ActiveRecord
 {
@@ -35,9 +36,9 @@ class LopTinChi extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['ten_lop', 'ma_mon_hoc', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc'], 'required'],
+			[['ma_mon_hoc', 'ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc'], 'required'],
 			[['ma_giang_vien', 'ma_ki_hoc', 'ma_phong_hoc', 'created_at'], 'integer'],
-			[['ten_lop', 'ma_mon_hoc'], 'string', 'max' => 255],
+			[['ten_lop', 'ma_mon_hoc','ten_lop'], 'string', 'max' => 255],
 		];
 	}
 
@@ -73,9 +74,20 @@ class LopTinChi extends \yii\db\ActiveRecord
 		return $this->hasOne(PhongHoc::class, ['id'=>'ma_phong_hoc']);
 	}
 
+	public function getLichDangKy(){
+		return $this->hasOne(DangKiLopTinChi::class, ['ma_lop_tin_chi'=>'id']);
+	}
+
 	public function beforeSave($insert) {
 		// TODO: Change the auto generated stub
+
+		$this->ten_lop = $this->kiHoc->nam_hoc.$this->kiHoc->ma_ki_hoc.$this->monHoc->id.$this->giangVien->id.$this->phongHoc->ten;
 		$this->created_at = time();
 		return parent::beforeSave($insert);
+	}
+
+	public function beforeDelete() {
+		$this->lichDangKy->delete();
+		return parent::beforeDelete();
 	}
 }

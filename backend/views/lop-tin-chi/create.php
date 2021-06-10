@@ -10,10 +10,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Lop Tin Chis', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-tin-chi-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
+        'action'=>'create',
         'model' => $model,
     ]) ?>
 

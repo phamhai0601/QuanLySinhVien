@@ -5,6 +5,7 @@ use common\widgets\Paging;
 use kartik\grid\DataColumn;
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\LopTinChiSearch */
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
 	        'heading'=>$this->title,
 	        'type'=>'default',
-	        'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Tạo thông tin lớp tính chỉ', ['create'], ['class' => 'btn btn-primary btn-outline pull-left'])
+	        'before'=>'<a type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>'
 	                  .Paging::widget([
 			        'current_pagesize' => $pagesize,
 		        ]),
@@ -49,6 +50,25 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data->kiHoc->ma_ki_hoc;
 				}
             ],
+	        [
+                'label' => 'Lịch dăng ký',
+		        'headerOptions' => [
+	                'style' => 'color:#337ab7',
+		        ],
+                'contentOptions'=>[
+                    'style'=>'min-width: 150px',
+	                'class'=>'text-center',
+                ],
+                'value' => function(LopTinChi $data){
+					if(is_null($data->lichDangKy)){
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" data-id="'.$data->id.'" >Tạo lịch</a>';
+					}
+					$time = date(Yii::$app->params['date'],$data->lichDangKy->tg_bat_dau).'<br>to<br>'
+					        .date(Yii::$app->params['date'],$data->lichDangKy->tg_ket_thuc);
+					return $time;
+		        },
+		        'format' => 'raw',
+	        ],
             [
                 'attribute' => 'ma_phong_hoc',
 	            'value' => function(LopTinChi $data){
@@ -82,8 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							  <span class="caret"></span></button>
 							  <ul class="dropdown-menu">
 							    <li><a href="#">Sửa</a></li>
-							    <li><a href="#" type="button" data-toggle="modal" data-target="#tao-lop-tin-chi-modal" data-id="'.$data->id.'" >Tạo lịch</a></li>
-							    <li><a href="#">Xóa</a></li>
+							    <li><a href="'.Url::to(['lop-tin-chi/delete', 'id' =>$data->id]) . '" data-method="post" data-confirm="Bạn chắc chắn xóa thông tin lớp tín chỉ?">Xóa</a></li>
 							  </ul>
 							</div>';
 		        },
@@ -92,6 +111,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+<div class="modal fade" id="tao-lich-dang-ki-modal" tabindex="-1" role="dialog" aria-labelledby="tao-lich-dang-ki-label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title col-md-6" id="tao-lich-dang-ki-label">Tạo lịch đăng kí</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade" id="tao-lop-tin-chi-modal" tabindex="-1" role="dialog" aria-labelledby="tao-lop-tin-chi-label" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -104,31 +139,44 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="modal-body">
 				...
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
 		</div>
 	</div>
 </div>
 
 <?php
-$url_tap_lich = \yii\helpers\Url::to(['lop-tin-chi/tao-lop-tin-chi']);
+$url_tao_lich = Url::to(['lop-tin-chi/tao-lop-tin-chi']);
+$url_tao_lop_tin_chi = Url::to(['lop-tin-chi/create']);
 $this->registerJs(<<<JS
-	$('#tao-lop-tin-chi-modal').on('hidden.bs.modal', function (e) {
-
+	$('#tao-lich-dang-ki-modal').on('hidden.bs.modal', function (e) {
 	}).on('shown.bs.modal', function (e) {
 		var modal = $(this);
 		var button = $(e.relatedTarget);
-		console.log(modal)
-		console.log(button)
 		var id = button.attr("data-id");
 		console.log(id);
 		$.ajax({
 			dataType : 'json',
-			url : "$url_tap_lich",
+			url : "$url_tao_lich",
 			data: {
 				id: id,
+			},
+			success:function(response){
+				modal.find('.modal-body').html(response);
+			}
+		})
+	})
+	
+	$('#tao-lop-tin-chi-modal').on('hidden.bs.modal', function (e) {
+	}).on('shown.bs.modal', function (e) {
+		var modal = $(this);
+		var button = $(e.relatedTarget);
+		var id = button.attr("data-id");
+		console.log(id);
+		$.ajax({
+			type :'post',
+			url : "$url_tao_lop_tin_chi",
+			dataType : 'json',
+			success:function(response){
+				modal.find('.modal-body').html(response);
 			}
 		})
 	})

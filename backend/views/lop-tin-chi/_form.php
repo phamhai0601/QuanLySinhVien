@@ -4,21 +4,25 @@ use common\models\GiangVien;
 use common\models\KiHoc;
 use common\models\MonHoc;
 use common\models\PhongHoc;
+use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\LopTinChi */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form kartik\form\ActiveForm */
+/* @var String $action */
 ?>
 
 <div class="lop-tin-chi-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'ten_lop')->textInput(['maxlength' => true]) ?>
+    <?php if($action !== 'create'){
+	    echo $form->field($model, 'ten_lop')->textInput([
+		    'maxlength' => true,
+		    'readonly'=>'readonly'
+	    ]);
+    } ?>
 
     <?= $form->field($model, 'ma_mon_hoc')->widget(Select2::className(),[
         'data'=> ArrayHelper::map(MonHoc::find()->all(),'id','ten_mon_hoc'),
@@ -51,10 +55,11 @@ use yii\widgets\ActiveForm;
 		    'allowClear' => true,
 	    ]
     ]) ?>
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
+	<div class="form-group pull-right">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save changes</button>
+	</div>
+	<div class="clearfix"></div>
     <?php ActiveForm::end(); ?>
 
 </div>

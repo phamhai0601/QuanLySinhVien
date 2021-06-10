@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use backend\form\TaoLopTinChiForm;
 use Yii;
 use common\models\LopTinChi;
 use backend\models\search\LopTinChiSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,14 +30,16 @@ class LopTinChiController extends Controller
     {
         return [
 	        'access' => [
-		        'class' => \yii\filters\AccessControl::class,
+		        'class' => AccessControl::class,
 		        'rules' => [
 			        [
 				        'actions' => [
 					        'create',
+					        'delete',
 					        'update',
 					        'index',
-					        'tao-lop-tin-chi'
+					        'tao-lop-tin-chi',
+					        'view'
 				        ],
 				        'allow'   => true,
 				        'roles'   => ['@'],
@@ -81,10 +85,20 @@ class LopTinChiController extends Controller
     }
 
     public function actionTaoLopTinChi($id){
+    	Yii::$app->response->format = 'json';
 		$lopTinChi = LopTinChi::findOne($id);
-		echo '<pre>';
-		print_r($lopTinChi);
-		die();
+		$model = new TaoLopTinChiForm();
+		$model->ma_lop_tin_chi = $lopTinChi->ten_lop;
+		if($model->load(Yii::$app->request->post())){
+			if($model->save()){
+				Yii::$app->session->setFlash('success','Tạo lịch đăng ký lớp tín chỉ thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			}else{
+				Yii::$app->session->setFlash('danger','Tạo lịch đăng ký lớp tín chỉ không thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			}
+		}
+		return $this->renderAjax('tao-lop-tin-chi-form',['model'=>$model]);
     }
 
     /**
@@ -94,13 +108,19 @@ class LopTinChiController extends Controller
      */
     public function actionCreate()
     {
+    	Yii::$app->response->format = 'json';
         $model = new LopTinChi();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+            	Yii::$app->session->setFlash('success','Tạo thông tin lớp tín chỉ thành công.');
+	            $this->redirect(['lop-tin-chi/index']);
+            }else{
+	            Yii::$app->session->setFlash('danger','Tạo thông tin lớp tín chỉ không thành công.');
+	            $this->redirect(['lop-tin-chi/index']);
+            }
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
@@ -135,7 +155,7 @@ class LopTinChiController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+		Yii::$app->session->setFlash('success','Xóa thông tin lớp tín chỉ thành công.');
         return $this->redirect(['index']);
     }
 
