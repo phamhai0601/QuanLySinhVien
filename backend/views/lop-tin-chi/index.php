@@ -51,6 +51,18 @@ $this->params['breadcrumbs'][] = $this->title;
 				}
             ],
 	        [
+				'label' => 'Lịch học',
+		        'headerOptions' => ['style'=>'color:#337ab7'],
+		        'value' => function(LopTinChi $data){
+					if(!is_null($data->lichHoc)){
+						return $data->lichHoc->ngay_hoc;
+					}else{
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="'.$data->id.'" >Tạo lịch</a>';
+					}
+		        },
+		        'format' => 'raw',
+	        ],
+	        [
                 'label' => 'Lịch dăng ký',
 		        'headerOptions' => [
 	                'style' => 'color:#337ab7',
@@ -132,6 +144,22 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title col-md-6" id="tao-lop-tin-chi-label">Tạo lịch đăng kí</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="tao-lich-hoc-modal" tabindex="-1" role="dialog" aria-labelledby="tao-lich-hoc-label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title col-md-6" id="tao-lich-hoc-label">Tạo lịch học</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

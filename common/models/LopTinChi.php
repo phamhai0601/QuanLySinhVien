@@ -19,6 +19,7 @@ namespace common\models;
  * @property KiHoc $kiHoc
  * @property PhongHoc $phongHoc
  * @property DangKiLopTinChi $lichDangKy
+ * @property LichHoc $lichHoc
  */
 class LopTinChi extends \yii\db\ActiveRecord
 {
@@ -76,6 +77,10 @@ class LopTinChi extends \yii\db\ActiveRecord
 
 	public function getLichDangKy(){
 		return $this->hasOne(DangKiLopTinChi::class, ['ma_lop_tin_chi'=>'id']);
+	}
+
+	public function getLichHoc(){
+		return $this->hasOne(LichHoc::class, ['ma_lop'=>'id']);
 	}
 
 	public function beforeSave($insert) {

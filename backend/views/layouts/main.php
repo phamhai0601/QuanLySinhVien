@@ -40,31 +40,37 @@ AppAsset::register($this);
 		    'label' => 'Home',
 		    'url'   => ['/site/index'],
 	    ],
-	    [
-		    'label' => 'Quản lý sinh viên',
-		    'url'   => ['sinh-vien/index'],
-	    ],
-	    [
-		    'label' => 'Quản lý lớp học',
-		    'items' => [
-			    [
-				    'label' => 'Quản lý lớp hành chính',
-				    'url'   => ['lop-hanh-chinh/index'],
-			    ],
-			    [
-				    'label' => 'Quản lý lớp tín chỉ',
-				    'url'   => ['lop-tin-chi/index'],
-			    ],
-		    ],
-	    ],
-	    [
-		    'label' => 'Quản lí môn học',
-		    'url'   => ['mon-hoc/index'],
-	    ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+	    $menuItems = [
+		    [
+			    'label' => 'Home',
+			    'url'   => ['/site/index'],
+		    ],
+		    [
+			    'label' => 'Quản lý sinh viên',
+			    'url'   => ['sinh-vien/index'],
+		    ],
+		    [
+			    'label' => 'Quản lý lớp học',
+			    'items' => [
+				    [
+					    'label' => 'Quản lý lớp hành chính',
+					    'url'   => ['lop-hanh-chinh/index'],
+				    ],
+				    [
+					    'label' => 'Quản lý lớp tín chỉ',
+					    'url'   => ['lop-tin-chi/index'],
+				    ],
+			    ],
+		    ],
+		    [
+			    'label' => 'Quản lí môn học',
+			    'url'   => ['mon-hoc/index'],
+		    ],
+	    ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
