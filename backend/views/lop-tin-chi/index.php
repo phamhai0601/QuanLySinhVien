@@ -15,113 +15,115 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lop-tin-chi-index">
 	<?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'export' => false,
-        'toggleData' => false,
-        'panel' => [
-	        'heading'=>$this->title,
-	        'type'=>'default',
-	        'before'=>'<a type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>'
-	                  .Paging::widget([
-			        'current_pagesize' => $pagesize,
-		        ]),
-	        'footer'=>false,
-        ],
-        'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
-        'columns' => [
-            'ten_lop',
-            [
-                'attribute' => 'ma_mon_hoc',
-	            'value' => function(LopTinChi $data){
+		'dataProvider'         => $dataProvider,
+		'filterModel'          => $searchModel,
+		'export'               => false,
+		'toggleData'           => false,
+		'panel'                => [
+			'heading' => $this->title,
+			'type'    => 'default',
+			'before'  => '<a type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>' . Paging::widget([
+					'current_pagesize' => $pagesize,
+				]),
+			'footer'  => false,
+		],
+		'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> ' . $this->title . '</h3>{summary}<div class="clearfix"></div>',
+		'columns'              => [
+			'ten_lop',
+			[
+				'attribute' => 'ma_mon_hoc',
+				'value'     => function(LopTinChi $data) {
 					return $data->monHoc->ten_mon_hoc;
-	            }
-            ],
-            [
-                'attribute' => 'ma_giang_vien',
-	            'value' => function(LopTinChi $data){
+				},
+			],
+			[
+				'attribute' => 'ma_giang_vien',
+				'value'     => function(LopTinChi $data) {
 					return $data->giangVien->ten;
-	            }
-
-            ],
-            [
-                'attribute' => 'ma_ki_hoc',
-	            'value' => function(LopTinChi $data){
+				},
+			],
+			[
+				'attribute' => 'ma_ki_hoc',
+				'value'     => function(LopTinChi $data) {
 					return $data->kiHoc->ma_ki_hoc;
-				}
-            ],
-	        [
-				'label' => 'Lịch học',
-		        'headerOptions' => ['style'=>'color:#337ab7'],
-		        'value' => function(LopTinChi $data){
-					if(!is_null($data->lichHoc)){
+				},
+			],
+			[
+				'label'         => 'Lịch học',
+				'headerOptions' => ['style' => 'color:#337ab7'],
+				'value'         => function(LopTinChi $data) {
+					if (!is_null($data->lichHoc)) {
 						return $data->lichHoc->ngay_hoc;
-					}else{
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="'.$data->id.'" >Tạo lịch</a>';
+					} else {
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
-		        },
-		        'format' => 'raw',
-	        ],
-	        [
-                'label' => 'Lịch dăng ký',
-		        'headerOptions' => [
-	                'style' => 'color:#337ab7',
-		        ],
-                'contentOptions'=>[
-                    'style'=>'min-width: 150px',
-	                'class'=>'text-center',
-                ],
-                'value' => function(LopTinChi $data){
-					if(is_null($data->lichDangKy)){
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" data-id="'.$data->id.'" >Tạo lịch</a>';
+				},
+				'format'        => 'raw',
+			],
+			[
+				'label'          => 'Lịch dăng ký',
+				'headerOptions'  => [
+					'style' => 'color:#337ab7',
+				],
+				'contentOptions' => [
+					'style' => 'min-width: 150px',
+					'class' => 'text-center',
+				],
+				'value'          => function(LopTinChi $data) {
+					if (is_null($data->lichDangKy)) {
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
-					$time = date(Yii::$app->params['date'],$data->lichDangKy->tg_bat_dau).'<br>to<br>'
-					        .date(Yii::$app->params['date'],$data->lichDangKy->tg_ket_thuc);
+					$time = date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '<br>to<br>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc);
 					return $time;
-		        },
-		        'format' => 'raw',
-	        ],
-            [
-                'attribute' => 'ma_phong_hoc',
-	            'value' => function(LopTinChi $data){
-				return $data->phongHoc->ten;
-	            }
-            ],
-            [
-                'class'=> DataColumn::class,
-                'attribute' => 'created_at',
-	            'filterType' => GridView::FILTER_DATE_RANGE,
-	            'filterWidgetOptions' => [
-		            'readonly'      => 'readonly',
-		            'convertFormat' => true,
-		            'pluginOptions' => [
-			            'locale'    => ['format' => 'Y-m-d'],
-			            'autoclose' => true,
-		            ],
-		            'pluginEvents'  => [
-			            "cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
-		            ],
-	            ],
-                'format'              => ['date',Yii::$app->params['format']['date'],
-                ],
-            ],
-	        [
-                'label' => 'Action',
-		        'headerOptions' => ['style'=>'color:#337ab7'],
-		        'value' => function(LopTinChi $data){
+				},
+				'format'         => 'raw',
+			],
+			[
+				'attribute' => 'ma_phong_hoc',
+				'value'     => function(LopTinChi $data) {
+					return $data->phongHoc->ten;
+				},
+			],
+			[
+				'class'               => DataColumn::class,
+				'attribute'           => 'created_at',
+				'filterType'          => GridView::FILTER_DATE_RANGE,
+				'filterWidgetOptions' => [
+					'readonly'      => 'readonly',
+					'convertFormat' => true,
+					'pluginOptions' => [
+						'locale'    => ['format' => 'Y-m-d'],
+						'autoclose' => true,
+					],
+					'pluginEvents'  => [
+						"cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
+					],
+				],
+				'format'              => [
+					'date',
+					Yii::$app->params['format']['date'],
+				],
+			],
+			[
+				'label'         => 'Action',
+				'headerOptions' => ['style' => 'color:#337ab7'],
+				'value'         => function(LopTinChi $data) {
 					return '<div class="dropdown">
 							  <button class="btn btn-primary btn-outline dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
 							  <span class="caret"></span></button>
 							  <ul class="dropdown-menu">
 							    <li><a href="#">Sửa</a></li>
-							    <li><a href="'.Url::to(['lop-tin-chi/delete', 'id' =>$data->id]) . '" data-method="post" data-confirm="Bạn chắc chắn xóa thông tin lớp tín chỉ?">Xóa</a></li>
+							    <li><a href="' . Url::to([
+							'lop-tin-chi/delete',
+							'id' => $data->id,
+						]) . '" data-method="post" data-confirm="Bạn chắc chắn xóa thông tin lớp tín chỉ?">Xóa</a></li>
 							  </ul>
 							</div>';
-		        },
-		        'format' => 'raw'
-	        ]
-        ],
-    ]); ?>
+				},
+				'format'        => 'raw',
+			],
+		],
+	]); ?>
 </div>
 <div class="modal fade" id="tao-lich-dang-ki-modal" tabindex="-1" role="dialog" aria-labelledby="tao-lich-dang-ki-label" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -172,7 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-$url_tao_lich = Url::to(['lop-tin-chi/tao-lop-tin-chi']);
+$url_tao_lich        = Url::to(['lop-tin-chi/tao-lop-tin-chi']);
 $url_tao_lop_tin_chi = Url::to(['lop-tin-chi/create']);
 $this->registerJs(<<<JS
 	$('#tao-lich-dang-ki-modal').on('hidden.bs.modal', function (e) {
