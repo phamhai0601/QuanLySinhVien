@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				'headerOptions' => ['style' => 'color:#337ab7'],
 				'value'         => function(LopTinChi $data) {
 					if (!is_null($data->lichHoc)) {
-						return $data->lichHoc->ngay_hoc;
+						//TODO
+						return $data->lichHoc->ngay_hoc->ngay;
 					} else {
 						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
@@ -176,6 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $url_tao_lich        = Url::to(['lop-tin-chi/tao-lop-tin-chi']);
 $url_tao_lop_tin_chi = Url::to(['lop-tin-chi/create']);
+$url_tao_lich_hoc = Url::to(['lop-tin-chi/tao-lich-hoc']);
 $this->registerJs(<<<JS
 	$('#tao-lich-dang-ki-modal').on('hidden.bs.modal', function (e) {
 	}).on('shown.bs.modal', function (e) {
@@ -210,7 +212,25 @@ $this->registerJs(<<<JS
 			}
 		})
 	})
-
+	
+	$('#tao-lich-hoc-modal').on('hidden.bs.modal', function (e) {
+	}).on('shown.bs.modal', function (e) {
+		var modal = $(this);
+		var button = $(e.relatedTarget);
+		var id = button.attr("data-id");
+		$.ajax({
+			type :'get',
+			url : "$url_tao_lich_hoc",
+			data : {
+				id: id,
+			},
+			dataType : 'json',
+			success:function(response){
+				console.log(response)
+				modal.find('.modal-body').html(response);
+			}
+		})
+	})
 JS
 )
 ?>

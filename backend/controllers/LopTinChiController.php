@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\form\TaoLichHocForm;
 use backend\form\TaoLopTinChiForm;
 use Yii;
 use common\models\LopTinChi;
@@ -39,7 +40,8 @@ class LopTinChiController extends Controller
 					        'update',
 					        'index',
 					        'tao-lop-tin-chi',
-					        'view'
+					        'view',
+					        'tao-lich-hoc'
 				        ],
 				        'allow'   => true,
 				        'roles'   => ['@'],
@@ -100,6 +102,24 @@ class LopTinChiController extends Controller
 		}
 		return $this->renderAjax('tao-lop-tin-chi-form',['model'=>$model]);
     }
+
+	public function actionTaoLichHoc($id) {
+    	Yii::$app->response->format = 'json';
+		$model                 = new TaoLichHocForm();
+		$model->ma_lop_tin_chi = $id;
+		if ($model->load(Yii::$app->request->post())) {
+			if ($model->save()) {
+				Yii::$app->session->setFlash('success','Tạo lịch học cho lớp tín chỉ thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			} else {
+				Yii::$app->session->setFlash('danger','Tạo lịch học cho lớp tín chỉ không thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			}
+		}
+		return $this->renderAjax('tao-lic-hoc', [
+			'model' => $model,
+		]);
+	}
 
     /**
      * Creates a new LopTinChi model.

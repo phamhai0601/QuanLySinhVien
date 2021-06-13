@@ -29,11 +29,10 @@ class LichHoc extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ma_lop', 'ngay_hoc', 'gio_hoc', 'created_at'], 'required'],
-            [['id', 'ma_lop', 'created_at'], 'integer'],
+            [['ma_lop', 'ngay_hoc', 'gio_hoc', 'created_at'], 'required'],
+            [['ma_lop', 'created_at'], 'integer'],
             [['ngay_hoc'], 'string', 'max' => 255],
             [['gio_hoc'], 'string', 'max' => 11],
-            [['id'], 'unique'],
         ];
     }
 
