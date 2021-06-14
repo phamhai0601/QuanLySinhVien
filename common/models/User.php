@@ -30,6 +30,9 @@ use Yii;
  */
 class User extends \dektrium\user\models\User
 {
+	const FLAG_SINHVIEN = 1;
+	const FLAG_GIANGVIEN = 0;
+
     /**
      * {@inheritdoc}
      */

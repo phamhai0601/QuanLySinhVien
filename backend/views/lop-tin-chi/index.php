@@ -53,8 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'headerOptions' => ['style' => 'color:#337ab7'],
 				'value'         => function(LopTinChi $data) {
 					if (!is_null($data->lichHoc)) {
-						//TODO
-						return $data->lichHoc->ngay_hoc->ngay;
+						return $data->lichHoc->ngayHoc->ngay.'<br>'.$data->lichHoc->gioHoc->gio_bat_dau.'-'.$data->lichHoc->gioHoc->gio_ket_thuc;
 					} else {
 						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}

@@ -17,9 +17,21 @@ use Yii;
  * @property string $cmnd
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property User $user
+ * @property LopHanhChinh $lopHanhChinh
  */
 class SinhVien extends \yii\db\ActiveRecord
 {
+	const GIOITINH_NAM = 0;
+	const GIOITINH_NU = 1;
+
+	const GIOTINH = [
+		self::GIOITINH_NAM => 'Nam',
+		self::GIOITINH_NU => 'Nữ',
+	];
+
+
     /**
      * {@inheritdoc}
      */
@@ -40,6 +52,16 @@ class SinhVien extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getUser(){
+	    return $this->hasOne(User::class, [
+		    'info_id' => 'id',
+	    ]);
+    }
+
+    public function getLopHanhChinh(){
+    	return $this->hasOne(LopHanhChinh::class,['id'=>'lop_hanh_chinh']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -47,12 +69,12 @@ class SinhVien extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ten' => 'Ten',
+            'ten' => 'Tên',
             'email' => 'Email',
-            'lop_hanh_chinh' => 'Lop Hanh Chinh',
-            'que_quan' => 'Que Quan',
-            'gioi_tinh' => 'Gioi Tinh',
-            'tg_nhap_hoc' => 'Tg Nhap Hoc',
+            'lop_hanh_chinh' => 'Lớp hành chính',
+            'que_quan' => 'Quê quán',
+            'gioi_tinh' => 'Giới tính',
+            'tg_nhap_hoc' => 'Thời gian nhập học',
             'cmnd' => 'Cmnd',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

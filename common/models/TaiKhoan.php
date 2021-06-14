@@ -11,6 +11,8 @@ use Yii;
  * @property string $email
  * @property int $ma_thong_tin
  * @property string $mat_khau
+ * @property int $occ
+ * @property string|null $dich_vu
  * @property int $created_at
  */
 class TaiKhoan extends \yii\db\ActiveRecord
@@ -29,10 +31,9 @@ class TaiKhoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'email', 'ma_thong_tin', 'mat_khau', 'created_at'], 'required'],
-            [['id', 'ma_thong_tin', 'created_at'], 'integer'],
-            [['email', 'mat_khau'], 'string', 'max' => 255],
-            [['id'], 'unique'],
+            [['email', 'ma_thong_tin', 'mat_khau', 'created_at'], 'required'],
+            [['ma_thong_tin', 'occ', 'created_at'], 'integer'],
+            [['email', 'mat_khau', 'dich_vu'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,6 +47,8 @@ class TaiKhoan extends \yii\db\ActiveRecord
             'email' => 'Email',
             'ma_thong_tin' => 'Ma Thong Tin',
             'mat_khau' => 'Mat Khau',
+            'occ' => 'Occ',
+            'dich_vu' => 'Dich Vu',
             'created_at' => 'Created At',
         ];
     }

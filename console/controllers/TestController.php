@@ -11,6 +11,7 @@ namespace console\controllers;
 use backend\models\GiangVien;
 use backend\models\MonHoc;
 use common\models\BoMon;
+use dektrium\user\models\RegistrationForm;
 use moonland\phpexcel\Excel;
 use yii\console\Controller;
 
@@ -333,6 +334,23 @@ class TestController extends Controller {
 	public function actionTestTime(){
 		echo strtotime('Saturday 5:25 PM');
 	}
+
+	public function actionRegister(){
+		$formDangKi = new RegistrationForm();
+		$formDangKi->email ='mitto.hai.7356@gmail.com';
+		$formDangKi->username = 'phamhai1';
+		$formDangKi->password= '1234567';
+		if($formDangKi->register()){
+			echo 'done';
+		}else{
+			echo '<pre>';
+			print_r($formDangKi->errors);
+			die();
+		}
+		echo 'done';
+
+	}
+
 
 
 }

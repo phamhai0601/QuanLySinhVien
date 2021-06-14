@@ -12,6 +12,9 @@ use Yii;
  * @property string $ngay_hoc
  * @property string $gio_hoc
  * @property int $created_at
+ *
+ * @property NgayHoc $ngayHoc
+ *@property GioHoc $gioHoc
  */
 class LichHoc extends \yii\db\ActiveRecord
 {
@@ -49,4 +52,13 @@ class LichHoc extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
         ];
     }
+
+    public function getNgayHoc(){
+	    return $this->hasOne(NgayHoc::class, ['id'=>'ngay_hoc']);
+    }
+
+	public function getGioHoc(){
+		return $this->hasOne(GioHoc::class, ['id'=>'gio_hoc']);
+	}
+
 }

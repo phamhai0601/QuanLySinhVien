@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\LopHanhChinh;
+use common\form\RegistrationForm;
 use Yii;
 use backend\models\SinhVien;
 use backend\models\search\SinhVienSearch;
+use yii\base\BaseObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,6 +38,28 @@ class SinhVienController extends Controller
      */
     public function actionIndex($pagesize = 20)
     {
+    	if(Yii::$app->request->post('hasEditable')){
+		    $id       = Yii::$app->request->post('editableKey');
+		    $sinhVien = SinhVien::findOne($id);
+		    $out      = [
+			    'output'  => '',
+			    'message' => '',
+		    ];
+		    $posted   = current($_POST['SinhVien']);
+			switch (Yii::$app->request->post('editableAttribute')){
+				case 'lop_hanh_chinh':
+					$lopHanhChinh = LopHanhChinh::findOne($posted['lop_hanh_chinh']);
+					$sinhVien->updateAttributes(['lop_hanh_chinh'=>$posted['lop_hanh_chinh']]);
+					$out['output']  = $lopHanhChinh->ma_lop;
+					break;
+			}
+		    if ($out['output'] == '') {
+			    $out['output'] = '<em>(not set)</em>';
+		    }
+			echo json_encode($out);
+			die();
+	    }
+
         $searchModel = new SinhVienSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->pagination->pageSize = $pagesize;
@@ -56,6 +81,22 @@ class SinhVienController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionCapTaiKhoan($id){
+		$sinhVien = SinhVien::findOne($id);
+		$capTaiKhoan = new RegistrationForm();
+		$capTaiKhoan->email = $sinhVien->email;
+		$capTaiKhoan->info_id = $id;
+		$capTaiKhoan->username = explode("@",$sinhVien->email)[0];
+		$capTaiKhoan->password = $sinhVien->cmnd;
+		if($capTaiKhoan->register()){
+			Yii::$app->session->setFlash('success','Cấp tài khoản <b>'.$capTaiKhoan->email.'</b> thành công');
+			$this->redirect(['sinh-vien/index']);
+		}else{
+			Yii::$app->session->setFlash('danger','Cấp tài khoản <b>'.$capTaiKhoan->email.'</b> không thành công');
+			$this->redirect(['sinh-vien/index']);
+		}
     }
 
     /**
