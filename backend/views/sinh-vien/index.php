@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\SinhVien;
+use common\models\LopHanhChinh;
 use common\widgets\Paging;
 use kartik\editable\Editable;
 use kartik\grid\EditableColumn;
@@ -52,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					if(!is_null($data->user)){
 						return $data->user->username;
 					}
-					return '<a class="btn btn-primary btn-outline" href="' . Url::to(['sinh-vien/cap-tai-khoan', 'id' =>$data->id]) . '">Cấp tài khoản</a>';
+					return '<a class="btn btn-primary" href="' . Url::to(['sinh-vien/cap-tai-khoan', 'id' =>$data->id]) . '">Cấp tài khoản</a>';
                 },
 	            'format' => 'raw'
 
@@ -70,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		            'asPopover' => true,
 		            'header' => 'Status',
 		            'inputType' => Editable::INPUT_DROPDOWN_LIST,
-		            'data' => ArrayHelper::map(\common\models\LopHanhChinh::find()->all(),'id','ma_lop'),
+		            'data' => ArrayHelper::map(LopHanhChinh::find()->all(),'id','ma_lop'),
 		            'options' => ['class'=>'form-control', 'prompt'=>'Chọn lớp hành chính...'],
 				],
 	            'value' => function(SinhVien $data){

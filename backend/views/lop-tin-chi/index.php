@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'panel'                => [
 			'heading' => $this->title,
 			'type'    => 'default',
-			'before'  => '<a type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>' . Paging::widget([
+			'before'  => '<a type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>' . Paging::widget([
 					'current_pagesize' => $pagesize,
 				]),
 			'footer'  => false,
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					if (!is_null($data->lichHoc)) {
 						return $data->lichHoc->ngayHoc->ngay.'<br>'.$data->lichHoc->gioHoc->gio_bat_dau.'-'.$data->lichHoc->gioHoc->gio_ket_thuc;
 					} else {
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
 				},
 				'format'        => 'raw',
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 				'value'          => function(LopTinChi $data) {
 					if (is_null($data->lichDangKy)) {
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary btn-outline" data-target="#tao-lop-tin-chi-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lop-tin-chi-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
 					$time = date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '<br>to<br>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc);
 					return $time;
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'headerOptions' => ['style' => 'color:#337ab7'],
 				'value'         => function(LopTinChi $data) {
 					return '<div class="dropdown">
-							  <button class="btn btn-primary btn-outline dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
 							  <span class="caret"></span></button>
 							  <ul class="dropdown-menu">
 							    <li><a href="#">Sửa</a></li>
