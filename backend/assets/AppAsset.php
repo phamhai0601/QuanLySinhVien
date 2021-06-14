@@ -3,23 +3,25 @@
 namespace backend\assets;
 
 use yii\web\AssetBundle;
+use yidas\adminlte\AdminlteAsset;
 
 /**
  * Main backend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class AppAsset extends AdminlteAsset
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
 	    'css/custom.css',
-	    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css',
     ];
     public $js = [
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+	    'yidas\adminlte\AdminlteAsset'
+
     ];
+
 }

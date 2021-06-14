@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0c259d5a756e055908a580ca38f3c06",
+    "content-hash": "1a1b1dba59a8432b777a97ea5a4b0d44",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -2856,6 +2856,53 @@
     ],
     "packages-dev": [
         {
+            "name": "almasaeed2010/adminlte",
+            "version": "v2.4.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ColorlibHQ/AdminLTE.git",
+                "reference": "e7ffa67a4649dc08d2018708a38604a6c0a02ab6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/e7ffa67a4649dc08d2018708a38604a6c0a02ab6",
+                "reference": "e7ffa67a4649dc08d2018708a38604a6c0a02ab6",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.0 <4.0.0"
+            },
+            "type": "template",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abdullah Almsaeed",
+                    "email": "abdullah@almsaeedstudio.com"
+                }
+            ],
+            "description": "AdminLTE - admin control panel and dashboard that's based on Bootstrap 3",
+            "homepage": "https://adminlte.io/",
+            "keywords": [
+                "JS",
+                "admin",
+                "back-end",
+                "css",
+                "less",
+                "responsive",
+                "template",
+                "theme",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/almasaeed2010/AdminLTE/issues",
+                "source": "https://github.com/ColorlibHQ/AdminLTE/tree/v2.4.18"
+            },
+            "time": "2019-08-29T08:20:20+00:00"
+        },
+        {
             "name": "behat/gherkin",
             "version": "v4.8.0",
             "source": {
@@ -3549,6 +3596,58 @@
                 "source": "https://github.com/FakerPHP/Faker/tree/v.1.14.1"
             },
             "time": "2021-03-30T06:27:33+00:00"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.6.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "support": {
+                "issues": "https://github.com/FortAwesome/Font-Awesome/issues",
+                "source": "https://github.com/FortAwesome/Font-Awesome/tree/v4.7.0"
+            },
+            "time": "2016-10-24T15:52:54+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -6603,6 +6702,105 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "yidas/yii2-adminlte",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/yii2-adminlte.git",
+                "reference": "b5239fe04b1cf16567e573174be8802e6ea1e1f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/yii2-adminlte/zipball/b5239fe04b1cf16567e573174be8802e6ea1e1f4",
+                "reference": "b5239fe04b1cf16567e573174be8802e6ea1e1f4",
+                "shasum": ""
+            },
+            "require": {
+                "almasaeed2010/adminlte": "~2.4",
+                "yidas/yii2-fontawesome": "2.0.*",
+                "yiisoft/yii2": "2.0.*",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\adminlte\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Tsai",
+                    "email": "myintaer@gmail.com",
+                    "homepage": "https://github.com/yidas/"
+                }
+            ],
+            "description": "AdminLTE Asset Bundle for Yii2 Framework",
+            "keywords": [
+                "AdminLTE",
+                "asset",
+                "asset bundle",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/yii2-adminlte/issues",
+                "source": "https://github.com/yidas/yii2-adminlte"
+            },
+            "time": "2018-05-10T08:07:06+00:00"
+        },
+        {
+            "name": "yidas/yii2-fontawesome",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/yii2-fontawesome.git",
+                "reference": "da4fc4e6c71c07bc8da38a76858247e7c8f2512a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/yii2-fontawesome/zipball/da4fc4e6c71c07bc8da38a76858247e7c8f2512a",
+                "reference": "da4fc4e6c71c07bc8da38a76858247e7c8f2512a",
+                "shasum": ""
+            },
+            "require": {
+                "fortawesome/font-awesome": "~4.7",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\yii\\fontawesome\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Tsai",
+                    "email": "myintaer@gmail.com",
+                    "homepage": "https://github.com/yidas/"
+                }
+            ],
+            "description": "Font Awesome Asset Bundle for Yii2 framework",
+            "keywords": [
+                "asset",
+                "asset bundle",
+                "font awesome",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/yii2-fontawesome/issues",
+                "source": "https://github.com/yidas/yii2-fontawesome"
+            },
+            "time": "2017-09-09T17:52:13+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
