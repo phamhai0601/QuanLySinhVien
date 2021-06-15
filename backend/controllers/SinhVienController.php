@@ -8,6 +8,7 @@ use Yii;
 use backend\models\SinhVien;
 use backend\models\search\SinhVienSearch;
 use yii\base\BaseObject;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,21 @@ class SinhVienController extends Controller
     public function behaviors()
     {
         return [
+	        'access' => [
+		        'class' => AccessControl::className(),
+		        'rules' => [
+			        [
+				        'actions' => [
+					        'index',
+					        'view',
+					        'create',
+					        'update'
+				        ],
+				        'allow' => true,
+				        'roles' => ['@'],
+			        ],
+		        ],
+	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -78,8 +78,10 @@ use yii\widgets\Menu;
 				  ],
 			  ],
 			  [
-			  		''
-			  ]
+				  'label' => 'Giảng Viên',
+				  'url'   => ['giang-vien/index'],
+				  'template' => '<a href="{url}"><i class="fa fa-user-o"></i><span>{label}</span></a>',
+			  ],
 		  ],
 	  ]);
 	  ?>

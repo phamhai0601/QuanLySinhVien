@@ -2,12 +2,13 @@
 
 namespace frontend\assets;
 
+use yidas\adminlte\AdminlteAsset;
 use yii\web\AssetBundle;
 
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class AppAsset extends AdminlteAsset
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
@@ -19,5 +20,6 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+	    'yidas\adminlte\AdminlteAsset'
     ];
 }

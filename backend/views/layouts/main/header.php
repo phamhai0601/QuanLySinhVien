@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -45,7 +47,7 @@ use yii\helpers\Html;
                 <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
               </div>
               <div class="pull-right">
-                <a href="<?=\yii\helpers\Url::to(['site/logout'])?>" class="btn btn-default btn-flat" data-method="post">Sign out</a>
+                <a href="<?= Url::to(['site/logout'])?>" class="btn btn-default btn-flat" data-method="post">Sign out</a>
               </div>
             </li>
           </ul>

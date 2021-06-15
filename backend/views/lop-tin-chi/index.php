@@ -21,11 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		'toggleData'           => false,
 		'panel'                => [
 			'heading' => $this->title,
-			'type'    => 'default',
-			'before'  => '<a type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lop-tin-chi-modal" ><i class="fas fa-plus"></i> Tạo thông tin lớp tín chỉ</a>' . Paging::widget([
+			'type'    => 'primary',
+			'before'  => '<a type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lop-tin-chi-modal" ><i class="fa fa-plus" aria-hidden="true"></i></i> Tạo thông tin lớp tín chỉ</a>' . Paging::widget([
 					'current_pagesize' => $pagesize,
 				]),
-			'footer'  => false,
 		],
 		'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> ' . $this->title . '</h3>{summary}<div class="clearfix"></div>',
 		'columns'              => [

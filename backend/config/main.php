@@ -40,6 +40,13 @@ return [
         'view'         => [
 	        'class' => 'backend\component\View',
         ],
+        'assetManager' => [
+	        'bundles' => [
+		        'yidas\adminlte\AdminlteAsset' => [
+			        'skin' => 'skin-blue',
+		        ],
+	        ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

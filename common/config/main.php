@@ -10,20 +10,6 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'assetManager' => [
-	        'bundles' => [
-		        'yidas\adminlte\AdminlteAsset' => [
-			        'skin' => 'skin-blue',
-		        ],
-	        ],
-        ],
-        'view' => [
-//	        'theme' => [
-//		        'pathMap' => [
-//			        '@backend/views' => '@vendor/yidas/yii2-adminlte/templates/simple'
-//		        ],
-//	        ],
-        ],
     ],
     'modules' => [
 	    'user' => [

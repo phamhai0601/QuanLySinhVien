@@ -1,31 +1,35 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\GiangVienhSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/** @var int $pagesize */
 
-$this->title = 'Giang Viens';
+
+use common\widgets\Paging;
+use kartik\grid\GridView;
+
+$this->title                   = 'Giang Viens';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giang-vien-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Giang Vien', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+	<?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
+        'toggleData'=>false,
+        'panel' => [
+	        'heading'=>$this->title,
+	        'type'=>'default',
+	        'before'=>'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tao-lop-tin-chi"><i class="fa fa-plus" aria-hidden="true"></i> Tạo lớp hành chính</button>'
+	                  .Paging::widget([
+			        'current_pagesize' => $pagesize,
+		        ]),
+        ],
+        'panelHeadingTemplate' => '<h3 class="panel-title col-md-6" style="padding: 0px"><i class="fas fa-box"></i> '.$this->title.'</h3>{summary}<div class="clearfix"></div>',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'ten',
             'hoc_van:ntext',

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\GiangVien;
 use backend\models\search\GiangVienhSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,21 @@ class GiangVienController extends Controller
     public function behaviors()
     {
         return [
+	        'access' => [
+		        'class' => AccessControl::className(),
+		        'rules' => [
+			        [
+				        'actions' => [
+					        'index',
+					        'view',
+					        'create',
+					        'update'
+				        ],
+				        'allow' => true,
+				        'roles' => ['@'],
+			        ],
+		        ],
+	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -33,16 +49,17 @@ class GiangVienController extends Controller
      * Lists all GiangVien models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new GiangVienhSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	public function actionIndex($pagesize = 20) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+		$searchModel                        = new GiangVienhSearch();
+		$dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->pagination->pageSize = $pagesize;
+		return $this->render('index', [
+			'pagesize'     => $pagesize,
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
     /**
      * Displays a single GiangVien model.
