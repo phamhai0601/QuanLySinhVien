@@ -21,9 +21,7 @@ yidas\adminlte\plugins\iCheckAsset::register($this);
 <body class="hold-transition login-page">
 
 <?php $this->beginBody() ?>
-
     <?= $content ?>
-
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "dang_ki_lop_tin_chi".
  *
  * @property int $id
- * @property int $ma_lop_tin_chi
+ * @property string $ma_lop_tin_chi
  * @property int $tg_bat_dau
  * @property int $tg_ket_thuc
  * @property int $tinh_trang
@@ -38,26 +38,28 @@ class DangKiLopTinChi extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-	public function rules()
-	{
-		return [
-			[['ma_lop_tin_chi', 'tg_bat_dau', 'tg_ket_thuc', 'tinh_trang', 'created_at'], 'required'],
-			[['ma_lop_tin_chi', 'tg_bat_dau', 'tg_ket_thuc', 'tinh_trang', 'created_at'], 'integer'],
-		];
-	}
+    public function rules()
+    {
+        return [
+            [['ma_lop_tin_chi', 'tg_bat_dau', 'tg_ket_thuc', 'tinh_trang', 'created_at'], 'required'],
+            [['tg_bat_dau', 'tg_ket_thuc', 'tinh_trang', 'created_at'], 'integer'],
+	        ['ma_lop_tin_chi','unique'],
+            [['ma_lop_tin_chi'], 'string', 'max' => 255],
+        ];
+    }
 
     /**
      * {@inheritdoc}
      */
-	public function attributeLabels()
-	{
-		return [
-			'id' => 'ID',
-			'ma_lop_tin_chi' => 'Mã lớp tín chỉ',
-			'tg_bat_dau' => 'Thời gian bắt đầu',
-			'tg_ket_thuc' => 'Thời gian kết thúc',
-			'tinh_trang' => 'Tình trạng',
-			'created_at' => 'Created At',
-		];
-	}
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'ma_lop_tin_chi' => 'Ma Lop Tin Chi',
+            'tg_bat_dau' => 'Tg Bat Dau',
+            'tg_ket_thuc' => 'Tg Ket Thuc',
+            'tinh_trang' => 'Tinh Trang',
+            'created_at' => 'Created At',
+        ];
+    }
 }

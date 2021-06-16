@@ -22,9 +22,7 @@ $fieldOptions2 = [
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-
     <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
-
     <?= $form
       ->field($model, 'username', $fieldOptions1)
       ->label(false)

@@ -39,6 +39,11 @@ return [
         ],
         'view'         => [
 	        'class' => 'backend\component\View',
+	        'theme' => [
+		        'pathMap' => [
+			        '@dektrium/user/views'    => '@backend/views/user',
+		        ],
+	        ],
         ],
         'assetManager' => [
 	        'bundles' => [

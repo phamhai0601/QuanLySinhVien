@@ -5,7 +5,7 @@ namespace backend\controllers;
 use backend\form\TaoLichHocForm;
 use backend\form\TaoLopTinChiForm;
 use Yii;
-use common\models\LopTinChi;
+use backend\models\LopTinChi;
 use backend\models\search\LopTinChiSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -135,6 +135,9 @@ class LopTinChiController extends Controller
             	Yii::$app->session->setFlash('success','Tạo thông tin lớp tín chỉ thành công.');
 	            $this->redirect(['lop-tin-chi/index']);
             }else{
+            	echo '<pre>';
+            	print_r($model->errors);
+            	die();
 	            Yii::$app->session->setFlash('danger','Tạo thông tin lớp tín chỉ không thành công.');
 	            $this->redirect(['lop-tin-chi/index']);
             }
@@ -174,8 +177,9 @@ class LopTinChiController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-		Yii::$app->session->setFlash('success','Xóa thông tin lớp tín chỉ thành công.');
+    	$model = LopTinChi::findOne($id);
+    	$model->delete();
+		Yii::$app->session->setFlash('success','Xóa thông tin lớp tín chỉ <b>'.$model->ten_lop.'</b> thành công.');
         return $this->redirect(['index']);
     }
 

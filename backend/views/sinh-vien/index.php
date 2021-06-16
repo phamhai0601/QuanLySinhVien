@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
 	        'heading'=>$this->title,
 	        'type'=>'default',
-	        'before'=>'<button type="button" class="btn btn-primary btn-outline" data-toggle="modal" data-target="#modal-tao-lop-tin-chi">Thêm thông tin sinh viên</button>'
+	        'before'=>'<a type="button" href="'.Url::to(['sinh-vien/create']).'" class="btn btn-primary" >Thêm thông tin sinh viên</a>'
 	                  .Paging::widget([
 			        'current_pagesize' => $pagesize,
 		        ]),

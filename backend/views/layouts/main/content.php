@@ -1,5 +1,6 @@
 <?php
 
+use common\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\Breadcrumbs;
@@ -31,6 +32,7 @@ use yii\widgets\Breadcrumbs;
     </section>
 
     <section class="content">
+	    <?php echo Alert::widget() ?>
         <?= $content ?>
     </section>
 </div>

@@ -37,7 +37,12 @@ return [
             'errorAction' => 'site/error',
         ],
         'view'         => [
-	        'class' => 'frontend\component\View',
+	        'class' => 'backend\component\View',
+	        'theme' => [
+		        'pathMap' => [
+			        '@dektrium/user/views'    => '@frontend/views/user',
+		        ],
+	        ],
         ],
         'assetManager' => [
 	        'bundles' => [

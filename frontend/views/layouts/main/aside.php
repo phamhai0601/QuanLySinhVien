@@ -73,15 +73,13 @@ use yii\widgets\Menu;
 						  'label' => 'Đăng kí chuyên ngành',
 						  'url'   => [
 							  'lop-tin-chi/index',
-							  'tag' => 'popular',
 						  ],
 						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],
 					  [
 						  'label' => 'Đăng kí lớp tín chỉ',
 						  'url'   => [
-							  'lop-tin-chi/index',
-							  'tag' => 'popular',
+							  'dang-ki-lop-tin-chi/index',
 						  ],
 						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],

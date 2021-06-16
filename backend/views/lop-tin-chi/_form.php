@@ -55,6 +55,9 @@ use yii\helpers\Html;
 		    'allowClear' => true,
 	    ]
     ]) ?>
+
+	<?= $form->field($model,'sv_toi_thieu')->textInput(['value'=>25])?>
+	<?= $form->field($model,'sv_toi_da')->textInput(['value'=>40])?>
 	<div class="form-group pull-right">
 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		<button type="submit" class="btn btn-primary">Save changes</button>

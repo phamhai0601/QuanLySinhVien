@@ -29,7 +29,7 @@ use yii\helpers\ArrayHelper;
 <?= $form->field($model, 'ngay_dang_ki', [
 	'addon'   => [
 			'prepend' => [
-					'content' => '<i class="fas fa-calendar-alt"></i>'
+					'content' => '<i class="fa fa-calendar" aria-hidden="true"></i>'
 			]
 	],
 	'options' => [

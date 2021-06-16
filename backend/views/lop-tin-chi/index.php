@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 				'value'          => function(LopTinChi $data) {
 					if (is_null($data->lichDangKy)) {
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lop-tin-chi-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
+						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-dang-ki-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
 					$time = date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '<br>to<br>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc);
 					return $time;
@@ -83,6 +83,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data->phongHoc->ten;
 				},
 			],
+			'sv_toi_thieu',
+			'sv_toi_da',
 			[
 				'class'               => DataColumn::class,
 				'attribute'           => 'created_at',
@@ -104,13 +106,16 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 			],
 			[
-				'label'         => 'Action',
-				'headerOptions' => ['style' => 'color:#337ab7'],
-				'value'         => function(LopTinChi $data) {
+				'label'          => 'Action',
+				'headerOptions'  => [
+					'style' => 'color:#337ab7',
+					'width:100px',
+				],
+				'value'          => function(LopTinChi $data) {
 					return '<div class="dropdown">
-							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width: 160px">Quản lý
 							  <span class="caret"></span></button>
-							  <ul class="dropdown-menu">
+							  <ul class="dropdown-menu shadow">
 							    <li><a href="#">Sửa</a></li>
 							    <li><a href="' . Url::to([
 							'lop-tin-chi/delete',
