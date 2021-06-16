@@ -37,7 +37,7 @@ return [
             'errorAction' => 'site/error',
         ],
         'view'         => [
-	        'class' => 'backend\component\View',
+	        'class' => 'frontend\component\View',
         ],
         'assetManager' => [
 	        'bundles' => [

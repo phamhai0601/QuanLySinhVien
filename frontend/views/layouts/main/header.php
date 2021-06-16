@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -9,9 +11,9 @@ use yii\helpers\Html;
   <!-- Logo -->
   <a href="index2.html" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b>L</b>MS</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Admin</b>LTE</span>
+    <span class="logo-lg"><b>LMS</b>HOU</span>
   </a>
 
   <!-- Header Navbar -->
@@ -223,17 +225,17 @@ use yii\helpers\Html;
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="<?=$directoryAsset?>/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">Alexander Pierce</span>
+            <img src="data:image/jpeg;base64,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" class="user-image" alt="User Image">
+            <span class="hidden-xs"><?=$this->user->email?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="<?=$directoryAsset?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img src="data:image/jpeg;base64,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" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                <?=$this->user->username?>
+                <small><?=$this->user->email?></small>
               </p>
             </li>
             <!-- Menu Body -->
@@ -257,7 +259,7 @@ use yii\helpers\Html;
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="<?= Url::to(['site/logout'])?>" class="btn btn-default btn-flat" data-method="post">Sign out</a>
               </div>
             </li>
           </ul>

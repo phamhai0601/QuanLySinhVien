@@ -11,8 +11,7 @@ use yii\helpers\Html;
  * (`yii\web\ErrorAction` also support changing layout by setting `layout` property)
  */
 $action = Yii::$app->controller->action->id;
-if (in_array($action, ['login', 'error'])) { 
-
+if (in_array($action, ['login', 'error'])) {
     echo $this->render('login', ['content' => $content]);
     return;
 }
@@ -20,10 +19,7 @@ if (in_array($action, ['login', 'error'])) {
 /**
  * You could set your AppAsset depended with AdminlteAsset 
  */
-// \backend\assets\AppAsset::register($this);
-// \app\assets\AppAsset::register($this);
 $adminlteAsset = AppAsset::register($this);
-
 $distPath = $adminlteAsset->baseUrl;
 ?>
 
