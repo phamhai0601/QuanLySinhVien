@@ -29,65 +29,66 @@ class DangKiLopTinChiController extends Controller
 					        'index',
 					        'view',
 					        'create',
-					        'update'
+					        'update',
 				        ],
-				        'allow' => true,
-				        'roles' => ['@'],
+				        'allow'   => true,
+				        'roles'   => ['@'],
 			        ],
 		        ],
 	        ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+	        'verbs'  => [
+		        'class'   => VerbFilter::className(),
+		        'actions' => [
+			        'delete' => ['POST'],
+		        ],
+	        ],
         ];
     }
 
-    /**
-     * Lists all DangKiLopTinChi models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new DangKiLopTinChiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * Lists all DangKiLopTinChi models.
+	 * @return mixed
+	 */
+	public function actionIndex($pagesize = 20) {
+		$searchModel                        = new DangKiLopTinChiSearch();
+		$dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->pagination->pageSize = $pagesize;
+		return $this->render('index', [
+			'pagesize'     => $pagesize,
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	/**
+	 * Displays a single DangKiLopTinChi model.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	public function actionView($id) {
+		return $this->render('view', [
+			'model' => $this->findModel($id),
+		]);
+	}
 
-    /**
-     * Displays a single DangKiLopTinChi model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new DangKiLopTinChi model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new DangKiLopTinChi();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
+	/**
+	 * Creates a new DangKiLopTinChi model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate() {
+		$model = new DangKiLopTinChi();
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect([
+				'view',
+				'id' => $model->id,
+			]);
+		}
+		return $this->render('create', [
+			'model' => $model,
         ]);
     }
 
