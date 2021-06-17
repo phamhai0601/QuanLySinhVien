@@ -27,6 +27,7 @@ class LopTinChiSearch extends LopTinChi
 			        'ma_phong_hoc',
 			        'sv_toi_da',
 			        'sv_toi_thieu',
+			        'tg_bat_dau_hoc',
 		        ],
 		        'integer',
 	        ],
@@ -71,13 +72,14 @@ class LopTinChiSearch extends LopTinChi
 	    }
 	    // grid filtering conditions
 	    $query->andFilterWhere([
-		    'id'            => $this->id,
-		    'ma_giang_vien' => $this->ma_giang_vien,
-		    'ma_ki_hoc'     => $this->ma_ki_hoc,
-		    'ma_phong_hoc'  => $this->ma_phong_hoc,
-		    'sv_toi_thieu'  => $this->sv_toi_thieu,
-		    'sv_toi_da'     => $this->sv_toi_da,
-		    'created_at'    => $this->created_at,
+		    'id'             => $this->id,
+		    'ma_giang_vien'  => $this->ma_giang_vien,
+		    'ma_ki_hoc'      => $this->ma_ki_hoc,
+		    'ma_phong_hoc'   => $this->ma_phong_hoc,
+		    'sv_toi_thieu'   => $this->sv_toi_thieu,
+		    'sv_toi_da'      => $this->sv_toi_da,
+		    'tg_bat_dau_hoc' => $this->tg_bat_dau_hoc,
+		    'created_at'     => $this->created_at,
 	    ]);
 	    $query->andFilterWhere([
 		    'like',

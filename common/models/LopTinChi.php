@@ -14,6 +14,7 @@ namespace common\models;
  * @property int             $ma_phong_hoc
  * @property int             $sv_toi_thieu
  * @property int             $sv_toi_da
+ * @property int             $tg_bat_dau_hoc
  * @property int             $created_at
  *
  * @property MonHoc          $monHoc
@@ -23,21 +24,19 @@ namespace common\models;
  * @property DangKiLopTinChi $lichDangKy
  * @property LichHoc         $lichHoc
  */
-class LopTinChi extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'lop_tin_chi';
-    }
+class LopTinChi extends \yii\db\ActiveRecord {
 
-    /**
-     * {@inheritdoc}
-     */
-	public function rules()
-	{
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function tableName() {
+		return 'lop_tin_chi';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
 		return [
 			[
 				[
@@ -57,6 +56,7 @@ class LopTinChi extends \yii\db\ActiveRecord
 					'ma_phong_hoc',
 					'sv_toi_thieu',
 					'sv_toi_da',
+					'tg_bat_dau_hoc',
 					'created_at',
 				],
 				'integer',
@@ -72,30 +72,30 @@ class LopTinChi extends \yii\db\ActiveRecord
 		];
 	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-	        'id'            => 'ID',
-	        'ten_lop'       => 'Tên lớp',
-	        'ma_mon_hoc'    => 'Môn học',
-	        'ma_giang_vien' => 'Giảng viên',
-	        'ma_ki_hoc'     => 'Kì học',
-	        'sv_toi_thieu'  => 'Sinh viên tối thiểu',
-	        'sv_toi_da'     => 'Sinh viên tối đa',
-	        'ma_phong_hoc'  => 'Phòng học',
-	        'created_at'    => 'Created At',
-        ];
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function attributeLabels() {
+		return [
+			'id'             => 'ID',
+			'ten_lop'        => 'Ten Lop',
+			'ma_mon_hoc'     => 'Ma Mon Hoc',
+			'ma_giang_vien'  => 'Ma Giang Vien',
+			'ma_ki_hoc'      => 'Ma Ki Hoc',
+			'ma_phong_hoc'   => 'Ma Phong Hoc',
+			'sv_toi_thieu'   => 'Sv Toi Thieu',
+			'sv_toi_da'      => 'Sv Toi Da',
+			'tg_bat_dau_hoc' => 'Tg Bat Dau Hoc',
+			'created_at'     => 'Created At',
+		];
+	}
 
 	public function getMonHoc() {
 		return $this->hasOne(MonHoc::class, ['id' => 'ma_mon_hoc']);
 	}
 
 	public function getGiangVien() {
-		return $this->hasOne(GiangVien::class, ['id'=>'ma_giang_vien']);
+		return $this->hasOne(GiangVien::class, ['id' => 'ma_giang_vien']);
 	}
 
 	public function getKiHoc() {
@@ -111,7 +111,7 @@ class LopTinChi extends \yii\db\ActiveRecord
 	}
 
 	public function getLichHoc() {
-		return $this->hasOne(LichHoc::class, ['ma_lop' => 'id']);
+		return $this->hasMany(LichHoc::class, ['ma_lop_tin_chi' => 'ten_lop']);
 	}
 
 	public function beforeSave($insert) {
@@ -122,8 +122,15 @@ class LopTinChi extends \yii\db\ActiveRecord
 	}
 
 	public function beforeDelete() {
-		$this->lichDangKy->delete();
-		$this->lichHoc->delete();
+
+		if ($this->lichDangKy != null) {
+			$this->lichDangKy->delete();
+		}
+		if ($this->lichHoc != null) {
+			foreach ($this->lichHoc as $lichHoc) {
+				$lichHoc->delete();
+			}
+		}
 		return parent::beforeDelete();
 	}
 }

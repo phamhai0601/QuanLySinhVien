@@ -2,9 +2,12 @@
 
 use backend\models\LopTinChi;
 use common\widgets\Paging;
+use kartik\date\DatePicker;
+use kartik\editable\Editable;
 use kartik\grid\DataColumn;
+use kartik\grid\EditableColumn;
 use kartik\grid\GridView;
-use yii\helpers\Html;
+use kartik\popover\PopoverX;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -51,11 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label'         => 'Lịch học',
 				'headerOptions' => ['style' => 'color:#337ab7'],
 				'value'         => function(LopTinChi $data) {
-					if (!is_null($data->lichHoc)) {
-						return $data->lichHoc->ngayHoc->ngay.'<br>'.$data->lichHoc->gioHoc->gio_bat_dau.'-'.$data->lichHoc->gioHoc->gio_ket_thuc;
-					} else {
+					$lichHocs = $data->lichHoc;
+					if (empty($lichHocs)) {
 						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
+					$lis = '';
+					foreach ($lichHocs as $lichHoc) {
+						$lis .= '<li>' . $lichHoc->ngayHoc->ngay . ' ' . $lichHoc->gioHoc->gio_bat_dau . '</li>';
+					}
+					return '<ul>' . $lis . '</ul>';
 				},
 				'format'        => 'raw',
 			],
@@ -72,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					if (is_null($data->lichDangKy)) {
 						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-dang-ki-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
-					$time = date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '<br>to<br>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc);
+					$time = 'từ <b>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '</b><br>đến <b>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc) . '</b>';
 					return $time;
 				},
 				'format'         => 'raw',
@@ -85,6 +92,24 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'sv_toi_thieu',
 			'sv_toi_da',
+			[
+				'class'           => EditableColumn::class,
+				'attribute'       => 'tg_bat_dau_hoc',
+				'editableOptions' => [
+					'name'          => 'notes',
+					'asPopover'     => true,
+					'inputType'     => Editable::INPUT_DATE,
+					'placement'     => PopoverX::ALIGN_AUTO_BOTTOM,
+					'value'         => "Raw denim you...",
+					'header'        => 'Thời gian học dự kiến',
+					'submitOnEnter' => false,
+					'size'          => 'lg',
+					'options'       => ['class' => 'form-control'],
+				],
+				'value' => function(LopTinChi $data){
+					return date('l, d/m/Y',$data->tg_bat_dau_hoc);
+				}
+			],
 			[
 				'class'               => DataColumn::class,
 				'attribute'           => 'created_at',

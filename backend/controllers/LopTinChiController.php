@@ -63,6 +63,26 @@ class LopTinChiController extends Controller
      */
     public function actionIndex($pagesize = 20)
     {
+	    if (Yii::$app->request->post('hasEditable')) {
+		    $id        = Yii::$app->request->post('editableKey');
+		    $lopTinChi = LopTinChi::findOne($id);
+		    $out       = [
+			    'output'  => '',
+			    'message' => '',
+		    ];
+		    $posted    = current($_POST['LopTinChi']);
+		    switch (Yii::$app->request->post('editableAttribute')) {
+			    case 'tg_bat_dau_hoc':
+				    $lopTinChi->updateAttributes(['tg_bat_dau_hoc' => strtotime($posted['tg_bat_dau_hoc'])]);
+				    $out['output'] = date('l, d/m/Y',$lopTinChi->tg_bat_dau_hoc);
+				    break;
+		    }
+		    if ($out['output'] == '') {
+			    $out['output'] = '<em>(not set)</em>';
+		    }
+		    echo json_encode($out);
+		    die();
+	    }
 	    $searchModel                        = new LopTinChiSearch();
 	    $dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
 	    $dataProvider->pagination->pageSize = $pagesize;

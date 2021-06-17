@@ -1,5 +1,6 @@
 <?php
 
+use common\models\LichHoc;
 use common\widgets\Paging;
 use frontend\models\DangKiLopTinChi;
 use kartik\grid\GridView;
@@ -64,10 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'label'         => 'Thời gian đăng ký',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value'         => function(DangKiLopTinChi $data) {
-						return '<ul>
-								<li>' . date(Yii::$app->params['date'], $data->tg_bat_dau) . '</li>
-								<li>' . date(Yii::$app->params['date'], $data->tg_ket_thuc) . '</li>
-							<ul>';
+						return 'từ <b>' . date(Yii::$app->params['date'], $data->tg_bat_dau) . '</b><br>' . 'đến <b>' . date(Yii::$app->params['date'], $data->tg_ket_thuc).'</b>';
 					},
 					'format'        => 'raw',
 				],
@@ -75,8 +73,15 @@ $this->params['breadcrumbs'][] = $this->title;
 					'label' => 'Lịch học dự kiến',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value' => function(DangKiLopTinChi $data) {
-						//TODO
+						/** @var LichHoc $lichHoc */
+						$lichHocs = $data->lopTinChi->lichHoc;
+						$lis = '';
+						foreach ($lichHocs as $lichHoc){
+							$lis .= '<li>'.$lichHoc->ngayHoc->ngay.' '.$lichHoc->gioHoc->gio_bat_dau.'</li>';
+						}
+						return '<ul>'.$lis.'</ul>';
 					},
+					'format' => 'raw'
 				],
 				[
 					'attribute' => 'tinh_trang',

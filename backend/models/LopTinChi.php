@@ -10,5 +10,39 @@
 
 namespace backend\models;
 class LopTinChi extends \common\models\LopTinChi {
-
+	public function rules() {
+		return [
+			[
+				[
+					'ma_mon_hoc',
+					'ma_giang_vien',
+					'ma_ki_hoc',
+					'ma_phong_hoc',
+					'sv_toi_thieu',
+					'sv_toi_da',
+				],
+				'required',
+			],
+			[
+				[
+					'ma_giang_vien',
+					'ma_ki_hoc',
+					'ma_phong_hoc',
+					'sv_toi_thieu',
+					'sv_toi_da',
+					'created_at',
+				],
+				'integer',
+			],
+			[
+				[
+					'ten_lop',
+					'ma_mon_hoc',
+					'tg_bat_dau_hoc'
+				],
+				'string',
+				'max' => 255,
+			],
+		];
+	}
 }
