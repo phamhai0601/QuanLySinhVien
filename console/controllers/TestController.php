@@ -351,6 +351,14 @@ class TestController extends Controller {
 
 	}
 
+	public function actionTest2(){
+		$time = '12:10 15.06.2021';
+		echo $time.PHP_EOL;
+		$time_unix = strtotime($time);
+		echo $time_unix.PHP_EOL;
+
+	}
+
 
 
 }

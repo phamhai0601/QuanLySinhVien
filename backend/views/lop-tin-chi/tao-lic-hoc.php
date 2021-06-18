@@ -14,28 +14,34 @@
 
 use backend\models\GioHoc;
 use backend\models\NgayHoc;
+use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
 ?>
 
-<?php $fom = ActiveForm::begin(['id'=>'tao-lich-hoc-form']); ?>
+<?php $fom = ActiveForm::begin(['id' => 'tao-lich-hoc-form']); ?>
 
-<?= $fom->field($model,'ngay_hoc')->widget(Select2::class,[
-	'data'=> ArrayHelper::map(NgayHoc::find()->all(),'id','ngay'),
-	'options' => ['placeholder' => 'Chọn ngày học...'],
+<?= $fom->field($model, 'ngay_hoc')->widget(DatePicker::class, [
+	'readonly'      => true,
+	'size'          => 'lg',
 	'pluginOptions' => [
-		'allowClear' => true
+		'autoclose' => true,
+		'format'    => 'mm/dd/yyyy',
 	],
 ]) ?>
 
-<?=$fom->field($model,'gio_hoc')->widget(Select2::class,[
-	'data' => ArrayHelper::map(GioHoc::find()->all(),'id','gio_bat_dau'),
-	'options' => ['placeholder' => 'Select a state ...'],
-	'pluginOptions' => [
-		'allowClear' => true
+<?= $fom->field($model, 'gio_hoc')->widget(Select2::class, [
+	'data'          => ArrayHelper::map(GioHoc::find()->all(), 'id', 'gio_bat_dau'),
+	'options'       => [
+		'placeholder' => 'Select a state ...',
 	],
+	'pluginOptions' => [
+		'allowClear' => true,
+	],
+	'size'          => Select2::LARGE,
+
 ]) ?>
 <div class="form-group pull-right">
 	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

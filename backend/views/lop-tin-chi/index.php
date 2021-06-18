@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\LopTinChi;
+use common\models\LichHoc;
 use common\widgets\Paging;
 use kartik\date\DatePicker;
 use kartik\editable\Editable;
@@ -55,14 +56,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				'headerOptions' => ['style' => 'color:#337ab7'],
 				'value'         => function(LopTinChi $data) {
 					$lichHocs = $data->lichHoc;
-					if (empty($lichHocs)) {
-						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
-					}
-					$lis = '';
+					$button   = '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
+					$lis      = '';
+					/** @var LichHoc $lichHoc */
 					foreach ($lichHocs as $lichHoc) {
-						$lis .= '<li>' . $lichHoc->ngayHoc->ngay . ' ' . $lichHoc->gioHoc->gio_bat_dau . '</li>';
+						$lis .= '<li>' . date('l d/m/Y H:i', $lichHoc->ngay_hoc) . '</li>';
 					}
-					return '<ul>' . $lis . '</ul>';
+					return '<ul>' . $lis . '</ul>' . $button;
 				},
 				'format'        => 'raw',
 			],

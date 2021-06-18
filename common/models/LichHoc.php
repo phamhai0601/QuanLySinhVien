@@ -9,8 +9,8 @@ use Yii;
  *
  * @property int     $id
  * @property string  $ma_lop_tin_chi
- * @property string  $ngay_hoc
- * @property string  $gio_hoc
+ * @property int     $ngay_hoc
+ * @property int     $gio_hoc
  * @property int     $created_at
  *
  * @property NgayHoc $ngayHoc
@@ -40,35 +40,18 @@ class LichHoc extends \yii\db\ActiveRecord {
 				'required',
 			],
 			[
-				['created_at'],
+				[
+					'gio_hoc',
+					'created_at',
+				],
 				'integer',
 			],
+			['ngayHoc','safe'],
 			[
-				[
-					'ma_lop_tin_chi',
-					'ngay_hoc',
-				],
+				['ma_lop_tin_chi',],
 				'string',
 				'max' => 255,
 			],
-			[
-				['gio_hoc'],
-				'string',
-				'max' => 11,
-			],
-		];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function attributeLabels() {
-		return [
-			'id'             => 'ID',
-			'ma_lop_tin_chi' => 'Ma Lop Tin Chi',
-			'ngay_hoc'       => 'Ngay Hoc',
-			'gio_hoc'        => 'Gio Hoc',
-			'created_at'     => 'Created At',
 		];
 	}
 

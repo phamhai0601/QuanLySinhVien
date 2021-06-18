@@ -124,15 +124,16 @@ class LopTinChiController extends Controller
     }
 
 	public function actionTaoLichHoc($id) {
-    	Yii::$app->response->format = 'json';
-		$model                 = new TaoLichHocForm();
-		$model->ma_lop_tin_chi = $id;
+		Yii::$app->response->format = 'json';
+		$model                      = new TaoLichHocForm();
+		$lopTinChi                  = LopTinChi::findOne($id);
+		$model->ma_lop_tin_chi      = $lopTinChi->ten_lop;
 		if ($model->load(Yii::$app->request->post())) {
 			if ($model->save()) {
-				Yii::$app->session->setFlash('success','Tạo lịch học cho lớp tín chỉ thành công.');
+				Yii::$app->session->setFlash('success', 'Tạo lịch học cho lớp tín chỉ thành công.');
 				$this->redirect(['lop-tin-chi/index']);
 			} else {
-				Yii::$app->session->setFlash('danger','Tạo lịch học cho lớp tín chỉ không thành công.');
+				Yii::$app->session->setFlash('danger', 'Tạo lịch học cho lớp tín chỉ không thành công.');
 				$this->redirect(['lop-tin-chi/index']);
 			}
 		}
