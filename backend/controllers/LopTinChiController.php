@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\form\TaoLichHocForm;
 use backend\form\TaoLopTinChiForm;
+use common\models\LichHoc;
 use Yii;
 use backend\models\LopTinChi;
 use backend\models\search\LopTinChiSearch;
@@ -37,11 +38,10 @@ class LopTinChiController extends Controller
 				        'actions' => [
 					        'create',
 					        'delete',
-					        'update',
 					        'index',
 					        'tao-lop-tin-chi',
-					        'view',
-					        'tao-lich-hoc'
+					        'tao-lich-hoc',
+					        'sua-lich-hoc'
 				        ],
 				        'allow'   => true,
 				        'roles'   => ['@'],
@@ -123,6 +123,11 @@ class LopTinChiController extends Controller
 		return $this->renderAjax('tao-lop-tin-chi-form',['model'=>$model]);
     }
 
+	/**
+	 * @param $id : id of lopTinChi
+	 *
+	 * @return string
+	 */
 	public function actionTaoLichHoc($id) {
 		Yii::$app->response->format = 'json';
 		$model                      = new TaoLichHocForm();
@@ -142,6 +147,29 @@ class LopTinChiController extends Controller
 		]);
 	}
 
+	public function actionSuaLichHoc($id){
+		Yii::$app->response->format = 'json';
+		$licHoc = LichHoc::findOne($id);
+		$model = new TaoLichHocForm();
+		$model->_lichHoc = $licHoc;
+		$model->ngay_hoc = date('m/d/Y',$licHoc->ngay_hoc);
+		$model->gio_hoc = $licHoc->gio_hoc;
+		if ($model->load(Yii::$app->request->post())) {
+			if ($model->update()) {
+				Yii::$app->session->setFlash('success', 'Thay đổi lịch học cho lớp tín chỉ thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			} else {
+				Yii::$app->session->setFlash('danger', 'Thay đổi lịch học cho lớp tín chỉ không thành công.');
+				$this->redirect(['lop-tin-chi/index']);
+			}
+		}
+		return $this->renderAjax('tao-lic-hoc', [
+			'model' => $model,
+		]);
+	}
+
+
+
     /**
      * Creates a new LopTinChi model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -156,9 +184,6 @@ class LopTinChiController extends Controller
             	Yii::$app->session->setFlash('success','Tạo thông tin lớp tín chỉ thành công.');
 	            $this->redirect(['lop-tin-chi/index']);
             }else{
-            	echo '<pre>';
-            	print_r($model->errors);
-            	die();
 	            Yii::$app->session->setFlash('danger','Tạo thông tin lớp tín chỉ không thành công.');
 	            $this->redirect(['lop-tin-chi/index']);
             }

@@ -1,14 +1,13 @@
 <?php
 
 use backend\models\LopTinChi;
-use common\models\LichHoc;
 use common\widgets\Paging;
-use kartik\date\DatePicker;
 use kartik\editable\Editable;
 use kartik\grid\DataColumn;
 use kartik\grid\EditableColumn;
 use kartik\grid\GridView;
 use kartik\popover\PopoverX;
+use yii\bootstrap\ButtonDropdown;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -21,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider'         => $dataProvider,
 		'filterModel'          => $searchModel,
+		'pjax'                 => true,
 		'export'               => false,
 		'toggleData'           => false,
 		'panel'                => [
@@ -52,17 +52,28 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 			],
 			[
-				'label'         => 'Lịch học',
-				'headerOptions' => ['style' => 'color:#337ab7'],
-				'value'         => function(LopTinChi $data) {
+				'label'          => 'Lịch học',
+				'headerOptions'  => ['style' => 'color:#337ab7'],
+				'contentOptions' => ['class' => 'text-center'],
+				'value'          => function(LopTinChi $data) {
+					/** @var \common\models\LichHoc $lichHoc */
+					$button   = '<div class="dropdown" style="text-align: left">
+								  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Lich học
+								  <span class="caret"></span></button>
+								  <ul class="dropdown-menu box-shadow">
+								    <li><a data-toggle="modal" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '">Thêm</a></li>
+								    <li><a href="#">Sửa</a></li>
+								    <li><a href="#">Xóa</a></li>
+								  </ul>
+								</div>';
 					$lichHocs = $data->lichHoc;
-					$button   = '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
-					$lis      = '';
-					/** @var LichHoc $lichHoc */
-					foreach ($lichHocs as $lichHoc) {
-						$lis .= '<li>' . date('l d/m/Y H:i', $lichHoc->ngay_hoc) . '</li>';
+					if (!empty($lichHocs)) {
+						$li = '';
+						foreach ($lichHocs as $lichHoc) {
+							$li = '<a data-toggle="modal" data-target="#sua-lich-hoc-modal" data-id="' . $lichHoc->id . '">' . date('l, d.m.Y H:i:s', $lichHoc->ngay_hoc) . '</a></br>';
+						}
 					}
-					return '<ul>' . $lis . '</ul>' . $button;
+					return $li . $button;
 				},
 				'format'        => 'raw',
 			],
@@ -138,9 +149,9 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 				'value'          => function(LopTinChi $data) {
 					return '<div class="dropdown">
-							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width: 160px">Quản lý
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
 							  <span class="caret"></span></button>
-							  <ul class="dropdown-menu shadow">
+							  <ul class="dropdown-menu box-shadow">
 							    <li><a href="#">Sửa</a></li>
 							    <li><a href="' . Url::to([
 							'lop-tin-chi/delete',
@@ -199,6 +210,22 @@ $this->params['breadcrumbs'][] = $this->title;
 				...
 			</div>
 		</div>
+	</div>s
+</div>
+
+<div class="modal fade" id="sua-lich-hoc-modal" tabindex="-1" role="dialog" aria-labelledby="sua-lich-hoc-label" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title col-md-6" id="sua-lich-hoc-label">Sửa lịch học</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -206,6 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $url_tao_lich        = Url::to(['lop-tin-chi/tao-lop-tin-chi']);
 $url_tao_lop_tin_chi = Url::to(['lop-tin-chi/create']);
 $url_tao_lich_hoc = Url::to(['lop-tin-chi/tao-lich-hoc']);
+$url_sua_lich_hoc = Url::to(['lop-tin-chi/sua-lich-hoc']);
 $this->registerJs(<<<JS
 	$('#tao-lich-dang-ki-modal').on('hidden.bs.modal', function (e) {
 	}).on('shown.bs.modal', function (e) {
@@ -249,6 +277,25 @@ $this->registerJs(<<<JS
 		$.ajax({
 			type :'get',
 			url : "$url_tao_lich_hoc",
+			data : {
+				id: id,
+			},
+			dataType : 'json',
+			success:function(response){
+				console.log(response)
+				modal.find('.modal-body').html(response);
+			}
+		})
+	})
+	
+		$('#sua-lich-hoc-modal').on('hidden.bs.modal', function (e) {
+	}).on('shown.bs.modal', function (e) {
+		var modal = $(this);
+		var button = $(e.relatedTarget);
+		var id = button.attr("data-id");
+		$.ajax({
+			type :'get',
+			url : "$url_sua_lich_hoc",
 			data : {
 				id: id,
 			},
