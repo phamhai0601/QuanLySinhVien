@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\LopTinChi;
+use common\helper\DateHelper;
 use common\widgets\Paging;
 use kartik\editable\Editable;
 use kartik\grid\DataColumn;
@@ -57,43 +58,61 @@ $this->params['breadcrumbs'][] = $this->title;
 				'contentOptions' => ['class' => 'text-center'],
 				'value'          => function(LopTinChi $data) {
 					/** @var \common\models\LichHoc $lichHoc */
-					$button   = '<div class="dropdown" style="text-align: left">
-								  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Lich học
-								  <span class="caret"></span></button>
-								  <ul class="dropdown-menu box-shadow">
-								    <li><a data-toggle="modal" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '">Thêm</a></li>
-								    <li><a href="#">Sửa</a></li>
-								    <li><a href="#">Xóa</a></li>
-								  </ul>
-								</div>';
+					$button   = '<a data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-hoc-modal" data-id="' . $data->id . '">Thêm</a>';
 					$lichHocs = $data->lichHoc;
+					$li = '';
 					if (!empty($lichHocs)) {
-						$li = '';
+
 						foreach ($lichHocs as $lichHoc) {
-							$li = '<a data-toggle="modal" data-target="#sua-lich-hoc-modal" data-id="' . $lichHoc->id . '">' . date('l, d.m.Y H:i:s', $lichHoc->ngay_hoc) . '</a></br>';
+							$li .= '<div class="input-group" data-toggle="modal" class="btn btn-primary" data-target="#sua-lich-hoc-modal" data-id="' . $lichHoc->id . '">
+								      <input type="text" class="form-control" readonly value="' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i:s', $lichHoc->ngay_hoc)) . '">
+								      <div class="input-group-btn">
+								        <a class="btn btn-default" data-confirm ="Chắc chắn muốn xóa?" href="' . Url::to([
+									'lop-tin-chi/xoa-lich-hoc',
+									'id' => $lichHoc->id,
+								]) . '"><i class="fa fa-times" aria-hidden="true"></i></a>
+								      </div>
+								    </div>';
 						}
 					}
-					return $li . $button;
+					return $li.$button;
 				},
 				'format'        => 'raw',
 			],
 			[
-				'label'          => 'Lịch dăng ký',
-				'headerOptions'  => [
+				'class'           => EditableColumn::class,
+				'attribute'       => 'lich_dang_ky',
+				'headerOptions'   => [
 					'style' => 'color:#337ab7',
 				],
-				'contentOptions' => [
+				'contentOptions'  => [
 					'style' => 'min-width: 150px',
 					'class' => 'text-center',
 				],
-				'value'          => function(LopTinChi $data) {
+				'readonly'        => function(LopTinChi $data){
+					if (is_null($data->lichDangKy)) {
+						return true;
+					}
+				},
+				'editableOptions' => [
+					'asPopover' => true,
+					'inputType' => Editable::INPUT_DATE_RANGE,
+					'options'   => [
+						'options' =>[
+							'readonly'=>'readonly',
+							'class' =>'form-control',
+							''
+						]
+					],
+				],
+				'value'           => function(LopTinChi $data) {
 					if (is_null($data->lichDangKy)) {
 						return '<a href="#" type="button" data-toggle="modal" class="btn btn-primary" data-target="#tao-lich-dang-ki-modal" data-id="' . $data->id . '" >Tạo lịch</a>';
 					}
 					$time = 'từ <b>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_bat_dau) . '</b><br>đến <b>' . date(Yii::$app->params['date'], $data->lichDangKy->tg_ket_thuc) . '</b>';
 					return $time;
 				},
-				'format'         => 'raw',
+				'format'          => 'raw',
 			],
 			[
 				'attribute' => 'ma_phong_hoc',
@@ -103,24 +122,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'sv_toi_thieu',
 			'sv_toi_da',
-			[
-				'class'           => EditableColumn::class,
-				'attribute'       => 'tg_bat_dau_hoc',
-				'editableOptions' => [
-					'name'          => 'notes',
-					'asPopover'     => true,
-					'inputType'     => Editable::INPUT_DATE,
-					'placement'     => PopoverX::ALIGN_AUTO_BOTTOM,
-					'value'         => "Raw denim you...",
-					'header'        => 'Thời gian học dự kiến',
-					'submitOnEnter' => false,
-					'size'          => 'lg',
-					'options'       => ['class' => 'form-control'],
-				],
-				'value' => function(LopTinChi $data){
-					return date('l, d/m/Y',$data->tg_bat_dau_hoc);
-				}
-			],
 			[
 				'class'               => DataColumn::class,
 				'attribute'           => 'created_at',

@@ -10,6 +10,7 @@
 
 namespace backend\models;
 class LopTinChi extends \common\models\LopTinChi {
+	public $lich_dang_ky;
 	public function rules() {
 		return [
 			[
@@ -38,7 +39,6 @@ class LopTinChi extends \common\models\LopTinChi {
 				[
 					'ten_lop',
 					'ma_mon_hoc',
-					'tg_bat_dau_hoc'
 				],
 				'string',
 				'max' => 255,

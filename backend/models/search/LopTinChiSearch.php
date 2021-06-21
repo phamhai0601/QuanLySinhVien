@@ -27,7 +27,6 @@ class LopTinChiSearch extends LopTinChi
 			        'ma_phong_hoc',
 			        'sv_toi_da',
 			        'sv_toi_thieu',
-			        'tg_bat_dau_hoc',
 		        ],
 		        'integer',
 	        ],
@@ -78,7 +77,6 @@ class LopTinChiSearch extends LopTinChi
 		    'ma_phong_hoc'   => $this->ma_phong_hoc,
 		    'sv_toi_thieu'   => $this->sv_toi_thieu,
 		    'sv_toi_da'      => $this->sv_toi_da,
-		    'tg_bat_dau_hoc' => $this->tg_bat_dau_hoc,
 		    'created_at'     => $this->created_at,
 	    ]);
 	    $query->andFilterWhere([

@@ -14,7 +14,6 @@ namespace common\models;
  * @property int             $ma_phong_hoc
  * @property int             $sv_toi_thieu
  * @property int             $sv_toi_da
- * @property int             $tg_bat_dau_hoc
  * @property int             $created_at
  *
  * @property MonHoc          $monHoc
@@ -56,7 +55,6 @@ class LopTinChi extends \yii\db\ActiveRecord {
 					'ma_phong_hoc',
 					'sv_toi_thieu',
 					'sv_toi_da',
-					'tg_bat_dau_hoc',
 					'created_at',
 				],
 				'integer',
@@ -85,7 +83,6 @@ class LopTinChi extends \yii\db\ActiveRecord {
 			'ma_phong_hoc'   => 'Ma Phong Hoc',
 			'sv_toi_thieu'   => 'Sv Toi Thieu',
 			'sv_toi_da'      => 'Sv Toi Da',
-			'tg_bat_dau_hoc' => 'Tg Bat Dau Hoc',
 			'created_at'     => 'Created At',
 		];
 	}

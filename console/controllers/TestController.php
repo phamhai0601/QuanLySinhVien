@@ -10,6 +10,7 @@
 namespace console\controllers;
 use backend\models\GiangVien;
 use backend\models\MonHoc;
+use common\helper\DateHelper;
 use common\models\BoMon;
 use dektrium\user\models\RegistrationForm;
 use moonland\phpexcel\Excel;
@@ -352,10 +353,8 @@ class TestController extends Controller {
 	}
 
 	public function actionTest2(){
-		$time = '12:10 15.06.2021';
-		echo $time.PHP_EOL;
-		$time_unix = strtotime($time);
-		echo $time_unix.PHP_EOL;
+		$date = 'Wednesday, 16.06.2021 06:45';
+		echo DateHelper::ShowWeekVN($date);die();
 
 	}
 

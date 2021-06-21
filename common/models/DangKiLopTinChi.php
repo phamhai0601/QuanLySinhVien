@@ -22,20 +22,18 @@ class DangKiLopTinChi extends \yii\db\ActiveRecord
 	const TRANGTHAI_MO = 1;
 	const TRANGTHAI_DONG = 2;
 
-	const TRANGTHAI = [
-		self::TRANGTHAI_DONG   => [
-			'value'  => 'Đóng',
-			'status' => 'danger',
-		],
-		self::TRANGTHAI_SAP_MO => [
-			'value'  => 'Sắp mở',
-			'status' => 'primary',
-		],
-		self::TRANGTHAI_MO     => [
-			'value'  => 'Mở',
-			'status' => 'success',
-		],
+	const TRANGTHAI_LABEl = [
+		self::TRANGTHAI_DONG   => 'danger',
+		self::TRANGTHAI_SAP_MO => 'primary',
+		self::TRANGTHAI_MO     => 'success',
 	];
+
+	const TRANGTHAI = [
+		self::TRANGTHAI_DONG   => 'Đóng',
+		self::TRANGTHAI_SAP_MO => 'Sắp mở',
+		self::TRANGTHAI_MO     => 'Mở',
+	];
+
 
 
     /**
