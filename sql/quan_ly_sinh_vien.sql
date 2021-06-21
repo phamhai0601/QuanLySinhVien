@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 21, 2021 at 05:08 AM
+-- Generation Time: Jun 21, 2021 at 07:09 PM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -80,14 +80,15 @@ CREATE TABLE IF NOT EXISTS `dang_ki_lop_tin_chi` (
   `tinh_trang` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `dang_ki_lop_tin_chi`
 --
 
 INSERT INTO `dang_ki_lop_tin_chi` (`id`, `ma_lop_tin_chi`, `tg_bat_dau`, `tg_ket_thuc`, `tinh_trang`, `created_at`) VALUES
-(8, '1622967471222P23', 1623862800, 1624035600, 0, 1623952085);
+(8, '1622967471222P23', 1624294800, 1624467600, 1, 1623952085),
+(9, '16229674712310P31', 1624640400, 1624899600, 0, 1624300095);
 
 -- --------------------------------------------------------
 
@@ -209,15 +210,16 @@ CREATE TABLE IF NOT EXISTS `lich_hoc` (
   `gio_hoc` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lich_hoc`
 --
 
 INSERT INTO `lich_hoc` (`id`, `ma_lop_tin_chi`, `ngay_hoc`, `gio_hoc`, `created_at`) VALUES
-(13, '1622967471222P23', 1623973500, 5, 1624064867),
-(14, '1622967471222P23', 1624405500, 5, 1624067587);
+(16, '1622967471222P23', 1624491900, 5, 1624294293),
+(17, '1622967471222P23', 1624664700, 5, 1624298205),
+(18, '16229674712310P31', 1623800700, 5, 1624300108);
 
 -- --------------------------------------------------------
 
@@ -262,21 +264,21 @@ CREATE TABLE IF NOT EXISTS `lop_tin_chi` (
   `ma_phong_hoc` int(11) NOT NULL,
   `sv_toi_thieu` int(11) NOT NULL,
   `sv_toi_da` int(11) NOT NULL,
-  `tg_bat_dau_hoc` int(11) DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ma_giang_vien` (`ma_giang_vien`),
   KEY `ma_mon_hoc` (`ma_mon_hoc`),
   KEY `ma_ki_hoc` (`ma_ki_hoc`,`ma_phong_hoc`),
   KEY `ma_phong_hoc` (`ma_phong_hoc`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lop_tin_chi`
 --
 
-INSERT INTO `lop_tin_chi` (`id`, `ten_lop`, `ma_mon_hoc`, `ma_giang_vien`, `ma_ki_hoc`, `ma_phong_hoc`, `sv_toi_thieu`, `sv_toi_da`, `tg_bat_dau_hoc`, `created_at`) VALUES
-(14, '1622967471222P23', '2', 2, 2, 3, 25, 40, 1623949200, 1623950867);
+INSERT INTO `lop_tin_chi` (`id`, `ten_lop`, `ma_mon_hoc`, `ma_giang_vien`, `ma_ki_hoc`, `ma_phong_hoc`, `sv_toi_thieu`, `sv_toi_da`, `created_at`) VALUES
+(14, '1622967471222P23', '2', 2, 2, 3, 25, 40, 1623950867),
+(15, '16229674712310P31', '3', 10, 2, 5, 25, 40, 1624299644);
 
 -- --------------------------------------------------------
 
@@ -1230,7 +1232,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624237167),
+(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624294785),
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, NULL),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1623939065),
 (17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, NULL);
