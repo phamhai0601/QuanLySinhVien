@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 19, 2021 at 02:27 AM
+-- Generation Time: Jun 21, 2021 at 05:08 AM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -1230,7 +1230,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624060738),
+(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624237167),
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, NULL),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1623939065),
 (17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, NULL);
