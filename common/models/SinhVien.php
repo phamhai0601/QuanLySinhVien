@@ -43,24 +43,14 @@ class SinhVien extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
-        return [
-            [['ten', 'que_quan', 'tg_nhap_hoc', 'cmnd', 'created_at', 'updated_at'], 'required'],
-            [['lop_hanh_chinh', 'gioi_tinh', 'tg_nhap_hoc', 'created_at', 'updated_at'], 'integer'],
-            [['ten', 'email', 'que_quan', 'cmnd'], 'string', 'max' => 255],
-        ];
-    }
-
-    public function getUser(){
-	    return $this->hasOne(User::class, [
-		    'info_id' => 'id',
-	    ]);
-    }
-
-    public function getLopHanhChinh(){
-    	return $this->hasOne(LopHanhChinh::class,['id'=>'lop_hanh_chinh']);
-    }
+	public function rules()
+	{
+		return [
+			[['ten', 'que_quan', 'tg_nhap_hoc', 'cmnd', 'created_at', 'updated_at'], 'required'],
+			[['lop_hanh_chinh', 'gioi_tinh', 'tg_nhap_hoc', 'created_at', 'updated_at'], 'integer'],
+			[['ten', 'email','que_quan', 'cmnd'], 'string', 'max' => 255],
+		];
+	}
 
     /**
      * {@inheritdoc}
@@ -80,4 +70,20 @@ class SinhVien extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUser(){
+		return $this->hasOne(User::class, [
+			'info_id' => 'id',
+		]);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getLopHanhChinh(){
+		return $this->hasOne(LopHanhChinh::class,['id'=>'lop_hanh_chinh']);
+	}
 }

@@ -1,4 +1,6 @@
 <?php
+
+use common\widgets\Alert;
 use yii\widgets\Breadcrumbs;
 ?>
 <div class="content-wrapper">
@@ -28,6 +30,7 @@ use yii\widgets\Breadcrumbs;
     </section>
 
     <section class="content">
+	    <?php echo Alert::widget() ?>
         <?= $content ?>
     </section>
 </div>

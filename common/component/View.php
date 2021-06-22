@@ -9,9 +9,24 @@
  */
 
 namespace common\component;
+use common\models\SinhVien;
+use common\models\User;
+
+/**
+ * Class View
+ * @package common\component
+ * @property User $user
+ * @property SinhVien $sinhVien
+ */
 class View extends \yii\web\View {
+
 	/**@var User */
 	public $user;
+
+	/**
+	 * @var SinhVien
+	 */
+	public $sinhVien;
 
 	/**
 	 * {@inheritDoc}
@@ -19,9 +34,11 @@ class View extends \yii\web\View {
 	public function init() {
 		parent::init();
 		if (!\Yii::$app->user->isGuest) {
-			$this->user = \Yii::$app->user->identity;
+			$this->user     = \Yii::$app->user->identity;
+			$this->sinhVien = $this->user->sinhVien;
 		} else {
-			$this->user = null;
+			$this->user     = null;
+			$this->sinhVien = null;
 		}
 	}
 }
