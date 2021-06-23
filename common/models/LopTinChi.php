@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\component\Model;
 
 /**
  * This is the model class for table "lop_tin_chi".
@@ -23,7 +24,7 @@ namespace common\models;
  * @property DangKiLopTinChi $lichDangKy
  * @property LichHoc         $lichHoc
  */
-class LopTinChi extends \yii\db\ActiveRecord {
+class LopTinChi extends Model {
 
 	/**
 	 * {@inheritdoc}

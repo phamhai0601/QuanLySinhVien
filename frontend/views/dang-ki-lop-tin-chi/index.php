@@ -84,7 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					'label'         => 'Đã đăng ký',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value'         => function(DangKiLopTinChi $data) {
-						return 0 . ' sv';
+						$svDangKy = SvDkiTinChi::find()->where(['ma_lop_tin_chi' => $data->ma_lop_tin_chi])->count();
+						return $svDangKy . ' sv';
 					},
 				],
 				[
@@ -160,18 +161,23 @@ $this->params['breadcrumbs'][] = $this->title;
 								<br><?= $dangKy->lopTinChi->giangVien->ten ?></td>
 							<td><?= $dangKy->lopTinChi->sv_toi_thieu ?></td>
 							<td><?= $dangKy->lopTinChi->sv_toi_da ?></td>
-							<td>0sv</td>
+							<td>
+								<?php
+								$svDangKy = SvDkiTinChi::find()->where(['ma_lop_tin_chi' => $dangKy->ma_lop_tin_chi])->count();
+								echo $svDangKy . ' sv';
+								?>
+							</td>
 							<td>từ <b><?= date(Yii::$app->params['date'], $dangKy->tg_bat_dau) ?></b><br>đến
 								<b><?= date(Yii::$app->params['date'], $dangKy->tg_ket_thuc) ?></b>';
 							</td>
 							<td>
 								<?php
-									$lichHocs = $dangKy->lopTinChi->lichHoc;
-									$lis      = '';
-									foreach ($lichHocs as $lichHoc) {
-										$lis .= '<li>' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i', $lichHoc->ngay_hoc)) . '</li>';
-									}
-									echo '<ul>'.$lis.'</ul>';
+								$lichHocs = $dangKy->lopTinChi->lichHoc;
+								$lis      = '';
+								foreach ($lichHocs as $lichHoc) {
+									$lis .= '<li>' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i', $lichHoc->ngay_hoc)) . '</li>';
+								}
+								echo '<ul>' . $lis . '</ul>';
 								?>
 							</td>
 						</tr>
