@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\LopTinChi;
-use frontend\models\search\LopTinChiSearch;
-use yii\base\BaseObject;
-use yii\filters\AccessControl;
+use frontend\models\LichHoc;
+use frontend\models\search\LichHocSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * LopTinChiController implements the CRUD actions for LopTinChi model.
+ * LichHocController implements the CRUD actions for LichHoc model.
  */
-class LopTinChiController extends Controller
+class LichHocController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,21 +20,6 @@ class LopTinChiController extends Controller
     public function behaviors()
     {
         return [
-	        'access' => [
-		        'class' => AccessControl::className(),
-		        'rules' => [
-			        [
-				        'actions' => [
-					        'index',
-					        'view',
-					        'create',
-					        'update',
-				        ],
-				        'allow' => true,
-				        'roles' => ['@'],
-			        ],
-		        ],
-	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -47,12 +30,12 @@ class LopTinChiController extends Controller
     }
 
     /**
-     * Lists all LopTinChi models.
+     * Lists all LichHoc models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new LopTinChiSearch();
+        $searchModel = new LichHocSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,9 +44,8 @@ class LopTinChiController extends Controller
         ]);
     }
 
-
     /**
-     * Displays a single LopTinChi model.
+     * Displays a single LichHoc model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -76,13 +58,13 @@ class LopTinChiController extends Controller
     }
 
     /**
-     * Creates a new LopTinChi model.
+     * Creates a new LichHoc model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new LopTinChi();
+        $model = new LichHoc();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -94,7 +76,7 @@ class LopTinChiController extends Controller
     }
 
     /**
-     * Updates an existing LopTinChi model.
+     * Updates an existing LichHoc model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -114,7 +96,7 @@ class LopTinChiController extends Controller
     }
 
     /**
-     * Deletes an existing LopTinChi model.
+     * Deletes an existing LichHoc model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,15 +110,15 @@ class LopTinChiController extends Controller
     }
 
     /**
-     * Finds the LopTinChi model based on its primary key value.
+     * Finds the LichHoc model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return LopTinChi the loaded model
+     * @return LichHoc the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = LopTinChi::findOne($id)) !== null) {
+        if (($model = LichHoc::findOne($id)) !== null) {
             return $model;
         }
 

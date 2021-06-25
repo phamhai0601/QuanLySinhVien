@@ -51,7 +51,7 @@ use yii\widgets\Menu;
 			  ],
 			  [
 				  'label' => 'Lịch học',
-				  'url'   => ['lop-tin-chi/lich-hoc'],
+				  'url'   => ['lich-hoc/index'],
 				  'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
 			  ],
 			  // 'Products' menu item will be selected as long as the route is 'product/index'
