@@ -50,17 +50,22 @@ use yii\widgets\Menu;
 					'label'    => 'Quản lý sinh viên',
 					'url'      => ['sinh-vien/index'],
 					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
-			  ],
-			  // 'Products' menu item will be selected as long as the route is 'product/index'
-			  [
-				  'options' => ['class' => 'treeview'],
-				  'label' => 'Quản lý lớp học',
-				  'url'   => ['product/index'],
-				  'submenuTemplate'=>'<ul class="treeview-menu">{items}</ul>',
-				  'template' => '<a href="{url}"><i class="fa fa-home" aria-hidden="true"></i><span>{label}</span><i class="fa fa-angle-left right"></i></a>',
-				  'items' => [
-					  [
-						  'label' => 'Quản lý lơp hành chính',
+				],
+				[
+					'label'    => 'Kì học',
+					'url'      => ['ki-hoc/index'],
+					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
+				],
+				// 'Products' menu item will be selected as long as the route is 'product/index'
+				[
+					'options'         => ['class' => 'treeview'],
+					'label'           => 'Quản lý lớp học',
+					'url'             => ['product/index'],
+					'submenuTemplate' => '<ul class="treeview-menu">{items}</ul>',
+					'template'        => '<a href="{url}"><i class="fa fa-home" aria-hidden="true"></i><span>{label}</span><i class="fa fa-angle-left right"></i></a>',
+					'items'           => [
+						[
+							'label' => 'Quản lý lơp hành chính',
 						  'url'   => [
 							  'lop-hanh-chinh/index',
 						  ],
