@@ -28,22 +28,31 @@ $this->params['breadcrumbs'][] = $this->title;
 				['class' => 'yii\grid\SerialColumn'],
 				[
 					'attribute' => 'ngay_hoc',
+					'label'     => 'Giờ học',
 					'value'     => function(LichHoc $data) {
 						return '<b>' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i:s', $data->ngay_hoc)) . '</b>';
 					},
 					'format'    => 'raw',
 				],
 				[
+					'label'         => 'Phòng học',
+					'headerOptions' => ['style' => 'color:#3c8dbc'],
+					'value'         => function(LichHoc $data) {
+						return $data->lopTinChi->phongHoc->ten;
+					},
+				],
+				[
 					'label' => 'Môn học',
+					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value' => function(LichHoc $data) {
 						return $data->lopTinChi->monHoc->ten_mon_hoc;
 					},
 				],
 				[
-					'label'         => 'Phòng học',
+					'label'         => 'Giảng viên',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value'         => function(LichHoc $data) {
-						return $data->lopTinChi->phongHoc->ten;
+						return $data->lopTinChi->giangVien->ten;
 					},
 				],
 				[

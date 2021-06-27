@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\component\Model;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property LopTinChi $lopTinChi
  */
-class DangKiLopTinChi extends \yii\db\ActiveRecord
+class DangKiLopTinChi extends Model
 {
 	const TRANGTHAI_SAP_MO = 0;
 	const TRANGTHAI_MO = 1;

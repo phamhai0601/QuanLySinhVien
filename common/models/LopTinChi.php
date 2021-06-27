@@ -114,7 +114,7 @@ class LopTinChi extends Model {
 
 	public function beforeSave($insert) {
 		// TODO: Change the auto generated stub
-		$this->ten_lop    = $this->kiHoc->nam_hoc . $this->kiHoc->ma_ki_hoc . $this->monHoc->id . $this->giangVien->id . $this->phongHoc->ten;
+		$this->ten_lop    = $this->kiHoc->created_at . $this->kiHoc->ma_ki_hoc . $this->monHoc->id . $this->giangVien->id . $this->phongHoc->ten;
 		$this->created_at = time();
 		return parent::beforeSave($insert);
 	}

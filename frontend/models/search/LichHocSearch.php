@@ -2,6 +2,7 @@
 
 namespace frontend\models\search;
 
+use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\LichHoc;
@@ -48,6 +49,45 @@ class LichHocSearch extends LichHoc {
 	public function scenarios() {
 		// bypass scenarios() implementation in the parent class
 		return Model::scenarios();
+	}
+
+	public function searchLichHoc($params){
+		$query = LichHoc::find()->innerJoin('sv_dki_tin_chi','sv_dki_tin_chi.ma_lop_tin_chi = lich_hoc.ma_lop_tin_chi')->where(['sv_dki_tin_chi.id_sinh_vien'=>$this->sinhVien->id]);
+		// add conditions that should always apply here
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'sort'  => [
+				'defaultOrder' => [
+					'ngay_hoc' => SORT_ASC,
+				],
+			],
+		]);
+		$this->load($params);
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+		$query->andFilterWhere([
+			'id'         => $this->id,
+			'gio_hoc'    => $this->gio_hoc,
+			'created_at' => $this->created_at,
+		]);
+		$query->andFilterWhere([
+			'like',
+			'ma_lop_tin_chi',
+			$this->ma_lop_tin_chi,
+		]);
+		$query->andWhere([
+			'>',
+			'ngay_hoc',
+			$this->startTimeWeek,
+		])->andWhere([
+			'<',
+			'ngay_hoc',
+			$this->endTimeWeek,
+		]);
+		return $dataProvider;
 	}
 
 	/**

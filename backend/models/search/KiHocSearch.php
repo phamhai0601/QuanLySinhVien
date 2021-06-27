@@ -2,12 +2,12 @@
 
 namespace backend\models\search;
 
-use backend\models\KiHoc;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use backend\models\KiHoc;
 
 /**
- * KiHocSearch represents the model behind the search form of `common\models\KiHoc`.
+ * KiHocSearch represents the model behind the search form of `backend\models\KiHoc`.
  */
 class KiHocSearch extends KiHoc
 {
@@ -17,7 +17,7 @@ class KiHocSearch extends KiHoc
     public function rules()
     {
         return [
-            [['id', 'tg_bat_dau', 'tg_ket_thuc', 'nam_hoc', 'created_at'], 'integer'],
+            [['id', 'tg_bat_dau', 'tg_ket_thuc', 'created_at'], 'integer'],
             [['ma_ki_hoc'], 'safe'],
         ];
     }
@@ -61,7 +61,6 @@ class KiHocSearch extends KiHoc
             'id' => $this->id,
             'tg_bat_dau' => $this->tg_bat_dau,
             'tg_ket_thuc' => $this->tg_ket_thuc,
-            'nam_hoc' => $this->nam_hoc,
             'created_at' => $this->created_at,
         ]);
 

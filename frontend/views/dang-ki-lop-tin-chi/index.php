@@ -43,15 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
 					'label'         => 'Đăng ký',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value'         => function(DangKiLopTinChi $data) {
-						$time_start = $data->lopTinChi->lichDangKy->tg_bat_dau;
-						$time_end   = $data->lopTinChi->lichDangKy->tg_ket_thuc;
-						if ($time_start < time() && time() < $time_end) {
-							return '<a class="btn btn-success" href="' . Url::to([
-									'dang-ki-lop-tin-chi/dang-ky-tin-chi',
-									'id' => $data->id,
-								]) . '">Đăng ký</a>';
-						}
-						return '<a class="btn btn-warning" disabled="disabled">Đăng ký</a>';
+						try {
+							$time_start = $data->lopTinChi->lichDangKy->tg_bat_dau;
+							$time_end   = $data->lopTinChi->lichDangKy->tg_ket_thuc;
+							if ($time_start < time() && time() < $time_end) {
+								return '<a class="btn btn-success" href="' . Url::to([
+										'dang-ki-lop-tin-chi/dang-ky-tin-chi',
+										'id' => $data->id,
+									]) . '">Đăng ký</a>';
+							}
+							return '<a class="btn btn-warning" disabled="disabled">Đăng ký</a>';
+						}catch (Exception $e){}
+						return 'not-set';
 					},
 					'format'        => 'raw',
 				],

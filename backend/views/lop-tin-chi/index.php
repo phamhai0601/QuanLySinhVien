@@ -122,47 +122,47 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'sv_toi_thieu',
 			'sv_toi_da',
-			[
-				'class'               => DataColumn::class,
-				'attribute'           => 'created_at',
-				'filterType'          => GridView::FILTER_DATE_RANGE,
-				'filterWidgetOptions' => [
-					'readonly'      => 'readonly',
-					'convertFormat' => true,
-					'pluginOptions' => [
-						'locale'    => ['format' => 'Y-m-d'],
-						'autoclose' => true,
-					],
-					'pluginEvents'  => [
-						"cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
-					],
-				],
-				'format'              => [
-					'date',
-					Yii::$app->params['format']['date'],
-				],
-			],
-			[
-				'label'          => 'Action',
-				'headerOptions'  => [
-					'style' => 'color:#337ab7',
-					'width:100px',
-				],
-				'value'          => function(LopTinChi $data) {
-					return '<div class="dropdown">
-							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
-							  <span class="caret"></span></button>
-							  <ul class="dropdown-menu box-shadow">
-							    <li><a href="#">Sửa</a></li>
-							    <li><a href="' . Url::to([
-							'lop-tin-chi/delete',
-							'id' => $data->id,
-						]) . '" data-method="post" data-confirm="Bạn chắc chắn xóa thông tin lớp tín chỉ?">Xóa</a></li>
-							  </ul>
-							</div>';
-				},
-				'format'        => 'raw',
-			],
+//			[
+//				'class'               => DataColumn::class,
+//				'attribute'           => 'created_at',
+//				'filterType'          => GridView::FILTER_DATE_RANGE,
+//				'filterWidgetOptions' => [
+//					'readonly'      => 'readonly',
+//					'convertFormat' => true,
+//					'pluginOptions' => [
+//						'locale'    => ['format' => 'Y-m-d'],
+//						'autoclose' => true,
+//					],
+//					'pluginEvents'  => [
+//						"cancel.daterangepicker" => 'function(ev,picker){$(this).val("").trigger("change");}',
+//					],
+//				],
+//				'format'              => [
+//					'date',
+//					Yii::$app->params['format']['date'],
+//				],
+//			],
+//			[
+//				'label'          => 'Action',
+//				'headerOptions'  => [
+//					'style' => 'color:#337ab7',
+//					'width:100px',
+//				],
+//				'value'          => function(LopTinChi $data) {
+//					return '<div class="dropdown">
+//							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Quản lý
+//							  <span class="caret"></span></button>
+//							  <ul class="dropdown-menu box-shadow">
+//							    <li><a href="#">Sửa</a></li>
+//							    <li><a href="' . Url::to([
+//							'lop-tin-chi/delete',
+//							'id' => $data->id,
+//						]) . '" data-method="post" data-confirm="Bạn chắc chắn xóa thông tin lớp tín chỉ?">Xóa</a></li>
+//							  </ul>
+//							</div>';
+//				},
+//				'format'        => 'raw',
+//			],
 		],
 	]); ?>
 </div>

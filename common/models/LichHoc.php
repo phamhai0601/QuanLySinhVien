@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\component\Model;
 use Yii;
 
 /**
@@ -18,7 +19,7 @@ use Yii;
  * @property LopTinChi  $lopTinChi
  *
  */
-class LichHoc extends \yii\db\ActiveRecord {
+class LichHoc extends Model {
 
 	/**
 	 * {@inheritdoc}

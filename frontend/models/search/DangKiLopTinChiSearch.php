@@ -40,7 +40,7 @@ class DangKiLopTinChiSearch extends DangKiLopTinChi
      */
     public function search($params)
     {
-        $query = DangKiLopTinChi::find();
+        $query = DangKiLopTinChi::find()->innerJoin(['lop_tin_chi','lop_tin_chi.ten_lop = dang_ki_lop_tin_chi.ma_lop_tin_chi'])->where(['lop_tin_chi.ma_ki_hoc'=>$this->kiHoc->id]);
 
         // add conditions that should always apply here
 

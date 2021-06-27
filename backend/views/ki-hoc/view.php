@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\KiHoc */
+/* @var $model backend\models\KiHoc */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Ki Hocs', 'url' => ['index']];
@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'ma_ki_hoc',
             'tg_bat_dau',
             'tg_ket_thuc',
-            'nam_hoc',
             'created_at',
         ],
     ]) ?>

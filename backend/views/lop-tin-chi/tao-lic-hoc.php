@@ -24,7 +24,10 @@ use yii\helpers\ArrayHelper;
 <?php $fom = ActiveForm::begin(['id' => 'tao-lich-hoc-form']); ?>
 
 <?= $fom->field($model, 'ngay_hoc')->widget(DatePicker::class, [
-	'readonly'      => true,
+	'type'          => DatePicker::TYPE_INLINE,
+	'readonly'      => true,	'options'       => [
+		'placeholder' => 'Chọn ngày học ...',
+	],
 	'size'          => 'lg',
 	'pluginOptions' => [
 		'autoclose' => true,
@@ -40,7 +43,6 @@ use yii\helpers\ArrayHelper;
 	'pluginOptions' => [
 		'allowClear' => true,
 	],
-	'size'          => Select2::LARGE,
 
 ]) ?>
 <div class="form-group pull-right">

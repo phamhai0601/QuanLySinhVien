@@ -64,3 +64,15 @@ a.btn.btn-primary {
     font-size: 12px;
     margin: 0;
 }
+
+.datepicker.datepicker-inline {
+    width: 100%;
+}
+
+table.table-condensed {
+    width: inherit;
+}
+
+.datepicker-days {
+    width: inherit;
+}

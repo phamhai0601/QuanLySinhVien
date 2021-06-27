@@ -3,9 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\KiHoc;
+use backend\models\KiHoc;
 use backend\models\search\KiHocSearch;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,11 +14,6 @@ use yii\filters\VerbFilter;
  */
 class KiHocController extends Controller
 {
-	public function actions() {
-		// TODO: Change the auto generated stub
-		$this->view->title ='Kì học';
-		return parent::actions();
-	}
 
 	/**
      * {@inheritdoc}
@@ -27,21 +21,6 @@ class KiHocController extends Controller
     public function behaviors()
     {
         return [
-	        'access' => [
-		        'class' => AccessControl::className(),
-		        'rules' => [
-			        [
-				        'actions' => [
-					        'index',
-					        'view',
-					        'create',
-					        'update'
-				        ],
-				        'allow' => true,
-				        'roles' => ['@'],
-			        ],
-		        ],
-	        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -55,17 +34,14 @@ class KiHocController extends Controller
      * Lists all KiHoc models.
      * @return mixed
      */
-    public function actionIndex($pagesize = 20)
-    {
-	    $searchModel                        = new KiHocSearch();
-	    $dataProvider                       = $searchModel->search(Yii::$app->request->queryParams);
-	    $dataProvider->pagination->pageSize = $pagesize;
-	    return $this->render('index', [
-		    'pagesize'     => $pagesize,
-		    'searchModel'  => $searchModel,
-		    'dataProvider' => $dataProvider,
-	    ]);
-    }
+	public function actionIndex() {
+		$searchModel  = new KiHocSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		return $this->render('index', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
     /**
      * Displays a single KiHoc model.
@@ -89,8 +65,13 @@ class KiHocController extends Controller
     {
         $model = new KiHoc();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+        	if($model->save()){
+		        Yii::$app->session->setFlash('success', '<b>Tạo kì học mới thành công!</b>');
+		        return $this->redirect(['ki-hoc/index']);
+	        }
+
         }
 
         return $this->render('create', [

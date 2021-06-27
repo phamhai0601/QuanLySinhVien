@@ -12,11 +12,9 @@
 /* @var $this \yii\web\View */
 /* @var $model TaoLopTinChiForm */
 
-use backend\models\LopTinChi;
+use backend\form\TaoLopTinChiForm;
 use kartik\daterange\DateRangePicker;
 use kartik\form\ActiveForm;
-use kartik\select2\Select2;
-use yii\helpers\ArrayHelper;
 
 ?>
 
