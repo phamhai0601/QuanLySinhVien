@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 22, 2021 at 07:29 PM
+-- Generation Time: Jun 28, 2021 at 10:51 AM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -80,15 +80,17 @@ CREATE TABLE IF NOT EXISTS `dang_ki_lop_tin_chi` (
   `tinh_trang` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `dang_ki_lop_tin_chi`
 --
 
 INSERT INTO `dang_ki_lop_tin_chi` (`id`, `ma_lop_tin_chi`, `tg_bat_dau`, `tg_ket_thuc`, `tinh_trang`, `created_at`) VALUES
-(8, '1622967471222P23', 1624294800, 1624467600, 1, 1623952085),
-(9, '16229674712310P31', 1624640400, 1624899600, 0, 1624300095);
+(11, '16248107803310P22', 1624640400, 1624899600, 1, 1624812922),
+(12, '1624810780324P21', 1624640400, 1624899600, 1, 1624812968),
+(13, '1624810780341P23', 1624640400, 1624899600, 1, 1624813794),
+(14, '16248107803517P43', 1624899600, 1624986000, 0, 1624815707);
 
 -- --------------------------------------------------------
 
@@ -183,18 +185,16 @@ CREATE TABLE IF NOT EXISTS `ki_hoc` (
   `ma_ki_hoc` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tg_bat_dau` int(11) NOT NULL,
   `tg_ket_thuc` int(11) NOT NULL,
-  `nam_hoc` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `ki_hoc`
 --
 
-INSERT INTO `ki_hoc` (`id`, `ma_ki_hoc`, `tg_bat_dau`, `tg_ket_thuc`, `nam_hoc`, `created_at`) VALUES
-(1, '1', 1622967471, 1622967471, 1622967471, 1622967471),
-(2, '2', 1622967471, 1622967471, 1622967471, 1622967471);
+INSERT INTO `ki_hoc` (`id`, `ma_ki_hoc`, `tg_bat_dau`, `tg_ket_thuc`, `created_at`) VALUES
+(8, '3', 1622480400, 1630342800, 1624810780);
 
 -- --------------------------------------------------------
 
@@ -210,16 +210,17 @@ CREATE TABLE IF NOT EXISTS `lich_hoc` (
   `gio_hoc` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lich_hoc`
 --
 
 INSERT INTO `lich_hoc` (`id`, `ma_lop_tin_chi`, `ngay_hoc`, `gio_hoc`, `created_at`) VALUES
-(16, '1622967471222P23', 1624491900, 5, 1624294293),
-(17, '1622967471222P23', 1624664700, 5, 1624298205),
-(18, '16229674712310P31', 1623800700, 5, 1624300108);
+(20, '16248107803310P22', 1624837500, 5, 1624812908),
+(21, '1624810780324P21', 1624945500, 4, 1624812954),
+(22, '1624810780341P23', 1625010300, 5, 1624813686),
+(23, '16248107803517P43', 1625096700, 5, 1624814153);
 
 -- --------------------------------------------------------
 
@@ -270,15 +271,17 @@ CREATE TABLE IF NOT EXISTS `lop_tin_chi` (
   KEY `ma_mon_hoc` (`ma_mon_hoc`),
   KEY `ma_ki_hoc` (`ma_ki_hoc`,`ma_phong_hoc`),
   KEY `ma_phong_hoc` (`ma_phong_hoc`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lop_tin_chi`
 --
 
 INSERT INTO `lop_tin_chi` (`id`, `ten_lop`, `ma_mon_hoc`, `ma_giang_vien`, `ma_ki_hoc`, `ma_phong_hoc`, `sv_toi_thieu`, `sv_toi_da`, `created_at`) VALUES
-(14, '1622967471222P23', '2', 2, 2, 3, 25, 40, 1623950867),
-(15, '16229674712310P31', '3', 10, 2, 5, 25, 40, 1624299644);
+(17, '16248107803310P22', '3', 10, 8, 2, 25, 40, 1624812889),
+(18, '1624810780324P21', '2', 4, 8, 1, 25, 40, 1624812945),
+(19, '1624810780341P23', '4', 1, 8, 3, 25, 40, 1624813612),
+(20, '16248107803517P43', '5', 17, 8, 12, 25, 40, 1624814146);
 
 -- --------------------------------------------------------
 
@@ -1179,14 +1182,15 @@ CREATE TABLE IF NOT EXISTS `sv_dki_tin_chi` (
   `ma_lop_tin_chi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `sv_dki_tin_chi`
 --
 
 INSERT INTO `sv_dki_tin_chi` (`id`, `id_sinh_vien`, `ma_lop_tin_chi`, `created_at`) VALUES
-(2, 1, '1622967471222P23', 1624389304);
+(7, 3, '16248107803310P22', 1624817209),
+(6, 3, '1624810780341P23', 1624817204);
 
 -- --------------------------------------------------------
 
@@ -1254,10 +1258,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624372043),
-(15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, NULL),
-(16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624375474),
-(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, NULL);
+(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624843297),
+(15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, 1624473707),
+(16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624473267),
+(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1624815271);
 
 --
 -- Constraints for dumped tables
