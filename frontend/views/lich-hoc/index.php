@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'attribute' => 'ngay_hoc',
 					'label'     => 'Giờ học',
 					'value'     => function(LichHoc $data) {
-						return '<b>' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i:s', $data->ngay_hoc)) . '</b>';
+						return '<b>' . DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $data->ngay_hoc)) . '</b>';
 					},
 					'format'    => 'raw',
 				],

@@ -23,6 +23,7 @@ use common\component\Model;
  * @property PhongHoc        $phongHoc
  * @property DangKiLopTinChi $lichDangKy
  * @property LichHoc         $lichHoc
+ * @property LichThi         $lichThi
  */
 class LopTinChi extends Model {
 
@@ -110,6 +111,10 @@ class LopTinChi extends Model {
 
 	public function getLichHoc() {
 		return $this->hasMany(LichHoc::class, ['ma_lop_tin_chi' => 'ten_lop']);
+	}
+
+	public function getLichThi() {
+		return $this->hasOne(LichThi::class, ['ma_lop_tin_chi' => 'ten_lop']);
 	}
 
 	public function beforeSave($insert) {

@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'label'         => 'Thời gian đăng ký',
 					'headerOptions' => ['style' => 'color:#3c8dbc'],
 					'value'         => function(DangKiLopTinChi $data) {
-						return 'từ <b>' . date(Yii::$app->params['date'], $data->tg_bat_dau) . '</b><br>' . 'đến <b>' . date(Yii::$app->params['date'], $data->tg_ket_thuc).'</b>';
+						return 'từ <b>' . DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $data->tg_bat_dau)) . '</b><br>' . 'đến <b>' . DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $data->tg_ket_thuc)) . '</b>';
 					},
 					'format'        => 'raw',
 				],
@@ -170,15 +170,16 @@ $this->params['breadcrumbs'][] = $this->title;
 								echo $svDangKy . ' sv';
 								?>
 							</td>
-							<td>từ <b><?= date(Yii::$app->params['date'], $dangKy->tg_bat_dau) ?></b><br>đến
-								<b><?= date(Yii::$app->params['date'], $dangKy->tg_ket_thuc) ?></b>';
+							<td>từ
+								<b><?= DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $dangKy->tg_bat_dau)) ?></b><br>đến
+								<b><?= DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $dangKy->tg_ket_thuc)) ?></b>
 							</td>
 							<td>
 								<?php
 								$lichHocs = $dangKy->lopTinChi->lichHoc;
 								$lis      = '';
 								foreach ($lichHocs as $lichHoc) {
-									$lis .= '<li>' . DateHelper::ShowWeekVN(date('l, d.m.Y H:i', $lichHoc->ngay_hoc)) . '</li>';
+									$lis .= '<li>' . DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $lichHoc->ngay_hoc)) . '</li>';
 								}
 								echo '<ul>' . $lis . '</ul>';
 								?>

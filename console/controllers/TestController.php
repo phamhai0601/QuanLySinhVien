@@ -358,6 +358,10 @@ class TestController extends Controller {
 
 	}
 
+	public function actionTest3(){
+		echo strtotime('01/07/2021 06:45');
+	}
+
 
 
 }

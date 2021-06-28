@@ -1,7 +1,4 @@
 <?php
 return [
-	'format'=>[
-		'date'=> 'php:Y-m-d H:i:s',
-	],
-	'date'=>'Y-m-d H:i:s',
+	'date'=>'l, d-m-Y H:i'
 ];

@@ -52,6 +52,11 @@ use yii\widgets\Menu;
 					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
 				],
 				[
+					'label'    => 'Lịch thi',
+					'url'      => ['lich-thi/index'],
+					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
+				],
+				[
 					'label'    => 'Kì học',
 					'url'      => ['ki-hoc/index'],
 					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
