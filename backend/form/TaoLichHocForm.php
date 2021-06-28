@@ -11,6 +11,7 @@
 namespace backend\form;
 use backend\models\GioHoc;
 use common\models\LichHoc;
+use common\models\LopTinChi;
 use phpDocumentor\Reflection\Utils;
 use yii\base\Model;
 
