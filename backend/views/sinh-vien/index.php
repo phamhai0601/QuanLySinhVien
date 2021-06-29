@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\SinhVien;
+use common\helper\DateHelper;
 use common\models\LopHanhChinh;
 use common\widgets\Paging;
 use kartik\editable\Editable;
@@ -83,29 +84,26 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'que_quan',
             [
-                'attribute' => 'gioi_tinh',
-	            'value' => function(SinhVien $data){
-					return SinhVien::GIOTINH[$data->gioi_tinh];
-	            }
+	            'attribute' => 'gioi_tinh',
+	            'value'     => function(SinhVien $data) {
+		            return SinhVien::GIOTINH[$data->gioi_tinh];
+	            },
             ],
 	        [
 		        'attribute' => 'tg_nhap_hoc',
-		        'format'    => [
-			        'date',
-			        Yii::$app->params['format']['date'],
-		        ],
+		        'value'     => function(SinhVien $data) {
+			        return DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $data->tg_nhap_hoc));
+		        },
 	        ],
-            'cmnd',
-            [
-                'attribute' => 'created_at',
-	            'format'    => [
-		            'date',
-		            Yii::$app->params['format']['date'],
-	            ],
-            ],
-//            'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+	        'cmnd',
+	        [
+		        'attribute' => 'created_at',
+		        'value'     => function(SinhVien $data) {
+			        return DateHelper::ShowWeekVN(date(Yii::$app->params['date'], $data->created_at));
+		        },
+	        ],
+	        //            'updated_at',
+	        ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

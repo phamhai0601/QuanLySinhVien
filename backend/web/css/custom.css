@@ -1,3 +1,7 @@
+html,
+body {
+    height: 100%;
+}
 button {
     outline: none!important;
 }
@@ -75,4 +79,8 @@ table.table-condensed {
 
 .datepicker-days {
     width: inherit;
+}
+
+body.skin-blue.sidebar-mini {
+    font-family: cursive!important;
 }
