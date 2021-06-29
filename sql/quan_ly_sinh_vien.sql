@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 28, 2021 at 10:51 AM
+-- Generation Time: Jun 29, 2021 at 01:59 AM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `dang_ki_lop_tin_chi` (
 
 INSERT INTO `dang_ki_lop_tin_chi` (`id`, `ma_lop_tin_chi`, `tg_bat_dau`, `tg_ket_thuc`, `tinh_trang`, `created_at`) VALUES
 (11, '16248107803310P22', 1624640400, 1624899600, 1, 1624812922),
-(12, '1624810780324P21', 1624640400, 1624899600, 1, 1624812968),
+(12, '1624810780324P21', 1624899600, 1624986000, 1, 1624812968),
 (13, '1624810780341P23', 1624640400, 1624899600, 1, 1624813794),
 (14, '16248107803517P43', 1624899600, 1624986000, 0, 1624815707);
 
@@ -221,6 +221,30 @@ INSERT INTO `lich_hoc` (`id`, `ma_lop_tin_chi`, `ngay_hoc`, `gio_hoc`, `created_
 (21, '1624810780324P21', 1624945500, 4, 1624812954),
 (22, '1624810780341P23', 1625010300, 5, 1624813686),
 (23, '16248107803517P43', 1625096700, 5, 1624814153);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lich_thi`
+--
+
+DROP TABLE IF EXISTS `lich_thi`;
+CREATE TABLE IF NOT EXISTS `lich_thi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ma_lop_tin_chi` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `tg_thi` int(11) NOT NULL,
+  `ma_phong` int(11) NOT NULL,
+  `ma_giang_vien` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lich_thi`
+--
+
+INSERT INTO `lich_thi` (`id`, `ma_lop_tin_chi`, `tg_thi`, `ma_phong`, `ma_giang_vien`, `created_at`) VALUES
+(4, '1624810780324P21', 1625183100, 2, 1, 1624906250);
 
 -- --------------------------------------------------------
 
@@ -1182,7 +1206,7 @@ CREATE TABLE IF NOT EXISTS `sv_dki_tin_chi` (
   `ma_lop_tin_chi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `sv_dki_tin_chi`
@@ -1190,7 +1214,8 @@ CREATE TABLE IF NOT EXISTS `sv_dki_tin_chi` (
 
 INSERT INTO `sv_dki_tin_chi` (`id`, `id_sinh_vien`, `ma_lop_tin_chi`, `created_at`) VALUES
 (7, 3, '16248107803310P22', 1624817209),
-(6, 3, '1624810780341P23', 1624817204);
+(6, 3, '1624810780341P23', 1624817204),
+(8, 3, '1624810780324P21', 1624908260);
 
 -- --------------------------------------------------------
 
@@ -1261,7 +1286,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth
 (1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624843297),
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, 1624473707),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624473267),
-(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1624815271);
+(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1624908221);
 
 --
 -- Constraints for dumped tables
