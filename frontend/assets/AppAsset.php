@@ -17,6 +17,7 @@ class AppAsset extends AdminlteAsset
 	    'css/custom.css',
     ];
     public $js = [
+	    'js/custom.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

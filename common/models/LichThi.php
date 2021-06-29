@@ -66,10 +66,10 @@ class LichThi extends \yii\db\ActiveRecord {
 	public function attributeLabels() {
 		return [
 			'id'             => 'ID',
-			'ma_lop_tin_chi' => 'Ma Lop Tin Chi',
-			'tg_thi'         => 'Tg Thi',
-			'ma_phong'       => 'Ma Phong',
-			'ma_giang_vien'  => 'Ma Giang Vien',
+			'ma_lop_tin_chi' => 'Mã lớp/DS thi',
+			'tg_thi'         => 'Thời gian thi',
+			'ma_phong'       => 'Phòng thi',
+			'ma_giang_vien'  => 'Giám thị coi thi',
 			'created_at'     => 'Created At',
 		];
 	}

@@ -11,6 +11,7 @@ namespace console\controllers;
 use backend\models\GiangVien;
 use backend\models\MonHoc;
 use common\helper\DateHelper;
+use common\helper\StringHelper;
 use common\models\BoMon;
 use dektrium\user\models\RegistrationForm;
 use moonland\phpexcel\Excel;
@@ -359,7 +360,7 @@ class TestController extends Controller {
 	}
 
 	public function actionTest3(){
-		echo strtotime('01/07/2021 06:45');
+		echo StringHelper::radomString(10);
 	}
 
 

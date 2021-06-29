@@ -111,7 +111,7 @@ use yii\widgets\Menu;
 			  ],
 			  [
 				  'label' => 'Lịch thi',
-				  'url'   => ['giang-vien/index'],
+				  'url'   => ['lich-thi/index'],
 				  'template' => '<a href="{url}"><i class="fa fa-user-o"></i><span>{label}</span></a>',
 			  ],
 			  [
@@ -121,6 +121,13 @@ use yii\widgets\Menu;
 				  'submenuTemplate'=>'<ul class="treeview-menu">{items}</ul>',
 				  'template' => '<a href="{url}"><i class="fa fa-home" aria-hidden="true"></i><span>{label}</span><i class="fa fa-angle-left right"></i></a>',
 				  'items' => [
+					  [
+						  'label' => 'Mua mã dịch vụ',
+						  'url'   => [
+							  'dich-vu/mua-ma-the',
+						  ],
+						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+					  ],
 					  [
 						  'label' => 'Nạp mã dịch vụ',
 						  'url'   => [

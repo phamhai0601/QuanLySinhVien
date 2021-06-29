@@ -17,4 +17,13 @@ class StringHelper {
 		}
 		return $string;
 	}
+
+	public static function radomString($lengt){
+		$numer='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$string = '';
+		for ($i=0;$i<=$lengt;$i++){
+			$string.=$numer[rand(0,61)];
+		}
+		return $string;
+	}
 }
