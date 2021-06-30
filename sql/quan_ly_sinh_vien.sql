@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 29, 2021 at 01:59 AM
+-- Generation Time: Jun 30, 2021 at 07:17 PM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -176,6 +176,108 @@ INSERT INTO `gio_hoc` (`id`, `gio_bat_dau`, `gio_ket_thuc`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hoa_don`
+--
+
+DROP TABLE IF EXISTS `hoa_don`;
+CREATE TABLE IF NOT EXISTS `hoa_don` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ma_the_nap` int(11) NOT NULL,
+  `user_tao_hd` int(11) NOT NULL,
+  `status` tinyint(11) NOT NULL,
+  `ma_giao_dich` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ma_ma_the` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hoa_don`
+--
+
+INSERT INTO `hoa_don` (`id`, `ma_the_nap`, `user_tao_hd`, `status`, `ma_giao_dich`, `ma_ma_the`, `created_at`) VALUES
+(1, 1, 17, 1, NULL, NULL, 1625078295),
+(2, 2, 17, 1, NULL, NULL, 1625078450),
+(3, 2, 17, 1, NULL, NULL, 1625078513),
+(4, 2, 17, 1, NULL, NULL, 1625078515),
+(5, 2, 17, 1, NULL, NULL, 1625078515),
+(6, 2, 17, 1, NULL, NULL, 1625078515),
+(7, 2, 17, 1, NULL, NULL, 1625078515),
+(8, 2, 17, 1, NULL, NULL, 1625078515),
+(9, 2, 17, 1, NULL, NULL, 1625078516),
+(10, 2, 17, 1, NULL, NULL, 1625078516),
+(11, 2, 17, 1, NULL, NULL, 1625078516),
+(12, 2, 17, 1, NULL, NULL, 1625078530),
+(13, 2, 17, 1, NULL, NULL, 1625078535),
+(14, 2, 17, 1, NULL, NULL, 1625078535),
+(15, 2, 17, 1, NULL, NULL, 1625078535),
+(16, 2, 17, 1, NULL, NULL, 1625078535),
+(17, 2, 17, 1, NULL, NULL, 1625078545),
+(18, 2, 17, 1, NULL, NULL, 1625078545),
+(19, 2, 17, 1, NULL, NULL, 1625078545),
+(20, 2, 17, 1, NULL, NULL, 1625078665),
+(21, 2, 17, 1, NULL, NULL, 1625078665),
+(22, 2, 17, 1, NULL, NULL, 1625078665),
+(23, 2, 17, 1, NULL, NULL, 1625078665),
+(24, 2, 17, 1, NULL, NULL, 1625078704),
+(25, 2, 17, 1, NULL, NULL, 1625078705),
+(26, 2, 17, 1, NULL, NULL, 1625078705),
+(27, 2, 17, 1, NULL, NULL, 1625078706),
+(28, 2, 17, 1, NULL, NULL, 1625078706),
+(29, 2, 17, 1, NULL, NULL, 1625078706),
+(30, 2, 17, 1, NULL, NULL, 1625078709),
+(31, 2, 17, 1, NULL, NULL, 1625078726),
+(32, 2, 17, 1, NULL, NULL, 1625078735),
+(33, 2, 17, 1, NULL, NULL, 1625078736),
+(34, 2, 17, 1, NULL, NULL, 1625078736),
+(35, 2, 17, 1, NULL, NULL, 1625078749),
+(36, 2, 17, 1, NULL, NULL, 1625078750),
+(37, 2, 17, 1, NULL, NULL, 1625078750),
+(38, 2, 17, 1, NULL, NULL, 1625078756),
+(39, 2, 17, 1, NULL, NULL, 1625078756),
+(40, 2, 17, 1, NULL, NULL, 1625078809),
+(41, 2, 17, 1, NULL, NULL, 1625078810),
+(42, 2, 17, 1, NULL, NULL, 1625078810),
+(43, 2, 17, 1, NULL, NULL, 1625078810),
+(44, 2, 17, 1, NULL, NULL, 1625078810),
+(45, 2, 17, 1, NULL, NULL, 1625078821),
+(46, 2, 17, 1, NULL, NULL, 1625079131),
+(47, 2, 17, 1, NULL, NULL, 1625079133),
+(48, 2, 17, 1, NULL, NULL, 1625079134),
+(49, 2, 17, 1, NULL, NULL, 1625079134),
+(50, 2, 17, 1, NULL, NULL, 1625079134),
+(51, 2, 17, 1, NULL, NULL, 1625079134),
+(52, 2, 17, 1, NULL, NULL, 1625079135),
+(53, 2, 17, 1, NULL, NULL, 1625079135),
+(54, 2, 17, 1, NULL, NULL, 1625079135),
+(55, 2, 17, 1, NULL, NULL, 1625079136),
+(56, 2, 17, 1, NULL, NULL, 1625079136),
+(57, 2, 17, 1, NULL, NULL, 1625079136),
+(58, 2, 17, 1, NULL, NULL, 1625079136),
+(59, 2, 17, 1, NULL, NULL, 1625079251),
+(60, 2, 17, 1, NULL, NULL, 1625079252),
+(61, 2, 17, 1, NULL, NULL, 1625079252),
+(62, 2, 17, 1, NULL, NULL, 1625079252),
+(63, 2, 17, 1, NULL, NULL, 1625079252),
+(64, 2, 17, 1, NULL, NULL, 1625079253),
+(65, 2, 17, 1, NULL, NULL, 1625079253),
+(66, 2, 17, 1, NULL, NULL, 1625079254),
+(67, 2, 17, 1, NULL, NULL, 1625079272),
+(68, 2, 17, 1, NULL, NULL, 1625079280),
+(69, 2, 17, 1, NULL, NULL, 1625079281),
+(70, 2, 17, 1, NULL, NULL, 1625079291),
+(71, 2, 17, 1, NULL, NULL, 1625079326),
+(72, 2, 17, 1, NULL, NULL, 1625079374),
+(73, 2, 17, 1, NULL, NULL, 1625080457),
+(74, 2, 17, 1, NULL, NULL, 1625080457),
+(75, 2, 17, 1, NULL, NULL, 1625080457),
+(76, 2, 17, 1, NULL, NULL, 1625080564),
+(77, 2, 17, 1, NULL, NULL, 1625080596),
+(78, 2, 17, 1, NULL, NULL, 1625080614);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ki_hoc`
 --
 
@@ -306,6 +408,24 @@ INSERT INTO `lop_tin_chi` (`id`, `ten_lop`, `ma_mon_hoc`, `ma_giang_vien`, `ma_k
 (18, '1624810780324P21', '2', 4, 8, 1, 25, 40, 1624812945),
 (19, '1624810780341P23', '4', 1, 8, 3, 25, 40, 1624813612),
 (20, '16248107803517P43', '5', 17, 8, 12, 25, 40, 1624814146);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ma_the`
+--
+
+DROP TABLE IF EXISTS `ma_the`;
+CREATE TABLE IF NOT EXISTS `ma_the` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ma_the` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ma_the_nap` int(11) NOT NULL,
+  `trang_thai` tinyint(1) NOT NULL,
+  `tg_nap` int(11) DEFAULT NULL,
+  `user_su_dung` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1238,6 +1358,33 @@ CREATE TABLE IF NOT EXISTS `tai_khoan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `the_nap`
+--
+
+DROP TABLE IF EXISTS `the_nap`;
+CREATE TABLE IF NOT EXISTS `the_nap` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `gia_tien` int(11) NOT NULL,
+  `occ` int(255) NOT NULL,
+  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `the_nap`
+--
+
+INSERT INTO `the_nap` (`id`, `name`, `gia_tien`, `occ`, `img`, `created_at`) VALUES
+(1, 'CARD 10', 10000, 10000, '', 1623259985),
+(2, 'CARD 30', 30000, 35000, '', 1623259985),
+(3, 'CARD 50', 50000, 60000, '', 1623259985),
+(4, 'CARD 100', 500000, 140000, '', 1623259985);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `token`
 --
 
@@ -1283,10 +1430,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1624843297),
+(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1625074279),
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, 1624473707),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624473267),
-(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1624908221);
+(17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1625074393);
 
 --
 -- Constraints for dumped tables

@@ -10,9 +10,11 @@
 
 namespace frontend\controllers;
 
+use common\models\HoaDon;
 use common\models\MaThe;
 use common\models\TheNap;
 use frontend\component\Controller;
+use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -30,7 +32,8 @@ class DichVuController extends Controller {
 						'actions' => [
 							'index',
 							'mua-ma-the',
-							'get-thong-tin-card'
+							'get-thong-tin-card',
+							'tao-hoa-don',
 						],
 						'allow'   => true,
 						'roles'   => ['@'],
@@ -58,16 +61,20 @@ class DichVuController extends Controller {
 	 * Lấy về thông tin của thẻ nạp.
 	 * @return array
 	 */
-	public function actionGetThongTinCard(){
+	public function actionGetThongTinCard() {
 		\Yii::$app->response->format = 'json';
-		$theNap = TheNap::findOne($_POST['idCard']);
+		$theNap                      = TheNap::findOne($_POST['idCard']);
 		return [
-			'error' => 0,
-			'message' =>$theNap,
+			'error'   => 0,
+			'message' => $theNap,
 		];
 	}
 
-	public function actionTaoMaThe(){
-		$maThe = new MaThe();
+	public function actionTaoHoaDon($id) {
+		$theNap = TheNap::findOne($id);
+		$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
+		if($hoaDon){
+			return $this->render('hoa-don',['model'=>$hoaDon]);
+		}
 	}
 }
