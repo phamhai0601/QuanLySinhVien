@@ -3,8 +3,6 @@
 namespace common\models;
 
 use common\component\Model;
-use phpDocumentor\Reflection\Utils;
-use Yii;
 
 /**
  * This is the model class for table "hoa_don".
@@ -18,6 +16,9 @@ use Yii;
  * @property int         $created_at
  *
  * @property User        $user
+ * @property TheNap      $theNap
+ * @property MaThe       $maThe
+ *
  *
  */
 class HoaDon extends Model {
@@ -98,8 +99,8 @@ class HoaDon extends Model {
 
 	/**
 	 * Tạo hóa đơn mới.
-	 *
-	 * @param TheNap $theNap
+	 * @param $ma_ma_the
+	 * @param $user_id
 	 *
 	 * @return HoaDon|null
 	 */
@@ -117,5 +118,13 @@ class HoaDon extends Model {
 
 	public function getUser() {
 		return $this->hasOne(User::class, ['id' => 'user_tao_hd']);
+	}
+
+	public function getTheNap() {
+		return $this->hasOne(TheNap::class, ['id' => 'ma_the_nap']);
+	}
+
+	public function getMaThe() {
+		return $this->hasOne(MaThe::class, ['id' => 'ma_ma_the']);
 	}
 }

@@ -34,6 +34,7 @@ class DichVuController extends Controller {
 							'mua-ma-the',
 							'get-thong-tin-card',
 							'tao-hoa-don',
+							'hoa-don'
 						],
 						'allow'   => true,
 						'roles'   => ['@'],
@@ -54,6 +55,14 @@ class DichVuController extends Controller {
 	 */
 	public function actionMuaMaThe() {
 		$theNaps = TheNap::find()->all();
+		if (\Yii::$app->request->post()) {
+			$theNap = TheNap::findOne($_POST['the-nap']);
+			$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
+			if ($hoaDon) {
+				\Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Order: ' . $hoaDon->id);
+				return $this->redirect(['dich-vu/hoa-don','id' => $hoaDon->id]);
+			}
+		}
 		return $this->render('nap-the', ['theNaps' => $theNaps]);
 	}
 
@@ -70,11 +79,13 @@ class DichVuController extends Controller {
 		];
 	}
 
-	public function actionTaoHoaDon($id) {
-		$theNap = TheNap::findOne($id);
-		$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
-		if($hoaDon){
-			return $this->render('hoa-don',['model'=>$hoaDon]);
-		}
+	/**
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	public function actionHoaDon($id) {
+		$model = HoaDon::findOne($id);
+		return $this->render('hoa-don', ['model' => $model]);
 	}
 }

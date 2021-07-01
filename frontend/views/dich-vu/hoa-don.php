@@ -78,12 +78,17 @@
 				<tbody>
 				<tr>
 					<td>1</td>
-					<td>Call of Duty</td>
-					<td>455-981-221</td>
+					<td><?= $model->theNap->name ?></td>
+					<td><?php
+						try {
+							echo $model->maThe->ma_the;
+						} catch (Exception $exception) {
+							echo 'not-set';
+						} ?>
+					</td>
 					<td>El snort testosterone trophy driving gloves handsome</td>
-					<td>$64.50</td>
+					<td><?= number_format($model->theNap->gia_tien, 0, ',', ' '); ?> vnđ</td>
 				</tr>
-
 				</tbody>
 			</table>
 		</div>
@@ -92,13 +97,10 @@
 
 	<div class="row no-print">
 		<div class="col-xs-12">
-			<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
 			<button type="button" class="btn btn-success pull-right">
-				<i class="fa fa-credit-card"></i> Submit Payment
+				<i class="fa fa-credit-card" data-toggle="loading" data-></i> Thanh Toán
 			</button>
-			<button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-				<i class="fa fa-download"></i> Generate PDF
-			</button>
+
 		</div>
 	</div>
 </section>
