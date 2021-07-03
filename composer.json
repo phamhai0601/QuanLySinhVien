@@ -27,6 +27,7 @@
         "kartik-v/yii2-date-range": "dev-master",
         "kartik-v/yii2-editable": "dev-master",
         "ext-json" : "*",
+        "yiiviet/yii2-payment": "*",
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "dev-master"
     },

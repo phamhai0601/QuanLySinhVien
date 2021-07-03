@@ -8,15 +8,22 @@
  * @time    1:39 AM
  */
 /* @var $this \yii\web\View */
-/* @var $model \common\models\HoaDon */
-?>
 
+/* @var $model HoaDon */
+
+use common\models\HoaDon;
+use yii\helpers\Url;
+
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
-		Invoice
-		<small>#007612</small>
+		Invoice:
+		<small>#<?= $model->id ?></small>
 	</h1>
+	<?php if ($model->status == HoaDon::STATUS_SUCCESS): ?>
+		<h4 class="text-success"><b>Hóa đơn đã được thanh toán thành công</b></h4>
+	<?php endif; ?>
 </section>
 <!-- Main content -->
 <section class="invoice">
@@ -97,12 +104,101 @@
 
 	<div class="row no-print">
 		<div class="col-xs-12">
-			<button type="button" class="btn btn-success pull-right">
-				<i class="fa fa-credit-card" data-toggle="loading" data-></i> Thanh Toán
-			</button>
-
+			<?php if ($model->status === HoaDon::STATUS_PENDING): ?>
+				<button class="btn btn-success pull-right" name="thanh-toan" data-id="<?= $model->id ?>">
+					<i class="fa fa-credit-card" data-toggle="loading"></i> Thanh Toán
+				</button>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>
 <!-- /.content -->
 <div class="clearfix"></div>
+<div id="payment-background">
+	<p class="focus">Don’t see the secure browser? We’ll help you re-launch the window to complete your purchase.
+		<a href="javascript:void(0)" data-focus="payment">Click to Continue</a>
+		<a href="javascript:void(0)" onclick="location.reload();">Close</a>
+	</p>
+	<p class="loading" style="display: none">
+		Please wait a moment, we’re checking your payment!<br>
+		<i class="fa fa-spin fa-spinner fa-3x"></i>
+	</p>
+</div>
+<?php
+$urlGetLinkPayment    = Url::to(['dich-vu/get-link-payment']);
+$urlCheckStatusHoaDon = Url::to([
+	'dich-vu/check-status-hoa-don',
+	'id' => $model->id,
+], true);
+$statusSuccess        = HoaDon::STATUS_SUCCESS;
+$this->registerJs(<<<JS
+	var paymentWindow = null;
+
+	function paymentBackground(type, sel) {
+		var bg = $("#payment-background");
+		if(sel === 'focus') {
+			bg.find('.focus').fadeIn();
+			bg.find('.loading').fadeOut();
+		} else {
+			bg.find('.focus').fadeOut();
+			bg.find('.loading').fadeIn();
+		}
+		if(type === 'hide') {
+			bg.fadeOut();
+		} else {
+			bg.fadeIn();
+		}
+	}
+	
+	function checkStatusHoaDon(url){
+		$.ajax({
+			type:'post',
+			url:url,
+			dataType:'json',
+			success:function(response){
+				if(response.error == 0){
+					if(response.status == $statusSuccess){
+						paymentWindow.close();
+						paymentBackground('hide','loading');
+						location.reload();
+					}
+				}
+			}
+		})
+	}
+		
+	$(document).on('click','button[name="thanh-toan"]',function(){
+		paymentWindow = window.open('', '_blank', 'height=500,width=800');
+		paymentWindow.document.write('Loading payment page...');
+		paymentBackground('show','loading')
+		var button = $(this);
+		var id_the_nap = button.attr('data-id');
+		$.ajax({
+			type:'post',
+			url:"$urlGetLinkPayment",
+			data:{
+				id:	id_the_nap,
+			},
+			dataType:'json',
+			success:function (response){
+				if(response.error == 0){
+					paymentWindow.location.href = response.url;
+					setInterval(function(){ 
+						if(paymentWindow.closed){
+							paymentBackground('show','focus')
+						}
+						checkStatusHoaDon("$urlCheckStatusHoaDon");
+					}, 1000);
+				}else{
+					location.reload();
+				}
+			}
+		});
+	})
+	
+	$(document).on('click','a[data-focus="payment"]',function(){
+		$('button[name="thanh-toan"]').trigger('click');
+	});
+JS
+)
+?>

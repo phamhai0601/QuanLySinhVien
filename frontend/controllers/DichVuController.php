@@ -12,8 +12,10 @@ namespace frontend\controllers;
 
 use common\models\HoaDon;
 use common\models\MaThe;
+use common\models\payment\OnePay;
 use common\models\TheNap;
 use frontend\component\Controller;
+use Yii;
 use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -34,7 +36,10 @@ class DichVuController extends Controller {
 							'mua-ma-the',
 							'get-thong-tin-card',
 							'tao-hoa-don',
-							'hoa-don'
+							'hoa-don',
+							'get-link-payment',
+							'checkout',
+							'check-status-hoa-don',
 						],
 						'allow'   => true,
 						'roles'   => ['@'],
@@ -50,7 +55,16 @@ class DichVuController extends Controller {
 		];
 	}
 
+	public function actions() {
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			],
+		];
+	}
+
 	/**
+	 * Tạo hóa đơn mới.
 	 * @return string
 	 */
 	public function actionMuaMaThe() {
@@ -60,7 +74,10 @@ class DichVuController extends Controller {
 			$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
 			if ($hoaDon) {
 				\Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Order: ' . $hoaDon->id);
-				return $this->redirect(['dich-vu/hoa-don','id' => $hoaDon->id]);
+				return $this->redirect([
+					'dich-vu/hoa-don',
+					'id' => $hoaDon->id,
+				]);
 			}
 		}
 		return $this->render('nap-the', ['theNaps' => $theNaps]);
@@ -80,6 +97,8 @@ class DichVuController extends Controller {
 	}
 
 	/**
+	 * Show hóa đơn.
+	 *
 	 * @param $id
 	 *
 	 * @return string
@@ -87,5 +106,61 @@ class DichVuController extends Controller {
 	public function actionHoaDon($id) {
 		$model = HoaDon::findOne($id);
 		return $this->render('hoa-don', ['model' => $model]);
+	}
+
+	/**
+	 * get link to payment.
+	 * input is id HoaDon
+	 * @return array
+	 */
+	public function actionGetLinkPayment() {
+		Yii::$app->response->format = 'json';
+		$out                        = [
+			'error' => 1,
+			'url'   => "",
+		];
+		$id                         = $_POST['id']; // id HoaDon
+		$hoaDon                     = HoaDon::findOne($id);
+		$responseData               = OnePay::newInstance($hoaDon);
+		if ($responseData) {
+			$out['error'] = 0;
+			$out['url']   = $responseData->redirect_url;
+			return $out;
+		}
+		return $out;
+	}
+
+	/**
+	 * Kiểm tra trạng thái hóa đơn.
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function actionCheckStatusHoaDon($id) {
+		Yii::$app->response->format = 'json';
+		$out                        = [
+			'error'  => 1,
+			'status' => HoaDon::STATUS_PENDING,
+		];
+		$hoaDon                     = HoaDon::findOne($id);
+		if ($hoaDon) {
+			$out['error']  = 0;
+			$out['status'] = $hoaDon->status;
+			return $out;
+		}
+		return $out;
+	}
+
+	/**
+	 * Nhận thông tin từ OnePay trả về.
+	 * @return string
+	 */
+	public function actionCheckout() {
+		$get = $_GET;
+		if ($get['vpc_TxnResponseCode'] == OnePay::STATUS_SUCCESS) {
+			$maThe = MaThe::newInstance($get['vpc_OrderInfo']);
+			return '<script>window.close()</script>';
+		}
 	}
 }

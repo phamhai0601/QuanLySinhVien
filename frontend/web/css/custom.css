@@ -34,3 +34,39 @@ img:hover {
 input[type=radio]:checked + img {
     border: 3px solid #0e90d2;
 }
+div#payment-background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    display: none;
+    overflow: hidden;
+    left: 0;
+    z-index: 9999;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.75);
+    background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0.75) 100%);
+    background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0.75) 100%);
+    background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0.75) 100%);
+    background: radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0.75) 100%);
+    color: #fff;
+}
+
+#payment-background p {
+    font-size: 14px;
+    color: #ffffff;
+    position: absolute;
+    left: calc(50% - 100px);
+    top: calc(50% - 50px);
+    max-width: 350px;
+    text-align: center;
+    font-family: "HelveticaNeue", "HelveticaNeue-Light", "Helvetica Neue Light", helvetica, arial, sans-serif;
+}
+
+#payment-background p a {
+    display: block;
+    text-decoration: underline;
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 10px;
+}

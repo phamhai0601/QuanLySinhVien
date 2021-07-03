@@ -14,6 +14,7 @@ use common\helper\DateHelper;
 use common\helper\StringHelper;
 use common\models\BoMon;
 use dektrium\user\models\RegistrationForm;
+use Jacksonit\NganLuong\Library\NL_CheckOutV3;
 use moonland\phpexcel\Excel;
 use yii\console\Controller;
 
@@ -338,31 +339,31 @@ class TestController extends Controller {
 	}
 
 	public function actionRegister(){
-		$formDangKi = new RegistrationForm();
-		$formDangKi->email ='mitto.hai.7356@gmail.com';
+		$formDangKi           = new RegistrationForm();
+		$formDangKi->email    = 'mitto.hai.7356@gmail.com';
 		$formDangKi->username = 'phamhai1';
-		$formDangKi->password= '1234567';
-		if($formDangKi->register()){
+		$formDangKi->password = '1234567';
+		if ($formDangKi->register()) {
 			echo 'done';
-		}else{
+		} else {
 			echo '<pre>';
 			print_r($formDangKi->errors);
 			die();
 		}
 		echo 'done';
-
 	}
 
-	public function actionTest2(){
+	public function actionTest2() {
 		$date = 'Wednesday, 16.06.2021 06:45';
-		echo DateHelper::ShowWeekVN($date);die();
-
+		echo DateHelper::ShowWeekVN($date);
+		die();
 	}
 
-	public function actionTest3(){
+	public function actionTest3() {
 		echo StringHelper::radomString(10);
 	}
 
-
-
+	public function actionTestPayment() {
+		echo \Yii::$app->params['onepay']['ReturnURL'];
+	}
 }

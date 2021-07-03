@@ -12,6 +12,11 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+	    'OPGateway' => [
+		    'class' => 'yiiviet\payment\onepay\PaymentGateway',
+		    'international' => false, //Thiết lập `FALSE` để sử dụng cổng nội địa và ngược lại là cổng quốc tế. Mặc định là `FALSE`.
+		    'sandbox' => true
+	    ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
