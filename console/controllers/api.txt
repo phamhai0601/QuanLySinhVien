@@ -1,0 +1,1 @@
+https://www.nganluong.vn/checkout.php?merchant_site_code=50458&return_url=http://localhost/nganluong/success.php&receiver=mitto.hai.7356@gmail.com&order_code=HD100&price=50000&currency=vnd&quantity=0&tax=0&discount=0&fee_cal=0&fee_shipping=0&secure_code=65195b28281b853f6e954772413a466b

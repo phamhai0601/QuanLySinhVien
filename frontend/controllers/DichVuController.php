@@ -159,7 +159,12 @@ class DichVuController extends Controller {
 	public function actionCheckout() {
 		$get = $_GET;
 		if ($get['vpc_TxnResponseCode'] == OnePay::STATUS_SUCCESS) {
-			$maThe = MaThe::newInstance($get['vpc_OrderInfo']);
+			$hoaDon = HoaDon::findOne($get['vpc_OrderInfo']);
+			$hoaDon->updateAttributes([
+				'status'       => HoaDon::STATUS_SUCCESS,
+				'ma_giao_dich' => $get['vpc_MerchTxnRef'],
+			]);
+			$maThe = MaThe::newInstance($hoaDon->id);
 			return '<script>window.close()</script>';
 		}
 	}

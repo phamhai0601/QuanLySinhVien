@@ -15,7 +15,7 @@ use common\component\Model;
  * @property string|null $ma_ma_the
  * @property int         $created_at
  *
- * @property User        $user
+ * @property User        $userHd
  * @property TheNap      $theNap
  * @property MaThe       $maThe
  *
@@ -37,7 +37,7 @@ class HoaDon extends Model {
 
 	const STATUS_LABEL   = [
 		self::STATUS_CANCEL  => 'danger',
-		self::STATUS_PENDING => 'info',
+		self::STATUS_PENDING => 'warning',
 		self::STATUS_SUCCESS => 'success',
 	];
 
@@ -88,11 +88,11 @@ class HoaDon extends Model {
 	public function attributeLabels() {
 		return [
 			'id'           => 'ID',
-			'ma_the_nap'   => 'Ma The Nap',
-			'user_tao_hd'  => 'User Tao Hd',
-			'status'       => 'Status',
-			'ma_giao_dich' => 'Ma Giao Dich',
-			'ma_ma_the'    => 'Ma Ma The',
+			'ma_the_nap'   => 'Mã thẻ nạp',
+			'user_tao_hd'  => 'Email',
+			'status'       => 'Trạng thái',
+			'ma_giao_dich' => 'Mã giao dịch',
+			'ma_ma_the'    => 'Code',
 			'created_at'   => 'Created At',
 		];
 	}
@@ -116,7 +116,7 @@ class HoaDon extends Model {
 		return null;
 	}
 
-	public function getUser() {
+	public function getUserHd() {
 		return $this->hasOne(User::class, ['id' => 'user_tao_hd']);
 	}
 

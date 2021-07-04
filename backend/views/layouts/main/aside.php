@@ -54,12 +54,17 @@ use yii\widgets\Menu;
 				[
 					'label'    => 'Lịch thi',
 					'url'      => ['lich-thi/index'],
-					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
+					'template' => '<a href="{url}"><i class="fa fa-calendar-o" aria-hidden="true"></i><span>{label}</span></a>',
+				],
+				[
+					'label'    => 'Hóa đơn',
+					'url'      => ['hoa-don/index'],
+					'template' => '<a href="{url}"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>{label}</span></a>',
 				],
 				[
 					'label'    => 'Kì học',
 					'url'      => ['ki-hoc/index'],
-					'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
+					'template' => '<a href="{url}"><i class="fa fa-calendar-check-o" aria-hidden="true"></i><span>{label}</span></a>',
 				],
 				// 'Products' menu item will be selected as long as the route is 'product/index'
 				[

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-	    <h1 class="text-center"><b style="font-size: xxx-large"><strong style="font-weight: 1000">LMS</strong>HOU</b></h1>
+	    <h1 class="text-center"><b style="font-size: xxx-large">ADMIN - <strong style="font-weight: 1000">LMS</strong>HOU</b></h1>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
