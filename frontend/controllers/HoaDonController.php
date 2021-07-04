@@ -2,17 +2,17 @@
 
 namespace frontend\controllers;
 
-use frontend\models\LichThi;
-use frontend\models\search\LichThiSearch;
+use frontend\models\search\HoaDonSearch;
 use Yii;
-use yii\filters\VerbFilter;
+use frontend\models\HoaDon;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
- * LichThiController implements the CRUD actions for LichThi model.
+ * HoaDonController implements the CRUD actions for HoaDon model.
  */
-class LichThiController extends Controller
+class HoaDonController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class LichThiController extends Controller
     }
 
     /**
-     * Lists all LichThi models.
+     * Lists all HoaDon models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new LichThiSearch();
+        $searchModel = new HoaDonSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class LichThiController extends Controller
     }
 
     /**
-     * Displays a single LichThi model.
+     * Displays a single HoaDon model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class LichThiController extends Controller
     }
 
     /**
-     * Creates a new LichThi model.
+     * Creates a new HoaDon model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new LichThi();
+        $model = new HoaDon();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class LichThiController extends Controller
     }
 
     /**
-     * Updates an existing LichThi model.
+     * Updates an existing HoaDon model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -88,19 +88,15 @@ class LichThiController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-
         }
 
-        return $this->render(
-            'update',
-            [
-                'model' => $model,
-            ]
-        );
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing LichThi model.
+     * Deletes an existing HoaDon model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,15 +110,15 @@ class LichThiController extends Controller
     }
 
     /**
-     * Finds the LichThi model based on its primary key value.
+     * Finds the HoaDon model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return LichThi the loaded model
+     * @return HoaDon the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = LichThi::findOne($id)) !== null) {
+        if (($model = HoaDon::findOne($id)) !== null) {
             return $model;
         }
 
