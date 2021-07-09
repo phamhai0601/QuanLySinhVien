@@ -29,7 +29,7 @@ use yii\helpers\Url;
 							<div class="col-md-3">
 								<label>
 									<input type="radio" name="the-nap" value="<?= $theNap->id ?>"/>
-									<img src="https://cheapgame.asia/1691/xbox-card-10-usd.jpg" width="100%"/>
+									<img src="/img/card/<?=$theNap->img?>" width="100%"/>
 								</label>
 							</div>
 						<?php endforeach; ?>

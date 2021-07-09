@@ -87,7 +87,7 @@ class HoaDon extends Model {
 	 */
 	public function attributeLabels() {
 		return [
-			'id'           => 'ID',
+			'id'           => 'Oder ID',
 			'ma_the_nap'   => 'Mã thẻ nạp',
 			'user_tao_hd'  => 'Email',
 			'status'       => 'Trạng thái',

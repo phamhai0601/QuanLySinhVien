@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * HoaDonController implements the CRUD actions for HoaDon model.
  */
-class HoaDonController extends Controller
+class HoaDonController extends \frontend\component\Controller
 {
     /**
      * {@inheritdoc}

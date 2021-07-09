@@ -32,7 +32,7 @@ img:hover {
 }
 
 input[type=radio]:checked + img {
-    border: 3px solid #0e90d2;
+    border: 3px solid #fb7400;
 }
 div#payment-background {
     position: fixed;

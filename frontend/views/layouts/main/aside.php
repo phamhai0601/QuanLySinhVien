@@ -54,6 +54,30 @@ use yii\widgets\Menu;
 				  'url'   => ['lich-hoc/index'],
 				  'template' => '<a href="{url}"><i class="fa fa-user-o" aria-hidden="true"></i><span>{label}</span></a>',
 			  ],
+
+			  [
+				  'options' => ['class' => 'treeview'],
+				  'label' => 'Hóa Đơn',
+				  'url'   => ['product/index'],
+				  'submenuTemplate'=>'<ul class="treeview-menu">{items}</ul>',
+				  'template' => '<a href="{url}"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>{label}</span><i class="fa fa-angle-left right"></i></a>',
+				  'items' => [
+					  [
+						  'label' => 'Hóa đơn dịch vụ',
+						  'url'   => [
+							  'hoa-don/index',
+						  ],
+						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+					  ],
+					  [
+						  'label' => 'Hóa đơn học phí',
+						  'url'   => [
+							  'lop-tin-chi/index',
+						  ],
+						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+					  ]
+				  ]
+			  ],
 			  // 'Products' menu item will be selected as long as the route is 'product/index'
 			  [
 				  'options' => ['class' => 'treeview'],

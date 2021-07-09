@@ -2,126 +2,87 @@
 
 namespace frontend\controllers;
 
+use common\models\HoaDon;
+use common\models\MaThe;
+use common\models\payment\OnePay;
 use frontend\models\search\HoaDonSearch;
 use Yii;
-use frontend\models\HoaDon;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
  * HoaDonController implements the CRUD actions for HoaDon model.
  */
-class HoaDonController extends Controller
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class HoaDonController extends \frontend\component\Controller {
 
-    /**
-     * Lists all HoaDon models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new HoaDonSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * {@inheritdoc}
+	 */
+	public function behaviors() {
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => [
+							'index',
+							'hoa-don',
+							'checkout'
+						],
+						'allow'   => true,
+						'roles'   => ['@'],
+					],
+				],
+			],
+			'verbs'  => [
+				'class'   => VerbFilter::className(),
+				'actions' => [
+					'delete' => ['POST'],
+				],
+			],
+		];
+	}
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	/**
+	 * Lists all HoaDon models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
+		$searchModel              = new HoaDonSearch();
+		$searchModel->user_tao_hd = $this->user->id;
+		$dataProvider             = $searchModel->search(Yii::$app->request->queryParams);
+		return $this->render('index', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
-    /**
-     * Displays a single HoaDon model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+	/**
+	 * Show hóa đơn.
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	public function actionHoaDon($id) {
+		$model = HoaDon::findOne($id);
+		return $this->render('hoa-don', ['model' => $model]);
+	}
 
-    /**
-     * Creates a new HoaDon model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new HoaDon();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing HoaDon model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing HoaDon model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the HoaDon model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return HoaDon the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = HoaDon::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
+	/**
+	 * Nhận thông tin từ OnePay trả về.
+	 * @return string
+	 */
+	public function actionCheckout() {
+		$get = $_GET;
+		if ($get['vpc_TxnResponseCode'] == OnePay::STATUS_SUCCESS) {
+			$hoaDon = HoaDon::findOne($get['vpc_OrderInfo']);
+			$hoaDon->updateAttributes([
+				'status'       => HoaDon::STATUS_SUCCESS,
+				'ma_giao_dich' => $get['vpc_MerchTxnRef'],
+			]);
+			$maThe = MaThe::newInstance($hoaDon->id);
+			return '<script>window.close()</script>';
+		}
+	}
 }

@@ -16,7 +16,6 @@ use common\models\payment\OnePay;
 use common\models\TheNap;
 use frontend\component\Controller;
 use Yii;
-use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -39,6 +38,7 @@ class DichVuController extends Controller {
 							'hoa-don',
 							'get-link-payment',
 							'checkout',
+							'hoa-don-dich-vu',
 							'check-status-hoa-don',
 						],
 						'allow'   => true,
@@ -75,7 +75,7 @@ class DichVuController extends Controller {
 			if ($hoaDon) {
 				\Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Order: ' . $hoaDon->id);
 				return $this->redirect([
-					'dich-vu/hoa-don',
+					'hoa-don/hoa-don',
 					'id' => $hoaDon->id,
 				]);
 			}
@@ -94,18 +94,6 @@ class DichVuController extends Controller {
 			'error'   => 0,
 			'message' => $theNap,
 		];
-	}
-
-	/**
-	 * Show hóa đơn.
-	 *
-	 * @param $id
-	 *
-	 * @return string
-	 */
-	public function actionHoaDon($id) {
-		$model = HoaDon::findOne($id);
-		return $this->render('hoa-don', ['model' => $model]);
 	}
 
 	/**
@@ -150,22 +138,5 @@ class DichVuController extends Controller {
 			return $out;
 		}
 		return $out;
-	}
-
-	/**
-	 * Nhận thông tin từ OnePay trả về.
-	 * @return string
-	 */
-	public function actionCheckout() {
-		$get = $_GET;
-		if ($get['vpc_TxnResponseCode'] == OnePay::STATUS_SUCCESS) {
-			$hoaDon = HoaDon::findOne($get['vpc_OrderInfo']);
-			$hoaDon->updateAttributes([
-				'status'       => HoaDon::STATUS_SUCCESS,
-				'ma_giao_dich' => $get['vpc_MerchTxnRef'],
-			]);
-			$maThe = MaThe::newInstance($hoaDon->id);
-			return '<script>window.close()</script>';
-		}
 	}
 }
