@@ -15,6 +15,11 @@ use Yii;
  * @property int|null $tg_nap
  * @property int|null $user_su_dung
  * @property int      $created_at
+ *
+ *
+ * @property TheNap   $theNap
+ *
+ *
  */
 class MaThe extends \yii\db\ActiveRecord {
 
@@ -98,5 +103,9 @@ class MaThe extends \yii\db\ActiveRecord {
 			return $maThe;
 		}
 		return null;
+	}
+
+	public function getTheNap() {
+		return $this->hasOne(TheNap::class, ['id' => 'ma_the_nap']);
 	}
 }

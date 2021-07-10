@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $ten
+ * @property string $full_name
  * @property int $gia
  * @property int $han_su_dung
  * @property int $created_at
@@ -29,10 +30,9 @@ class DichVu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ten', 'gia', 'han_su_dung', 'created_at'], 'required'],
-            [['id', 'gia', 'han_su_dung', 'created_at'], 'integer'],
-            [['ten'], 'string', 'max' => 255],
-            [['id'], 'unique'],
+            [['ten', 'full_name', 'gia', 'han_su_dung', 'created_at'], 'required'],
+            [['gia', 'han_su_dung', 'created_at'], 'integer'],
+            [['ten', 'full_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,9 +43,10 @@ class DichVu extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ten' => 'Ten',
-            'gia' => 'Gia',
-            'han_su_dung' => 'Han Su Dung',
+            'ten' => 'Mã dịch vụ',
+            'full_name' => 'Tên dich vụ',
+            'gia' => 'Giá tiền',
+            'han_su_dung' => 'Thời hạn dịch vụ',
             'created_at' => 'Created At',
         ];
     }

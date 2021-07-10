@@ -3,6 +3,8 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
+
+AppAsset::register($this);
 // You could register AppAsset depended with AdminlteAsset instead
 yidas\adminlte\AdminlteAsset::register($this);
 // iCheck

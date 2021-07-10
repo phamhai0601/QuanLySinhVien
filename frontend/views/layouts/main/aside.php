@@ -155,7 +155,7 @@ use yii\widgets\Menu;
 					  [
 						  'label' => 'Nạp mã dịch vụ',
 						  'url'   => [
-							  'lop-hanh-chinh/index',
+							  'dich-vu/nap-ma-the',
 						  ],
 						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],

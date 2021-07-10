@@ -1,147 +1,127 @@
 <?php
-/**
- * Created by FesVPN.
- * @project QuanLySinhVien-CTMS
- * @author  Pham Hai
- * @email   mitto.hai.7356@gmail.com
- * @date    30/6/2021
- * @time    12:30 AM
- */
 
 namespace frontend\controllers;
 
-use common\models\HoaDon;
-use common\models\MaThe;
-use common\models\payment\OnePay;
-use common\models\TheNap;
-use frontend\component\Controller;
 use Yii;
-use yii\filters\AccessControl;
+use frontend\models\DichVu;
+use frontend\models\search\DichVuSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-class DichVuController extends Controller {
+/**
+ * DichVuController implements the CRUD actions for DichVu model.
+ */
+class DichVuController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function behaviors() {
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'actions' => [
-							'index',
-							'mua-ma-the',
-							'get-thong-tin-card',
-							'tao-hoa-don',
-							'hoa-don',
-							'get-link-payment',
-							'checkout',
-							'hoa-don-dich-vu',
-							'check-status-hoa-don',
-							'nap-ma-the'
-						],
-						'allow'   => true,
-						'roles'   => ['@'],
-					],
-				],
-			],
-			'verbs'  => [
-				'class'   => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['POST'],
-				],
-			],
-		];
-	}
+    /**
+     * Lists all DichVu models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new DichVuSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-	public function actions() {
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			],
-		];
-	}
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-	/**
-	 * Tạo hóa đơn mới.
-	 * @return string
-	 */
-	public function actionMuaMaThe() {
-		$theNaps = TheNap::find()->all();
-		if (\Yii::$app->request->post()) {
-			$theNap = TheNap::findOne($_POST['the-nap']);
-			$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
-			if ($hoaDon) {
-				\Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Order: ' . $hoaDon->id);
-				return $this->redirect([
-					'hoa-don/hoa-don',
-					'id' => $hoaDon->id,
-				]);
-			}
-		}
-		return $this->render('nap-the', ['theNaps' => $theNaps]);
-	}
+    /**
+     * Displays a single DichVu model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-	/**
-	 * Lấy về thông tin của thẻ nạp.
-	 * @return array
-	 */
-	public function actionGetThongTinCard() {
-		\Yii::$app->response->format = 'json';
-		$theNap                      = TheNap::findOne($_POST['idCard']);
-		return [
-			'error'   => 0,
-			'message' => $theNap,
-		];
-	}
+    /**
+     * Creates a new DichVu model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new DichVu();
 
-	/**
-	 * get link to payment.
-	 * input is id HoaDon
-	 * @return array
-	 */
-	public function actionGetLinkPayment() {
-		Yii::$app->response->format = 'json';
-		$out                        = [
-			'error' => 1,
-			'url'   => "",
-		];
-		$id                         = $_POST['id']; // id HoaDon
-		$hoaDon                     = HoaDon::findOne($id);
-		$responseData               = OnePay::newInstance($hoaDon);
-		if ($responseData) {
-			$out['error'] = 0;
-			$out['url']   = $responseData->redirect_url;
-			return $out;
-		}
-		return $out;
-	}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-	/**
-	 * Kiểm tra trạng thái hóa đơn.
-	 *
-	 * @param $id
-	 *
-	 * @return array
-	 */
-	public function actionCheckStatusHoaDon($id) {
-		Yii::$app->response->format = 'json';
-		$out                        = [
-			'error'  => 1,
-			'status' => HoaDon::STATUS_PENDING,
-		];
-		$hoaDon                     = HoaDon::findOne($id);
-		if ($hoaDon) {
-			$out['error']  = 0;
-			$out['status'] = $hoaDon->status;
-			return $out;
-		}
-		return $out;
-	}
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 
-	public function actionNapMaThe(){
-		echo 'Hello';
-	}
+    /**
+     * Updates an existing DichVu model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing DichVu model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the DichVu model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return DichVu the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = DichVu::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

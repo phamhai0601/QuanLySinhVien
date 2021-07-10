@@ -7,25 +7,26 @@ use Yii;
 /**
  * This is the model class for table "user".
  *
- * @property int $id
- * @property string $username
- * @property string $email
- * @property int|null $info_id
- * @property string $password_hash
- * @property string $auth_key
- * @property int|null $confirmed_at
- * @property string|null $unconfirmed_email
- * @property int|null $blocked_at
- * @property string|null $registration_ip
- * @property int $created_at
- * @property int $updated_at
- * @property int $flags
- * @property int|null $last_login_at
+ * @property int             $id
+ * @property string          $username
+ * @property string          $email
+ * @property int|null        $info_id
+ * @property string          $password_hash
+ * @property string          $auth_key
+ * @property int|null        $confirmed_at
+ * @property string|null     $unconfirmed_email
+ * @property int|null        $blocked_at
+ * @property string|null     $registration_ip
+ * @property int             $created_at
+ * @property int             $updated_at
+ * @property int             $flags
+ * @property int|null        $last_login_at
  *
- * @property Profile $profile
- * @property SinhVien $sinhVien
+ * @property Profile         $profile
+ * @property SinhVien        $sinhVien
+ * @property UserOcc         $userOcc
  * @property SocialAccount[] $socialAccounts
- * @property Token[] $tokens
+ * @property Token[]         $tokens
  */
 class User extends \dektrium\user\models\User
 {
@@ -82,6 +83,10 @@ class User extends \dektrium\user\models\User
 
 	public function getSinhVien() {
 		return $this->hasOne(SinhVien::class, ['id' => 'info_id']);
+	}
+
+	public function getUserOcc() {
+		return $this->hasOne(UserOcc::class, ['user_id' => 'id']);
 	}
 
 	/**

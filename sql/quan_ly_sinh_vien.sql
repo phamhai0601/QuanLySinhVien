@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jul 04, 2021 at 06:53 AM
+-- Generation Time: Jul 10, 2021 at 05:39 PM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -100,13 +100,24 @@ INSERT INTO `dang_ki_lop_tin_chi` (`id`, `ma_lop_tin_chi`, `tg_bat_dau`, `tg_ket
 
 DROP TABLE IF EXISTS `dich_vu`;
 CREATE TABLE IF NOT EXISTS `dich_vu` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ten` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `full_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `gia` int(11) NOT NULL,
   `han_su_dung` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dich_vu`
+--
+
+INSERT INTO `dich_vu` (`id`, `ten`, `full_name`, `gia`, `han_su_dung`, `created_at`) VALUES
+(1, 'duy_tri_ngan', 'Duy trì ngắn', 5968, 259200, 1625937543),
+(3, 'couple_check_in', 'Couple Check-In', 13419, 604800, 1625937543),
+(4, 'payask', 'Vấn đáp có trả phí (PayAsk)', 0, 2592000, 1625937543),
+(5, 'xem_diem_khong_xac_nhan', 'Xem điểm không chờ xác nhận', 25600, 7776000, 1625937543);
 
 -- --------------------------------------------------------
 
@@ -190,19 +201,6 @@ CREATE TABLE IF NOT EXISTS `hoa_don` (
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `hoa_don`
---
-
-INSERT INTO `hoa_don` (`id`, `ma_the_nap`, `user_tao_hd`, `status`, `ma_giao_dich`, `ma_ma_the`, `created_at`) VALUES
-(109, 1, 17, 1, NULL, NULL, 1625339309),
-(110, 1, 17, 2, NULL, '1', 1625339657),
-(111, 1, 17, 2, NULL, '2', 1625339767),
-(112, 1, 17, 2, NULL, '3', 1625343347),
-(113, 2, 17, 2, NULL, '4', 1625344835),
-(114, 1, 17, 2, NULL, '5', 1625344938),
-(115, 1, 17, 2, NULL, '6', 1625345190);
 
 -- --------------------------------------------------------
 
@@ -356,18 +354,6 @@ CREATE TABLE IF NOT EXISTS `ma_the` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `ma_the`
---
-
-INSERT INTO `ma_the` (`id`, `ma_the`, `ma_the_nap`, `trang_thai`, `tg_nap`, `user_su_dung`, `created_at`) VALUES
-(1, 'iNT2b9mDA7wu7icCpK8bH', 1, 0, NULL, NULL, 1625339691),
-(2, 'gkIzyPu5QKKCoYZrOu0PT', 1, 0, NULL, NULL, 1625339795),
-(3, 'G7d7ZLBvLGuMev13Iy7zm', 1, 0, NULL, NULL, 1625343454),
-(4, '2HvZu4w3BXvs2yFe6WDAA', 2, 0, NULL, NULL, 1625344872),
-(5, 'y1VBZRzExhnKIJCmMEeSE', 1, 0, NULL, NULL, 1625345074),
-(6, 'kv5ypX7MRMxWF1WWzwpNF', 1, 0, NULL, NULL, 1625345463);
-
 -- --------------------------------------------------------
 
 --
@@ -382,13 +368,6 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`menu_id`),
   KEY `unique-index-menu-menu_name` (`menu_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `menu`
---
-
-INSERT INTO `menu` (`menu_id`, `menu`, `menu_name`) VALUES
-(1, '\'sinh-vien/index\'', 'Quản lý sinh viên');
 
 -- --------------------------------------------------------
 
@@ -1311,17 +1290,19 @@ CREATE TABLE IF NOT EXISTS `the_nap` (
   `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `the_nap`
 --
 
 INSERT INTO `the_nap` (`id`, `name`, `gia_tien`, `occ`, `img`, `created_at`) VALUES
-(1, 'CARD 10', 10000, 10000, '', 1623259985),
-(2, 'CARD 30', 30000, 35000, '', 1623259985),
-(3, 'CARD 50', 50000, 60000, '', 1623259985),
-(4, 'CARD 100', 500000, 140000, '', 1623259985);
+(1, 'CARD 10', 10000, 10000, 'card_10.jpg', 1623259985),
+(2, 'CARD 30', 30000, 35000, 'card_20.jpg', 1623259985),
+(3, 'CARD 50', 50000, 60000, 'card_50.jpg', 1623259985),
+(4, 'CARD 100', 100000, 140000, 'card_100.jpg', 1623259985),
+(5, 'CARD 200', 200000, 280000, 'card_200.jpg', 1623259985),
+(6, 'CARD 500', 500000, 660000, 'card_500.jpg', 1623259985);
 
 -- --------------------------------------------------------
 
@@ -1375,6 +1356,32 @@ INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, 1624473707),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624473267),
 (17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1625323733);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_occ`
+--
+
+DROP TABLE IF EXISTS `user_occ`;
+CREATE TABLE IF NOT EXISTS `user_occ` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `occ` int(11) NOT NULL,
+  `dich_vu` varchar(255) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_occ`
+--
+
+INSERT INTO `user_occ` (`id`, `user_id`, `occ`, `dich_vu`, `created_at`) VALUES
+(1, 1, 0, NULL, 1625934461),
+(2, 15, 0, NULL, 1625934461),
+(3, 16, 0, NULL, 1625934461),
+(4, 17, 20000, NULL, 1625934461);
 
 --
 -- Constraints for dumped tables
