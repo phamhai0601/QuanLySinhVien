@@ -11,45 +11,51 @@
 
 use dektrium\user\widgets\Connect;
 use dektrium\user\models\LoginForm;
+use himiklab\yii2\recaptcha\ReCaptcha2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var yii\web\View $this
+ * @var yii\web\View                   $this
  * @var dektrium\user\models\LoginForm $model
- * @var dektrium\user\Module $module
+ * @var dektrium\user\Module           $module
  */
-
-$this->title = Yii::t('user', 'Sign in');
+/** @var \frontend\models\form\CaptchaForm $captcha */
+$this->title                   = Yii::t('user', 'Sign in');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-	    <h1 class="text-center"><b style="font-size: xxx-large"><strong style="font-weight: 1000">LMS</strong>HOU</b></h1>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-            </div>
-            <div class="panel-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'enableAjaxValidation' => true,
-                    'enableClientValidation' => false,
-                    'validateOnBlur' => false,
-                    'validateOnType' => false,
-                    'validateOnChange' => false,
-                ]) ?>
+	<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+		<h1 class="text-center"><b style="font-size: xxx-large"><strong style="font-weight: 1000">LMS</strong>HOU</b>
+		</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+			</div>
+			<div class="alert-form-login">
+				<?= \common\widgets\Alert::widget() ?>
+			</div>
+			<div class="panel-body">
+				<?php $form = ActiveForm::begin([
+					'id'                     => 'login-form',
+					'enableAjaxValidation'   => true,
+					'enableClientValidation' => true,
+					'validateOnBlur'         => false,
+					'validateOnType'         => false,
+					'validateOnChange'       => false,
+				]) ?>
 
-                <?php if ($module->debug): ?>
-                    <?= $form->field($model, 'login', [
-                        'inputOptions' => [
-                            'autofocus' => 'autofocus',
-                            'class' => 'form-control',
-                            'tabindex' => '1']])->dropDownList(LoginForm::loginList());
-                    ?>
+				<?php if ($module->debug): ?>
+					<?= $form->field($model, 'login', [
+						'inputOptions' => [
+							'autofocus' => 'autofocus',
+							'class'     => 'form-control',
+							'tabindex'  => '1',
+						],
+					])->dropDownList(LoginForm::loginList()); ?>
 
-                <?php else: ?>
+				<?php else: ?>
 
                     <?= $form->field($model, 'login',
                         ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]
@@ -60,54 +66,48 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php if ($module->debug): ?>
                     <div class="alert alert-warning">
-                        <?= Yii::t('user', 'Password is not necessary because the module is in DEBUG mode.'); ?>
+	                    <?= Yii::t('user', 'Password is not necessary because the module is in DEBUG mode.'); ?>
                     </div>
                 <?php else: ?>
-                    <?= $form->field(
-                        $model,
-                        'password',
-                        ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
-                        ->passwordInput()
-                        ->label(
-                            Yii::t('user', 'Password')
-                            . ($module->enablePasswordRecovery ?
-                                ' (' . Html::a(
-                                    Yii::t('user', 'Forgot password?'),
-                                    ['/user/recovery/request'],
-                                    ['tabindex' => '5']
-                                )
-                                . ')' : '')
-                        ) ?>
+	                <?= $form->field($model, 'password', [
+		                'inputOptions' => [
+			                'class'    => 'form-control',
+			                'tabindex' => '2',
+		                ],
+	                ])->passwordInput()->label(Yii::t('user', 'Password') . ($module->enablePasswordRecovery ? ' (' . Html::a(Yii::t('user', 'Forgot password?'), ['/user/recovery/request'], ['tabindex' => '5']) . ')' : '')) ?>
                 <?php endif ?>
-	            <div class="row">
-		            <div class="col-md-6">
-			            <?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']) ?>
-		            </div>
-		            <div class="col-md-6">
-			            <?= Html::submitButton(
-				            Yii::t('user', 'Sign in'),
-				            ['class' => 'btn btn-primary btn-block', 'tabindex' => '4']
-			            ) ?>
-		            </div>
-	            </div>
+				<div class="row">
+					<div class="col-md-12">
+						<?= $form->field($captcha, 'captcha')->widget(ReCaptcha2::class, [
+							'options' => [
+								'autofocus' => 'autofocus',
+								'class'     => 'form-control',
+								'tabindex'  => '4',
+							],
+						])->label(false) ?>
+						<?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']) ?>
+						<?= Html::submitButton(Yii::t('user', 'Sign in'), [
+							'class'    => 'btn btn-primary btn-block',
+							'tabindex' => '4',
+						]) ?>
+					</div>
+				</div>
 
-
-
-                <?php ActiveForm::end(); ?>
-            </div>
-        </div>
-        <?php if ($module->enableConfirmation): ?>
-            <p class="text-center">
-                <?= Html::a(Yii::t('user', 'Didn\'t receive confirmation message?'), ['/user/registration/resend']) ?>
-            </p>
-        <?php endif ?>
-        <?php if ($module->enableRegistration): ?>
-            <p class="text-center">
-                <?= Html::a(Yii::t('user', 'Don\'t have an account? Sign up!'), ['/user/registration/register']) ?>
-            </p>
-        <?php endif ?>
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
-    </div>
+				<?php ActiveForm::end(); ?>
+			</div>
+		</div>
+		<?php if ($module->enableConfirmation): ?>
+			<p class="text-center">
+				<?= Html::a(Yii::t('user', 'Didn\'t receive confirmation message?'), ['/user/registration/resend']) ?>
+			</p>
+		<?php endif ?>
+		<?php if ($module->enableRegistration): ?>
+			<p class="text-center">
+				<?= Html::a(Yii::t('user', 'Don\'t have an account? Sign up!'), ['/user/registration/register']) ?>
+			</p>
+		<?php endif ?>
+		<?= Connect::widget([
+			'baseAuthUrl' => ['/user/security/auth'],
+		]) ?>
+	</div>
 </div>

@@ -40,6 +40,7 @@ class DichVuController extends Controller {
 							'checkout',
 							'hoa-don-dich-vu',
 							'check-status-hoa-don',
+							'nap-ma-the'
 						],
 						'allow'   => true,
 						'roles'   => ['@'],
@@ -138,5 +139,9 @@ class DichVuController extends Controller {
 			return $out;
 		}
 		return $out;
+	}
+
+	public function actionNapMaThe(){
+		echo 'Hello';
 	}
 }
