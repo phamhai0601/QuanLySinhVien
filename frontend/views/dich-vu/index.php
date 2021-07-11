@@ -47,7 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 				'contentOptions' => ['class' => 'text-center'],
 				'value'          => function(DichVu $data) {
-					return '<a><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: xx-large;"></i></a>';
+					return '<a href="' . \yii\helpers\Url::to([
+							'dich-vu/dang-ki-dich-vu',
+							'id' => $data->id,
+						]) . '"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: xx-large;"></i></a>';
 				},
 				'format'         => 'raw',
 			],
