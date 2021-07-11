@@ -2,10 +2,17 @@
 
 namespace frontend\controllers;
 
+use common\models\payment\OnePay;
+use common\models\TheNap;
+use common\traits\UserAjaxValidationTrait;
 use frontend\models\DangKiDichVu;
+use frontend\models\form\CaptchaForm;
+use frontend\models\form\NapMaTheForm;
+use frontend\models\HoaDon;
 use Yii;
 use frontend\models\DichVu;
 use frontend\models\search\DichVuSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,12 +22,35 @@ use yii\filters\VerbFilter;
  */
 class DichVuController extends \frontend\component\Controller {
 
+	use UserAjaxValidationTrait;
+
 	/**
 	 * {@inheritdoc}
 	 */
 	public function behaviors() {
 		return [
-			'verbs' => [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => [
+							'index',
+							'mua-ma-the',
+							'get-thong-tin-card',
+							'tao-hoa-don',
+							'hoa-don',
+							'get-link-payment',
+							'checkout',
+							'hoa-don-dich-vu',
+							'check-status-hoa-don',
+							'nap-ma-the',
+						],
+						'allow'   => true,
+						'roles'   => ['@'],
+					],
+				],
+			],
+			'verbs'  => [
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
@@ -29,10 +59,112 @@ class DichVuController extends \frontend\component\Controller {
 		];
 	}
 
+	public function actions() {
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			],
+		];
+	}
+
 	/**
-	 * Lists all DichVu models.
-	 * @return mixed
+	 * Tạo hóa đơn mới.
+	 * @return string
 	 */
+	public function actionMuaMaThe() {
+		$theNaps = TheNap::find()->all();
+		if (\Yii::$app->request->post()) {
+			$theNap = TheNap::findOne($_POST['the-nap']);
+			$hoaDon = HoaDon::newIntance($theNap->id, $this->user->id);
+			if ($hoaDon) {
+				\Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Order: ' . $hoaDon->id);
+				return $this->redirect([
+					'hoa-don/hoa-don',
+					'id' => $hoaDon->id,
+				]);
+			}
+		}
+		return $this->render('nap-the', ['theNaps' => $theNaps]);
+	}
+
+	/**
+	 * Lấy về thông tin của thẻ nạp.
+	 * @return array
+	 */
+	public function actionGetThongTinCard() {
+		\Yii::$app->response->format = 'json';
+		$theNap                      = TheNap::findOne($_POST['idCard']);
+		return [
+			'error'   => 0,
+			'message' => $theNap,
+		];
+	}
+
+	/**
+	 * get link to payment.
+	 * input is id HoaDon
+	 * @return array
+	 */
+	public function actionGetLinkPayment() {
+		Yii::$app->response->format = 'json';
+		$out                        = [
+			'error' => 1,
+			'url'   => "",
+		];
+		$id                         = $_POST['id']; // id HoaDon
+		$hoaDon                     = HoaDon::findOne($id);
+		$responseData               = OnePay::newInstance($hoaDon);
+		if ($responseData) {
+			$out['error'] = 0;
+			$out['url']   = $responseData->redirect_url;
+			return $out;
+		}
+		return $out;
+	}
+
+	/**
+	 * Kiểm tra trạng thái hóa đơn.
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function actionCheckStatusHoaDon($id) {
+		Yii::$app->response->format = 'json';
+		$out                        = [
+			'error'  => 1,
+			'status' => HoaDon::STATUS_PENDING,
+		];
+		$hoaDon                     = HoaDon::findOne($id);
+		if ($hoaDon) {
+			$out['error']  = 0;
+			$out['status'] = $hoaDon->status;
+			return $out;
+		}
+		return $out;
+	}
+
+	/**
+	 * Nạp mã thẻ vào tài khoản
+	 * @return string|\yii\web\Response
+	 */
+	public function actionNapMaThe() {
+		$napMaTheForm = new NapMaTheForm();
+		$captchaFrom  = new CaptchaForm();
+		$this->performAjaxValidation($napMaTheForm);
+		if ($napMaTheForm->load(Yii::$app->request->post()) && $captchaFrom->check()) {
+			if ($napMaTheForm->nap()) {
+				Yii::$app->session->setFlash('success', 'Nạp mã thẻ thành công!');
+				return $this->refresh();
+			}
+			Yii::$app->session->setFlash('danger', 'Nạp mã thẻ không thành công');
+		}
+		return $this->render('nap-ma-the', [
+			'napMaTheForm' => $napMaTheForm,
+			'captcha'      => $captchaFrom,
+		]);
+	}
+
 	public function actionIndex() {
 		$searchModel  = new DichVuSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
