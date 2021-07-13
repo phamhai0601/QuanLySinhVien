@@ -46,8 +46,8 @@ use yii\helpers\ArrayHelper;
 
 ]) ?>
 <div class="form-group pull-right">
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	<button type="submit" class="btn btn-primary">Lưu</button>
+	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 </div>
 <div class="clearfix"></div>
 <?php ActiveForm::end() ?>

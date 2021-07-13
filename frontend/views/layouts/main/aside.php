@@ -146,25 +146,32 @@ use yii\widgets\Menu;
 				  'template' => '<a href="{url}"><i class="fa fa-home" aria-hidden="true"></i><span>{label}</span><i class="fa fa-angle-left right"></i></a>',
 				  'items' => [
 					  [
-						  'label' => 'Mua mã dịch vụ',
-						  'url'   => [
+						  'label'    => 'Mua mã dịch vụ',
+						  'url'      => [
 							  'dich-vu/mua-ma-the',
 						  ],
-						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+						  'template' => '<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],
 					  [
-						  'label' => 'Nạp mã dịch vụ',
-						  'url'   => [
+						  'label'    => 'Nạp mã dịch vụ',
+						  'url'      => [
 							  'dich-vu/nap-ma-the',
 						  ],
-						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+						  'template' => '<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],
 					  [
-						  'label' => 'Đăng kí dịch vụ',
-						  'url'   => [
-							  'lop-hanh-chinh/index',
+						  'label'    => 'Dịch vụ đã đăng kí',
+						  'url'      => [
+							  'dich-vu/dich-vu-da-dang-ki',
 						  ],
-						  'template'=>'<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+						  'template' => '<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
+					  ],
+					  [
+						  'label'    => 'Đăng kí dịch vụ',
+						  'url'      => [
+							  'dich-vu/index',
+						  ],
+						  'template' => '<a href="{url}"><i class="fa fa-circle-o"></i> {label}</a>',
 					  ],
 				  ],
 			  ],

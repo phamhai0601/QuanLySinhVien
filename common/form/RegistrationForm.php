@@ -16,36 +16,29 @@ class RegistrationForm extends \dektrium\user\models\RegistrationForm {
 	public $info_id;
 
 	public function rules() {
-		$rules =[
-			['info_id','safe']
+		$parent = parent::rules();
+		$parent = [
+			[
+				'info_id',
+				'safe',
+			],
 		];
-		return parent::rules();
+		return $parent;
 	}
 
-	public function register()
-	{
+	public function register() {
 		if (!$this->validate()) {
 			return false;
 		}
-
 		/** @var User $user */
-		$user = Yii::createObject(User::className());
+		$user          = Yii::createObject(User::className());
 		$user->info_id = $this->info_id;
-		$user->flags = 1;
+		$user->flags   = \common\models\User::FLAG_SINHVIEN;
 		$user->setScenario('register');
 		$this->loadAttributes($user);
 		if (!$user->register()) {
 			return false;
 		}
-
-//		Yii::$app->session->setFlash(
-//			'info',
-//			Yii::t(
-//				'user',
-//				'Your account has been created and a message with further instructions has been sent to your email'
-//			)
-//		);
-
 		return true;
 	}
 }

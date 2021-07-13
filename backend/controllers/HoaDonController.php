@@ -75,6 +75,10 @@ class HoaDonController extends \frontend\component\Controller
         ]);
     }
 
+    public function actionTaoHoaDonHocPhi(){
+    	//
+    }
+
     /**
      * Updates an existing HoaDon model.
      * If update is successful, the browser will be redirected to the 'view' page.

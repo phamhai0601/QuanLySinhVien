@@ -2,59 +2,96 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * This is the model class for table "lop_hanh_chinh".
  *
- * @property int $id
- * @property string $ma_lop
- * @property int $ma_giang_vien
- * @property int $khoa_hoc
- * @property int $created_at
+ * @property int       $id
+ * @property string    $ma_lop
+ * @property int       $ma_giang_vien
+ * @property int       $khoa_hoc
+ * @property string    $action
+ * @property int       $created_at
  *
  * @property GiangVien $giangVien
  */
-class LopHanhChinh extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'lop_hanh_chinh';
-    }
+class LopHanhChinh extends \yii\db\ActiveRecord {
+
+	const ACTION_OFF            = "off";
+
+	const ACTION_CREATE_INVOICE = "invoice";
+
+	const ACTION                = [
+		self::ACTION_OFF            => 'off',
+		self::ACTION_CREATE_INVOICE => '<i class="fa fa-spinner fa-pulse fa-fw"></i> creating invoice',
+	];
+
+	const ACTION_LABEL          = [
+		self::ACTION_OFF            => 'default',
+		self::ACTION_CREATE_INVOICE => 'success',
+	];
 
 	/**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['ma_lop', 'ma_giang_vien', 'khoa_hoc', 'created_at'], 'required'],
-            [['ma_giang_vien', 'khoa_hoc', 'created_at'], 'integer'],
-            [['ma_lop'], 'string', 'max' => 255],
-        ];
-    }
+	 * {@inheritdoc}
+	 */
+	public static function tableName() {
+		return 'lop_hanh_chinh';
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'ma_lop' => 'Mã lớp',
-            'ma_giang_vien' => 'Mã giảng viên',
-            'khoa_hoc' => 'Khóa học',
-            'created_at' => 'Created At',
-        ];
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
+		return [
+			[
+				[
+					'ma_lop',
+					'ma_giang_vien',
+					'khoa_hoc',
+					'created_at',
+				],
+				'required',
+			],
+			[
+				[
+					'ma_giang_vien',
+					'khoa_hoc',
+					'created_at',
+				],
+				'integer',
+			],
+			[
+				[
+					'ma_lop',
+					'action',
+				],
+				'string',
+				'max' => 255,
+			],
+		];
+	}
 
-    public function beforeSave($insert) {
-	    $this->created_at = time();
-	    return parent::beforeSave($insert);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function attributeLabels() {
+		return [
+			'id'            => 'ID',
+			'ma_lop'        => 'Ma Lop',
+			'ma_giang_vien' => 'Ma Giang Vien',
+			'khoa_hoc'      => 'Khoa Hoc',
+			'action'        => 'Action',
+			'created_at'    => 'Created At',
+		];
+	}
 
-    public function getGiangVien(){
-	    return $this->hasOne(GiangVien::class, ['id' => 'ma_giang_vien']);
-    }
+	public function beforeSave($insert) {
+		$this->created_at = time();
+		return parent::beforeSave($insert);
+	}
+
+	public function getGiangVien() {
+		return $this->hasOne(GiangVien::class, ['id' => 'ma_giang_vien']);
+	}
 }

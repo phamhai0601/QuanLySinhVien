@@ -263,7 +263,7 @@ $this->registerJs(<<<JS
 		})
 	})
 	
-		$('#sua-lich-hoc-modal').on('hidden.bs.modal', function (e) {
+	$('#sua-lich-hoc-modal').on('hidden.bs.modal', function (e) {
 	}).on('shown.bs.modal', function (e) {
 		var modal = $(this);
 		var button = $(e.relatedTarget);

@@ -9,6 +9,7 @@ use frontend\models\DangKiDichVu;
 use frontend\models\form\CaptchaForm;
 use frontend\models\form\NapMaTheForm;
 use frontend\models\HoaDon;
+use frontend\models\search\DangKiDichVuSearch;
 use Yii;
 use frontend\models\DichVu;
 use frontend\models\search\DichVuSearch;
@@ -44,6 +45,8 @@ class DichVuController extends \frontend\component\Controller {
 							'hoa-don-dich-vu',
 							'check-status-hoa-don',
 							'nap-ma-the',
+							'dich-vu-da-dang-ki',
+							'dang-ki-dich-vu'
 						],
 						'allow'   => true,
 						'roles'   => ['@'],
@@ -194,6 +197,15 @@ class DichVuController extends \frontend\component\Controller {
 		return $this->redirect(['dich-vu/index']);
 	}
 
+	public function actionDichVuDaDangKi() {
+		$searchModel  = new DangKiDichVuSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		return $this->render('dich-vu-da-dang-ki', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
+
 	/**
 	 * Displays a single DichVu model.
 	 *
@@ -206,60 +218,6 @@ class DichVuController extends \frontend\component\Controller {
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 		]);
-	}
-
-	/**
-	 * Creates a new DichVu model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate() {
-		$model = new DichVu();
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'view',
-				'id' => $model->id,
-			]);
-		}
-		return $this->render('create', [
-			'model' => $model,
-		]);
-	}
-
-	/**
-	 * Updates an existing DichVu model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 *
-	 * @param integer $id
-	 *
-	 * @return mixed
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionUpdate($id) {
-		$model = $this->findModel($id);
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'view',
-				'id' => $model->id,
-			]);
-		}
-		return $this->render('update', [
-			'model' => $model,
-		]);
-	}
-
-	/**
-	 * Deletes an existing DichVu model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 *
-	 * @param integer $id
-	 *
-	 * @return mixed
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionDelete($id) {
-		$this->findModel($id)->delete();
-		return $this->redirect(['index']);
 	}
 
 	/**

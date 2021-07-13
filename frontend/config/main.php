@@ -88,6 +88,7 @@ return [
 			],
 			'modelMap'      => [
 				'LoginForm' => LoginForm::class,
+//				'RegisterForm' =>
 			],
 		],
 	],
