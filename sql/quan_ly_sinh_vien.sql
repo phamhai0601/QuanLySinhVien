@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jul 13, 2021 at 07:05 PM
+-- Generation Time: Jul 14, 2021 at 07:19 PM
 -- Server version: 5.7.28
 -- PHP Version: 7.3.12
 
@@ -65,7 +65,16 @@ CREATE TABLE IF NOT EXISTS `chi_tiet_hoa_don` (
   `thanh_tien` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `chi_tiet_hoa_don`
+--
+
+INSERT INTO `chi_tiet_hoa_don` (`id`, `ma_hoa_don`, `ma_mon_hoc`, `tin_chi`, `don_gia`, `thanh_tien`, `created_at`) VALUES
+(5, 50, 3, 3, 288000, 864000, 1626290114),
+(6, 50, 2, 3, 288000, 864000, 1626290114),
+(7, 50, 4, 3, 288000, 864000, 1626290114);
 
 -- --------------------------------------------------------
 
@@ -244,14 +253,20 @@ INSERT INTO `hoa_don` (`id`, `ma_the_nap`, `user_tao_hd`, `status`, `ma_giao_dic
 DROP TABLE IF EXISTS `hoa_don_hoc_phi`;
 CREATE TABLE IF NOT EXISTS `hoa_don_hoc_phi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ngay_db_nop` int(11) NOT NULL,
-  `ngay_kt_nop` int(11) NOT NULL,
   `trang_thai` tinyint(1) NOT NULL,
   `user_id` int(11) NOT NULL,
   `tong_tien` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
+  `thoi_han` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hoa_don_hoc_phi`
+--
+
+INSERT INTO `hoa_don_hoc_phi` (`id`, `trang_thai`, `user_id`, `tong_tien`, `created_at`, `thoi_han`) VALUES
+(50, 0, 3, 2592000, 1626290114, 7);
 
 -- --------------------------------------------------------
 
@@ -350,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `lop_hanh_chinh` (
 
 INSERT INTO `lop_hanh_chinh` (`id`, `ma_lop`, `ma_giang_vien`, `khoa_hoc`, `action`, `created_at`) VALUES
 (2, '17A02', 2, 17, 'invoice', 1623164106),
-(3, '17A03', 4, 17, 'invoice', 1623166593),
+(3, '17A03', 4, 17, 'off', 1623166593),
 (4, '17A04', 18, 17, 'off', 1623166849),
 (5, '17A01', 17, 17, 'off', 1623166867);
 
@@ -1871,8 +1886,16 @@ CREATE TABLE IF NOT EXISTS `tg_nop_hoc_phi` (
   `ki_hoc` int(11) NOT NULL,
   `id_lop_hoc` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tg_nop_hoc_phi`
+--
+
+INSERT INTO `tg_nop_hoc_phi` (`id`, `tg_bat_dau`, `tg_ket_thuc`, `ki_hoc`, `id_lop_hoc`, `created_at`, `status`) VALUES
+(7, 1625504400, 1627578000, 8, 2, 1626281944, 0);
 
 -- --------------------------------------------------------
 
@@ -1951,7 +1974,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `info_id`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1626202792),
+(1, 'admin', 'mitto.hai.7356@gmail.com6', 0, '$2y$10$L0xLefcDfQHiS4d3wg/CE.dPmq6IQq5lYgCY4SJv0IDdcYRe/GDkO', 'cazH3uZa4-qu3--HMNwJk92DB024IJ0k', 1622739891, NULL, NULL, '::1', 1622739891, 1622739891, 0, 1626275826),
 (15, 'phantranbaotuan', 'phantranbaotuan@gmail.com', 2, '$2y$10$puczsqcNubiq0jk6U9DBn.j26WRCZCO5oJfZRTsPAxjcsLizkkKcy', '2zAR6eHhUOmfDs6MtUScOBTVun7xT4iL', 1623613690, NULL, NULL, '::1', 1623613690, 1623613690, 1, 1624473707),
 (16, 'nguyenthiennam', 'nguyenthiennam@gmail.com', 1, '$2y$10$gTTEjicwX8tAFFEKFhAYhOvmoFfI/.3aFwmZw4WXKOq699C53w7b2', 'LGnvC_h1aMQlatLrCIv4hdD6Qr2AIw4M', 1623613703, NULL, NULL, '::1', 1623613704, 1623613704, 1, 1624473267),
 (17, 'tranduybao', 'tranduybao@gmail.com', 3, '$2y$10$MY.a2H9tY9HyM72R5tUx3uiSYEmxI9BCk7mu0kmVTvfKrES4SxgTK', 'gyHYeklNBXQGE0ZYomttINrfDexgMgNk', 1623696009, NULL, NULL, '::1', 1623696009, 1623696009, 1, 1625980304),
