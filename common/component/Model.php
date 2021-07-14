@@ -16,35 +16,4 @@ use common\models\User;
 use yii\db\ActiveRecord;
 
 class Model extends ActiveRecord {
-
-	/**
-	 * @var User $user
-	 */
-	public $user = null;
-
-	/**
-	 * @var KiHoc $kiHoc
-	 */
-	public $kiHoc = null;
-
-	/**
-	 * @var SinhVien $sinhVien
-	 */
-	public $sinhVien = null;
-
-	public function init() {
-		// TODO: Change the auto generated stub
-		$this->user     = \Yii::$app->user->identity;
-		$this->sinhVien = $this->user->sinhVien;
-		$this->kiHoc    = KiHoc::find()->where([
-			'<',
-			'tg_bat_dau',
-			time(),
-		])->andWhere([
-			'>',
-			'tg_ket_thuc',
-			time(),
-		])->one();
-		parent::init();
-	}
 }

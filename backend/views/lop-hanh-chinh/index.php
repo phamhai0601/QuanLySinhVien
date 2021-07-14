@@ -2,6 +2,7 @@
 
 use backend\models\LopHanhChinh;
 use common\helper\DateHelper;
+use common\models\TgNopHocPhi;
 use common\widgets\Paging;
 use kartik\grid\DataColumn;
 use kartik\grid\GridView;
@@ -47,7 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		    [
 			    'attribute' => 'action',
 			    'value'     => function(LopHanhChinh $data) {
-				    return '<label class="label label-' . LopHanhChinh::ACTION_LABEL[$data->action] . '">' . LopHanhChinh::ACTION[$data->action] . '</label>';
+				    $tgNopHocPhi = TgNopHocPhi::find()->where(['id_lop_hoc' => $data->id])->andWhere(['ki_hoc' => $this->kiHoc->id])->one();
+				    if ($tgNopHocPhi) {
+					    return '<label class="label label-' . TgNopHocPhi::STATUS_LABEL[$tgNopHocPhi->status] . '">' . TgNopHocPhi::STATUS[$tgNopHocPhi->status] . '</label>';
+				    }
 			    },
 			    'format'    => 'raw',
 		    ],
@@ -59,6 +63,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			    ],
 			    'contentOptions' => ['class' => 'text-center'],
 			    'value'          => function(LopHanhChinh $data) {
+				    $tgNopHocPhi = TgNopHocPhi::find()->where(['id_lop_hoc' => $data->id])->andWhere(['ki_hoc' => $this->kiHoc->id])->one();
+				    try {
+					    if ($tgNopHocPhi->status == TgNopHocPhi::STATUS_SUCCESS) {
+						    return '<span class="text-success"><i class="fa fa-check fa-lg" aria-hidden="true"></i></span>';
+					    } else if ($tgNopHocPhi->status == TgNopHocPhi::STATUS_PENDING) {
+						    return '<i class="fa fa-spinner fa-pulse fa-fw"></i>';
+					    }
+				    } catch (Exception $exception) {
+				    }
 				    return '<a data-id="' . $data->id . '" data-toggle="modal" data-target="#tao-tg-nop-hoc-phi"><i class="fa fa-file-text fa-lg" aria-hidden="true"></i></a>';
 			    },
 			    'format'         => 'raw',
@@ -111,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Modal title</h4>
+				<h4 class="modal-title">Tạo hóa đơn học phí</h4>
 			</div>
 			<div class="modal-body">
 				Modal body ...

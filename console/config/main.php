@@ -22,14 +22,22 @@ return [
           ],
     ],
     'components' => [
-        'log' => [
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
+	    'log'  => [
+		    'targets' => [
+			    [
+				    'class'  => 'yii\log\FileTarget',
+				    'levels' => [
+					    'error',
+					    'warning',
+				    ],
+			    ],
+		    ],
+	    ],
+    ],
+    'modules'             => [
+	    'user' => [
+		    'class' => 'dektrium\user\Module',
+	    ],
     ],
     'params' => $params,
 ];

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\form\TgNopHocPhiForm;
 use backend\models\search\SinhVienSearch;
+use common\models\KiHoc;
 use common\traits\UserAjaxValidationTrait;
 use Yii;
 use backend\models\LopHanhChinh;
@@ -91,12 +92,16 @@ class LopHanhChinhController extends Controller {
 	public function actionTaoHoaDonHocPhi($id) {
 		Yii::$app->response->format  = 'json';
 		$tgNopHocPhiForm             = new TgNopHocPhiForm();
-		$tgNopHocPhiForm->ki_hoc     = 8;
-		$tgNopHocPhiForm->id_lop_hoc = 14;
+		$tgNopHocPhiForm->ki_hoc     = KiHoc::find()->orderBy(['id' => SORT_DESC])->one()->id;
+		$tgNopHocPhiForm->id_lop_hoc = $id;
 		$this->performAjaxValidation($tgNopHocPhiForm);
 		if ($tgNopHocPhiForm->load(Yii::$app->request->post())) {
 			if ($tgNopHocPhiForm->save()) {
-
+				Yii::$app->session->setFlash('success', 'Tạo hóa đơn thành công. Quá trình ạo hóa đơn có thể mấy vài phút.');
+				return $this->redirect(['lop-hanh-chinh/index']);
+			} else {
+				Yii::$app->session->setFlash('danger', 'Có lỗi trong quá trình tạo hóa đơn.');
+				return $this->redirect(['lop-hanh-chinh/index']);
 			}
 		}
 		return $this->renderAjax('tg-nop-hoc-phi', ['tgNopHocPhiForm' => $tgNopHocPhiForm]);

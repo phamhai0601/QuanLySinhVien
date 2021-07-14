@@ -11,6 +11,7 @@
 
 /* @var $tgNopHocPhiForm \backend\form\TgNopHocPhiForm */
 
+use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 
 ?>
@@ -20,8 +21,26 @@ use kartik\form\ActiveForm;
 	'enableClientValidation' => false,
 ]); ?>
 
-<?= $form->field($tgNopHocPhiForm, 'tg_bat_dau')->textInput(); ?>
-<?= $form->field($tgNopHocPhiForm, 'tg_ket_thuc')->textInput(); ?>
+<?= $form->field($tgNopHocPhiForm, 'tg_bat_dau')->widget(DatePicker::class, [
+	'type'          => DatePicker::TYPE_COMPONENT_APPEND,
+	'readonly'      => 'readonly',
+	'pluginOptions' => [
+		'format'    => 'dd-mm-yyyy',
+		'autoclose' => true,
+	],
+	'pluginEvents'  => [
+		"hide" => "function(e) { $('#tgnophocphiform-tg_ket_thuc').trigger('blur'); }",
+	],
+]); ?>
+
+<?= $form->field($tgNopHocPhiForm, 'tg_ket_thuc')->widget(DatePicker::class, [
+	'type'          => DatePicker::TYPE_COMPONENT_APPEND,
+	'readonly'      => 'readonly',
+	'pluginOptions' => [
+		'format'    => 'dd-mm-yyyy',
+		'autoclose' => true,
+	],
+]); ?>
 <div class="form-group">
 	<button type="submit" class="btn btn-primary">Save changes</button>
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

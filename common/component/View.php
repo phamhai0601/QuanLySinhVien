@@ -9,13 +9,14 @@
  */
 
 namespace common\component;
+use common\models\KiHoc;
 use common\models\SinhVien;
 use common\models\User;
 
 /**
  * Class View
  * @package common\component
- * @property User $user
+ * @property User     $user
  * @property SinhVien $sinhVien
  */
 class View extends \yii\web\View {
@@ -29,11 +30,17 @@ class View extends \yii\web\View {
 	public $sinhVien;
 
 	/**
+	 * @var KiHoc
+	 */
+	public $kiHoc;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function init() {
 		parent::init();
 		if (!\Yii::$app->user->isGuest) {
+			$this->kiHoc    = KiHoc::find()->orderBy(['id' => SORT_DESC])->one();
 			$this->user     = \Yii::$app->user->identity;
 			$this->sinhVien = $this->user->sinhVien;
 		} else {
